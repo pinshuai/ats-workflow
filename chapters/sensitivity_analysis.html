@@ -1,0 +1,1854 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Sensitivity analysis &#8212; ATS workflow</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Model calibration using Machine Learning" href="model_calibration.html" />
+    <link rel="prev" title="Model evaluation" href="model_evaluation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">ATS workflow</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    ATS modeling workflow
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model Setup
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="mesh.html">
+   Example: mesh a delineated watershed
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="daymet.html">
+   Download Daymet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="MODIS.html">
+   Download and post-process MODIS LAI
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="write_ATS_input.html">
+   Write ATS input file
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Execute Model
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="run.html">
+   Run ATS model
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model Post-processes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_surface.html">
+   Plot surface variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_subsurface.html">
+   Plot subsurface variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_evaluation.html">
+   Model evaluation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sensitivity Analysis
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Sensitivity analysis
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_calibration.html">
+   Model calibration using Machine Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/pinshuai/ats-workflow/main?urlpath=tree/src/chapters/sensitivity_analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/pinshuai/ats-workflow"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/pinshuai/ats-workflow/issues/new?title=Issue%20on%20page%20%2Fchapters/sensitivity_analysis.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/sensitivity_analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Sensitivity analysis
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-observation">
+     import observation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-parameter-sets">
+     generate parameter sets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-sobol-samples">
+     create sobol samples
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-input-files">
+     generate input files
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#launch-jobs">
+   Launch jobs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#launch-job-natively-using-sbatch">
+     launch job natively using sbatch
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ensemble-runs">
+   Ensemble runs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#postprocess-results">
+     postprocess results
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-ensemble">
+     plot ensemble
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#calculate-composite-et">
+       calculate composite ET
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-to-file">
+       save to file
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#snow-cover-data">
+       snow cover data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Sensitivity analysis</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Sensitivity analysis
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-observation">
+     import observation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-parameter-sets">
+     generate parameter sets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-sobol-samples">
+     create sobol samples
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-input-files">
+     generate input files
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#launch-jobs">
+   Launch jobs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#launch-job-natively-using-sbatch">
+     launch job natively using sbatch
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ensemble-runs">
+   Ensemble runs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#postprocess-results">
+     postprocess results
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-ensemble">
+     plot ensemble
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#calculate-composite-et">
+       calculate composite ET
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-to-file">
+       save to file
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#snow-cover-data">
+       snow cover data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="sensitivity-analysis">
+<h1>Sensitivity analysis<a class="headerlink" href="#sensitivity-analysis" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># import matk</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">SALib.sample</span> <span class="kn">import</span> <span class="n">saltelli</span><span class="p">,</span> <span class="n">sobol_sequence</span>
+<span class="kn">import</span> <span class="nn">SALib</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">myfunctions.sensitivityAnalysis</span> <span class="k">as</span> <span class="nn">sa</span>
+<span class="kn">import</span> <span class="nn">myfunctions.ATSutils</span> <span class="k">as</span> <span class="nn">ATSutils</span>
+<span class="kn">import</span> <span class="nn">myfunctions.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">myfunctions.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+<span class="kn">import</span> <span class="nn">myfunctions.general_plots</span> <span class="k">as</span> <span class="nn">gp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cumsum</span><span class="p">(</span><span class="n">df_simu</span><span class="p">,</span> <span class="n">df_obs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;compute cumulative sum for ET&quot;&quot;&quot;</span>
+    <span class="n">time_ind</span> <span class="o">=</span> <span class="n">df_obs</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">df_simu_cumsum</span> <span class="o">=</span> <span class="n">df_obs</span><span class="p">[[</span><span class="s2">&quot;mean_ET [mm/8d]&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_ind</span><span class="p">))[:]:</span>
+        <span class="n">itime</span> <span class="o">=</span> <span class="n">time_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">btime</span> <span class="o">=</span> <span class="n">df_simu</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">btime</span> <span class="o">=</span> <span class="n">time_ind</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">isum</span> <span class="o">=</span> <span class="n">df_simu</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">btime</span><span class="p">:</span><span class="n">itime</span><span class="p">,</span> <span class="s1">&#39;total evapotranspiration [m d^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">df_simu_cumsum</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">itime</span><span class="p">,</span> <span class="s2">&quot;mean_ET [mm/8d]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">isum</span> <span class="o">*</span> <span class="mi">1000</span> <span class="c1"># convert m/8d to mm/8d</span>
+        
+    <span class="k">return</span> <span class="n">df_simu_cumsum</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># work_dir = &quot;../model/runs/&quot;</span>
+<span class="n">work_dir</span> <span class="o">=</span> <span class="s2">&quot;/global/cscratch1/sd/pshuai/coalcreek/model/runs/&quot;</span>
+<span class="n">template_file</span> <span class="o">=</span> <span class="n">work_dir</span> <span class="o">+</span> <span class="s1">&#39;model/inputs/forward_run-obs_error/template.xml&#39;</span>
+<span class="c1"># template_file = &#39;/global/cscratch1/sd/pshuai/east-taylor/PRISM_ensemble_400/template.xml&#39;</span>
+
+<span class="n">base_dir_name</span> <span class="o">=</span> <span class="s2">&quot;ens&quot;</span>
+<span class="n">fname_log</span> <span class="o">=</span> <span class="s2">&quot;sensitivity.log&quot;</span>
+<span class="n">fig_dir</span> <span class="o">=</span> <span class="s2">&quot;/global/project/projectdirs/m1800/pin/east-taylor/figure/CoalCreek/sensitivity_analysis/&quot;</span>
+<span class="n">data_dir</span> <span class="o">=</span><span class="s2">&quot;../data/&quot;</span>
+<span class="n">fname_obs_q</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;USGS/CoalCreek_outlet_discharge.csv&quot;</span>
+<span class="n">fname_modis_et</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;MODIS/CoalCreek_MODIS_ET-2000_2020.csv&quot;</span>
+<span class="n">fname_obs_hourly_q</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;CoalCreek_outlet_hourly_discharge.csv&quot;</span>
+<span class="n">fname_grace</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;coal_creek-GRACE.csv&quot;</span>
+<span class="n">fname_gleam</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;gleam_coal_creek.csv&quot;</span>
+
+<span class="n">result_dir</span> <span class="o">=</span> <span class="s2">&quot;/global/project/projectdirs/m1800/pin/east-taylor/results/&quot;</span>
+
+<span class="n">fname_ensemble_csv</span> <span class="o">=</span> <span class="n">work_dir</span> <span class="o">+</span> <span class="s2">&quot;PRISM_ensemble_400/ensemble_para.csv&quot;</span>
+<span class="n">fname_modis_snowcover</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;CoalCreek_snowcover.csv&quot;</span>
+<span class="n">fname_daymet_p</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;CoalCreek_daymet_mean_P-1980_2020.csv&quot;</span>
+<span class="n">fname_prism_p</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;CoalCreek_prism_mean_P-2012-2019.csv&quot;</span>
+<span class="n">fname_nldas_p</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;NLDAS_daily_CoalCreek_mean_1980-2020.csv&quot;</span>
+
+<span class="n">watershed_area</span> <span class="o">=</span> <span class="mi">53159325</span> <span class="c1"># m2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-observation">
+<h2>import observation<a class="headerlink" href="#import-observation" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_q</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">convertUSGSgauge</span><span class="p">(</span><span class="n">fname_obs_q</span><span class="p">,</span> <span class="s2">&quot;discharge&quot;</span><span class="p">,</span> <span class="n">datetime_col</span><span class="o">=</span><span class="s2">&quot;dateTime&quot;</span><span class="p">)</span>
+
+<span class="n">obs_et</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname_modis_et</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">t_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_et</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="o">/</span><span class="mi">86400</span> <span class="c1"># time diff in days</span>
+<span class="n">obs_et_daily</span> <span class="o">=</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">t_diff</span> <span class="c1"># averaging ET over 4,5,8 day period</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-04-21 14:00:01,220 - root - INFO: insert nan
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_hourly_q</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname_obs_hourly_q</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1"># obs_semiDaily_q = pd.read_csv(fname_obs_semiDaily_q, index_col = 0, parse_dates = True)</span>
+<span class="c1"># obs_daily_q = pd.read_csv(fname_obs_daily_q, index_col = 0, parse_dates = True)</span>
+
+<span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="c1"># local (UTC-5) to UTC</span>
+<span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;discharge [m^3/d]&#39;</span><span class="p">:</span><span class="s1">&#39;watershed boundary discharge [m^3/d]&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shift the daily average to [12h D-1, 11h D+1]</span>
+<span class="n">obs_daily_q</span> <span class="o">=</span> <span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">base</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-14-4a6270d53f1e&gt;:2: FutureWarning: &#39;base&#39; in .resample() and in Grouper() is deprecated.
+The new arguments that you should use are &#39;offset&#39; or &#39;origin&#39;.
+
+&gt;&gt;&gt; df.resample(freq=&quot;3s&quot;, base=2)
+
+becomes:
+
+&gt;&gt;&gt; df.resample(freq=&quot;3s&quot;, offset=&quot;2s&quot;)
+
+  obs_daily_q = obs_hourly_q.resample(&#39;D&#39;, base = 0.5).mean()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_modis_snowcover</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname_modis_snowcover</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+<span class="n">df_modis_snowcover</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1"># modis_snowcover[&#39;coverage&#39;] = modis_snowcover[&#39;snow cover area (km2)&#39;]/ modis_snowcover[&#39;snow cover area (km2)&#39;].max()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-parameter-sets">
+<h2>generate parameter sets<a class="headerlink" href="#generate-parameter-sets" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># specify your low, middle, high ranges</span>
+<span class="n">my_param_ranges</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">#                     &#39;priestley_taylor_canopy-evaporation&#39; : [0.3, 0.6, 1.2],</span>
+<span class="c1">#                    &#39;priestley_taylor_surface-potential_evaporation&#39; : [0.3, 0.6, 1.2],</span>
+                   <span class="s1">&#39;priestley_taylor_alpha-snow&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span>    
+                   <span class="s1">&#39;priestley_taylor_alpha-transpiration&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span>
+                   <span class="s1">&#39;snowmelt_rate&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">2.74</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.74</span><span class="p">,</span> <span class="mf">2.74</span><span class="o">*</span><span class="mi">2</span><span class="p">],</span>
+                   <span class="s1">&#39;snowmelt_degree_diff&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="c1"># should be positive?</span>
+<span class="c1">#                     &#39;manning_n&#39; : [-1.70, -1.2, -0.70] # log10</span>
+                   <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># permeabilities are done automatically by reading the default from file, then plus/minus 1 order mag</span>
+<span class="c1"># my_perm_regions = [&#39;s&#39;+str(i+1) for i in range(5)] + [&#39;g&#39; + str(j+1) for j in range(4)]</span>
+<span class="n">my_perm_regions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g4&#39;</span><span class="p">]</span>
+<span class="c1"># my_perm_regions = [&#39;s3&#39;, &#39;s4&#39;, &#39;g1&#39;, &#39;g4&#39;] # used this for 400 ensemble runs</span>
+
+<span class="n">my_perm_param_ranges</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">create_permeability_param_ranges</span><span class="p">(</span><span class="n">my_perm_regions</span><span class="p">,</span> <span class="n">template_file</span><span class="p">)</span>
+
+<span class="n">my_param_ranges</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">my_perm_param_ranges</span><span class="p">)</span>
+
+<span class="c1"># note bedrock is done specially, as we don&#39;t want min/max format,</span>
+<span class="c1"># key thing is that middle value is the &quot;control&quot;</span>
+<span class="c1"># my_param_ranges[&#39;perm_bedrock&#39;] = [-14, -16, -12]</span>
+
+<span class="n">my_param_ranges</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;priestley_taylor_alpha-snow&#39;: [0.3, 0.6, 1.2],
+ &#39;priestley_taylor_alpha-transpiration&#39;: [0.3, 0.6, 1.2],
+ &#39;snowmelt_rate&#39;: [1.37, 2.74, 5.48],
+ &#39;snowmelt_degree_diff&#39;: [1, 3, 5],
+ &#39;perm_s3&#39;: [-12.709965388637482, -11.709965388637482, -10.709965388637482],
+ &#39;perm_g1&#39;: [-13.500312917381596, -12.500312917381596, -11.500312917381596],
+ &#39;perm_g4&#39;: [-14.0, -13.0, -12.0]}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-sobol-samples">
+<h2>create sobol samples<a class="headerlink" href="#create-sobol-samples" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_matrix</span><span class="p">,</span> <span class="n">df_sample</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">generate_sobol_samples</span><span class="p">(</span><span class="n">my_param_ranges</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">df_sample</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>priestley_taylor_alpha-snow</th>
+      <th>priestley_taylor_alpha-transpiration</th>
+      <th>snowmelt_rate</th>
+      <th>snowmelt_degree_diff</th>
+      <th>perm_s3</th>
+      <th>perm_s4</th>
+      <th>perm_g1</th>
+      <th>perm_g4</th>
+    </tr>
+    <tr>
+      <th>realization_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.750000</td>
+      <td>0.750000</td>
+      <td>3.425000</td>
+      <td>3.000000</td>
+      <td>-11.709965</td>
+      <td>-11.324222</td>
+      <td>-12.500313</td>
+      <td>-13.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.975000</td>
+      <td>0.525000</td>
+      <td>2.397500</td>
+      <td>2.000000</td>
+      <td>-11.209965</td>
+      <td>-10.824222</td>
+      <td>-13.000313</td>
+      <td>-12.500000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.525000</td>
+      <td>0.975000</td>
+      <td>4.452500</td>
+      <td>4.000000</td>
+      <td>-12.209965</td>
+      <td>-11.824222</td>
+      <td>-12.000313</td>
+      <td>-13.500000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.637500</td>
+      <td>0.637500</td>
+      <td>3.938750</td>
+      <td>4.500000</td>
+      <td>-11.959965</td>
+      <td>-12.074222</td>
+      <td>-12.750313</td>
+      <td>-12.250000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.087500</td>
+      <td>1.087500</td>
+      <td>1.883750</td>
+      <td>2.500000</td>
+      <td>-10.959965</td>
+      <td>-11.074222</td>
+      <td>-11.750313</td>
+      <td>-13.250000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>0.666504</td>
+      <td>0.443262</td>
+      <td>4.785635</td>
+      <td>1.957031</td>
+      <td>-11.274419</td>
+      <td>-11.134769</td>
+      <td>-13.283516</td>
+      <td>-12.076172</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>1.116504</td>
+      <td>0.893262</td>
+      <td>2.730635</td>
+      <td>3.957031</td>
+      <td>-12.274419</td>
+      <td>-12.134769</td>
+      <td>-12.283516</td>
+      <td>-13.076172</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>0.891504</td>
+      <td>0.668262</td>
+      <td>3.758135</td>
+      <td>2.957031</td>
+      <td>-11.774419</td>
+      <td>-11.634769</td>
+      <td>-12.783516</td>
+      <td>-13.576172</td>
+    </tr>
+    <tr>
+      <th>999</th>
+      <td>0.441504</td>
+      <td>1.118262</td>
+      <td>1.703135</td>
+      <td>4.957031</td>
+      <td>-10.774419</td>
+      <td>-10.634769</td>
+      <td>-11.783516</td>
+      <td>-12.576172</td>
+    </tr>
+    <tr>
+      <th>1000</th>
+      <td>0.497754</td>
+      <td>0.387012</td>
+      <td>3.501260</td>
+      <td>3.707031</td>
+      <td>-12.149419</td>
+      <td>-10.509769</td>
+      <td>-13.408516</td>
+      <td>-12.201172</td>
+    </tr>
+  </tbody>
+</table>
+<p>1000 rows × 8 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="generate-input-files">
+<h2>generate input files<a class="headerlink" href="#generate-input-files" title="Permalink to this headline">#</a></h2>
+<p>Write input.xml based on template.xml. This will <strong>not overwrite</strong> existing paths.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sa</span><span class="o">.</span><span class="n">gen_model_inputs</span><span class="p">(</span><span class="n">my_param_ranges</span><span class="p">,</span> <span class="n">sample_matrix</span><span class="p">,</span> <span class="n">start_id</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">num_sample</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">template_file</span> <span class="o">=</span> <span class="n">template_file</span><span class="p">,</span> 
+                    <span class="n">work_dir</span><span class="o">=</span> <span class="n">work_dir</span><span class="o">+</span><span class="s2">&quot;PRISM_ensemble_400/&quot;</span><span class="p">,</span> <span class="n">workdir_base</span><span class="o">=</span><span class="n">base_dir_name</span><span class="p">,</span> <span class="n">logfile</span> <span class="o">=</span> <span class="n">fname_log</span><span class="p">,</span>
+                    <span class="n">landcover_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;Evergreen_Forest&#39;</span><span class="p">,</span> <span class="s1">&#39;Shrub_Scrub&#39;</span><span class="p">,</span> <span class="s1">&#39;Deciduous_Forest&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-01-08 15:11:06,492 - root - INFO: Generated 400 ensembles located at: /global/cscratch1/sd/pshuai/east-taylor/PRISM_ensemble_400/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="launch-jobs">
+<h1>Launch jobs<a class="headerlink" href="#launch-jobs" title="Permalink to this headline">#</a></h1>
+<section id="launch-job-natively-using-sbatch">
+<h2>launch job natively using sbatch<a class="headerlink" href="#launch-job-natively-using-sbatch" title="Permalink to this headline">#</a></h2>
+<p>Launch job using a sbatch script. Basically write a for loop and submit entire jobs using <code class="docutils literal notranslate"><span class="pre">srun</span></code>.</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">sleep</span></code> to be extra safe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#!/bin/bash -l
+
+#SBATCH -A PROJECT
+#SBATCH -N 152
+#SBATCH -t 22:00:00
+#SBATCH -L SCRATCH
+#SBATCH -J am-batch
+#SBATCH --qos premium
+#SBATCH -C haswell
+
+module use -a /global/project/projectdirs/m3421/ats-new/modulefiles
+module load ats/ecoon-land_cover/cori-haswell/intel-6.0.5-mpich-7.7.10/opt
+
+for i in {3..40}
+do
+    cd /global/cscratch1/sd/pshuai/yakima/ensemble_run-300m-c128/ens$i
+    srun -N 4 -n 128 -e job%J.err -o job%J.out ats --xml_file=input.xml sleep 5 &amp;
+done
+
+sleep 1
+
+wait
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ensemble-runs">
+<h1>Ensemble runs<a class="headerlink" href="#ensemble-runs" title="Permalink to this headline">#</a></h1>
+<section id="postprocess-results">
+<h2>postprocess results<a class="headerlink" href="#postprocess-results" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_q</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">convertUSGSgauge</span><span class="p">(</span><span class="n">fname_obs_q</span><span class="p">,</span> <span class="s2">&quot;discharge&quot;</span><span class="p">)</span>
+
+<span class="n">obs_et</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname_modis_et</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">t_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_et</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="o">/</span><span class="mi">86400</span> <span class="c1"># time diff in days</span>
+<span class="n">obs_et_daily</span> <span class="o">=</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">t_diff</span> <span class="c1"># averaging ET over 4,5,8 day period</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-02-15 11:36:04,469 - root - INFO: insert nan
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sub_obs_et</span> <span class="o">=</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2015-10-01&quot;</span><span class="p">:</span><span class="s2">&quot;2019-10-01&quot;</span><span class="p">,</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_hourly_q</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname_obs_hourly_q</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1"># obs_semiDaily_q = pd.read_csv(fname_obs_semiDaily_q, index_col = 0, parse_dates = True)</span>
+<span class="c1"># obs_daily_q = pd.read_csv(fname_obs_daily_q, index_col = 0, parse_dates = True)</span>
+
+<span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="c1"># local (UTC-5) to UTC</span>
+<span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;discharge [m^3/d]&#39;</span><span class="p">:</span><span class="s1">&#39;watershed boundary discharge [m^3/d]&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shift the daily average to [12h D-1, 11h D+1]</span>
+<span class="n">obs_daily_q</span> <span class="o">=</span> <span class="n">obs_hourly_q</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for var in para_df.columns[0:-1]:</span>
+<span class="c1"># #     var = &quot;perm_bedrock&quot;</span>
+<span class="c1">#     parms, index = np.unique(para_df[var], return_index=True)</span>
+<span class="c1">#     assert(len(parms) == 3)</span>
+<span class="c1">#     assert( 0 in index) # 0 is the base case</span>
+    
+<span class="c1"># fig, ax = plt.subplots(1,1, figsize=(8,4))</span>
+
+<span class="n">output_variables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;watershed boundary discharge [m^3/d]&quot;</span><span class="p">,</span> <span class="s2">&quot;total evapotranspiration [mm d^-1]&quot;</span><span class="p">,</span>
+               <span class="s1">&#39;snowmelt [mm d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;SWE [m]&#39;</span><span class="p">]</span>
+<span class="c1"># var = &quot;watershed boundary discharge [m^3/d]&quot;</span>
+<span class="c1"># for j in range(len(output_variables)):</span>
+<span class="c1"># output = output_variables[j]</span>
+
+<span class="c1"># ax = axes.flatten()[j]</span>
+<span class="c1"># df_q = obs_q[[&quot;Flow [m^3/day]&quot;]].loc[&quot;2015-10-01&quot;:&quot;2019-10-02&quot;, :]</span>
+<span class="c1"># df_q.columns = [&#39;obs discharge [m^3/d]&#39;]</span>
+<span class="n">df_q</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2015-10-01&quot;</span><span class="p">,</span><span class="s2">&quot;2019-10-02&quot;</span><span class="p">)})</span>
+<span class="n">df_q</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df_et</span> <span class="o">=</span> <span class="n">obs_et_daily</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2015-10-01&quot;</span><span class="p">:</span><span class="s2">&quot;2019-10-02&quot;</span><span class="p">]</span>
+<span class="n">df_et</span> <span class="o">=</span> <span class="n">df_et</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;obs ET [mm/d]&quot;</span><span class="p">)</span>
+
+<span class="n">df_sm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2015-10-01&quot;</span><span class="p">,</span><span class="s2">&quot;2019-10-02&quot;</span><span class="p">)})</span>
+<span class="n">df_sm</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">df_swe</span> <span class="o">=</span> <span class="n">df_sm</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span>  <span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">450</span><span class="p">)):</span>
+<span class="c1">#     idx = para_df.index[i]</span>
+    <span class="n">idir</span> <span class="o">=</span> <span class="n">work_dir</span> <span class="o">+</span> <span class="s2">&quot;PRISM_ensemble_400/&quot;</span>  <span class="o">+</span> <span class="n">base_dir_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">idf</span> <span class="o">=</span> <span class="n">ATSutils</span><span class="o">.</span><span class="n">load_waterBalance</span><span class="p">(</span><span class="n">idir</span><span class="p">,</span> <span class="n">WB_filename</span><span class="o">=</span><span class="s2">&quot;water_balance-daily.dat&quot;</span><span class="p">,</span> <span class="n">canopy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ensemble: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> did not start&quot;</span><span class="p">)</span> 
+        <span class="k">continue</span>
+    
+    <span class="k">if</span> <span class="n">idf</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">output_variables</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s2">&quot;watershed boundary discharge [m^3/d]&quot;</span><span class="p">:</span>    
+            <span class="n">df_q</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_q</span><span class="p">,</span> <span class="n">idf</span><span class="p">[[</span><span class="n">var</span><span class="p">]],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">df_q</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">var</span><span class="p">:</span><span class="n">base_dir_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var</span> <span class="o">==</span> <span class="s2">&quot;total evapotranspiration [mm d^-1]&quot;</span><span class="p">:</span>
+            <span class="n">df_et</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_et</span><span class="p">,</span> <span class="n">idf</span><span class="p">[[</span><span class="n">var</span><span class="p">]],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">df_et</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">var</span><span class="p">:</span><span class="n">base_dir_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;snowmelt [mm d^-1]&#39;</span><span class="p">:</span>
+            <span class="n">df_sm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_sm</span><span class="p">,</span> <span class="n">idf</span><span class="p">[[</span><span class="n">var</span><span class="p">]],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">df_sm</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">var</span><span class="p">:</span><span class="n">base_dir_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;SWE [m]&#39;</span><span class="p">:</span>
+            <span class="n">df_swe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_swe</span><span class="p">,</span> <span class="n">idf</span><span class="p">[[</span><span class="n">var</span><span class="p">]],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">df_swe</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">var</span><span class="p">:</span><span class="n">base_dir_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>  
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;variable not implemented.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ensembles: </span><span class="si">{</span><span class="n">lst</span><span class="si">}</span><span class="s2"> did not finish&quot;</span><span class="p">)</span>            
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "b5cce805dd7b497aa1b3dddaee5c2075", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-02-15 11:44:04,292 - root - INFO: ensemble: 447 did not start
+2022-02-15 11:44:04,299 - root - INFO: ensemble: 448 did not start
+2022-02-15 11:44:04,309 - root - INFO: ensemble: 449 did not start
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use shifted USGS streamflow as obs data</span>
+<span class="n">df_q</span><span class="p">[</span><span class="s1">&#39;obs discharge [m^3/d]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs_daily_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2015-10-01&#39;</span><span class="p">:</span><span class="s1">&#39;2019-10-02&#39;</span><span class="p">,</span> <span class="s1">&#39;watershed boundary discharge [m^3/d]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_64968/1620480137.py:2: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider using pd.concat instead.  To get a de-fragmented frame, use `newframe = frame.copy()`
+  df_q[&#39;obs discharge [m^3/d]&#39;] = obs_daily_q.loc[&#39;2015-10-01&#39;:&#39;2019-10-02&#39;, &#39;watershed boundary discharge [m^3/d]&#39;].values
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="n">icol</span> <span class="o">=</span> <span class="n">base_dir_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[[</span><span class="n">icol</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-ensemble">
+<h2>plot ensemble<a class="headerlink" href="#plot-ensemble" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_q = pd.read_csv(result_dir + &quot;ensemble_run/ens_knl/ensemble_q_all_396.csv&quot;, index_col = 0, parse_dates=True)</span>
+<span class="c1"># df_et = pd.read_csv(result_dir + &quot;ensemble_run/ens_knl/ensemble_ET_all_396.csv&quot;, index_col = 0, parse_dates=True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="calculate-composite-et">
+<h3>calculate composite ET<a class="headerlink" href="#calculate-composite-et" title="Permalink to this headline">#</a></h3>
+<p>The 8-day ET (0.1mm/8days or 0.1mm/5days) is the sum of ET during these 8-day time periods
+(5 days for 361 composite data in 2001, 2002, 2003, 2005, 2006, 2007, 2009, 2010, 6 days for
+361 in 2000, 2004, 2008).</p>
+<p>see <a class="reference external" href="http://files.ntsg.umt.edu/data/NTSG_Products/MOD16/MOD16_global_evapotranspiration_description.pdf">Mu et al., </a> for detailed description.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;2015-10-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2019-10-01&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># time_ind = df_et.dropna().index</span>
+<span class="n">time_ind</span> <span class="o">=</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">index</span>
+
+<span class="c1"># df_8d_et = df_et.dropna().copy()</span>
+<span class="n">df_8d_et</span> <span class="o">=</span> <span class="n">df_et</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time_ind</span><span class="p">,</span> <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_ind</span><span class="p">))[:]:</span>
+    <span class="n">itime</span> <span class="o">=</span> <span class="n">time_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">btime</span> <span class="o">=</span> <span class="n">df_et</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">btime</span> <span class="o">=</span> <span class="n">time_ind</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+    <span class="n">istart</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_et</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">btime</span><span class="p">)</span>
+    <span class="n">iend</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_et</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">itime</span><span class="p">)</span>    
+    <span class="c1"># `loc` includes both ends, but `iloc` does not include end bound!</span>
+    <span class="n">isum</span> <span class="o">=</span> <span class="n">df_et</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">istart</span><span class="p">:</span><span class="n">iend</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">min_count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># return NA is sum() contains NA</span>
+    <span class="n">df_8d_et</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">itime</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">isum</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_8d_et</span><span class="p">[</span><span class="s1">&#39;obs ET [mm/8d]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs_et</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time_ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="n">time_ind</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;mean_ET [mm/8d]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">df_8d_et</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;obs ET [mm/d]&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_q</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">df_q</span><span class="p">[</span><span class="s1">&#39;obs discharge [m^3/d]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">zorder</span> <span class="o">=</span> <span class="mi">99</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">custom_legend</span><span class="p">([</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ensemble simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;USGS&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Discharge [m^3/d]&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># df_et.plot(ax = ax, color = &#39;salmon&#39;, alpha = 0.5)</span>
+<span class="n">df_8d_et</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># ax.plot(obs_et_daily.index, obs_et_daily.values, color = &#39;k&#39;, zorder = 99)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">obs_et</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">obs_et</span><span class="p">[</span><span class="s1">&#39;mean_ET [mm/8d]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">zorder</span> <span class="o">=</span> <span class="mi">99</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">custom_legend</span><span class="p">([</span><span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ensemble simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;MODIS&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;ET [mm/8d]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">)])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/sensitivity_analysis_40_0.png" src="../_images/sensitivity_analysis_40_0.png" />
+</div>
+</div>
+</section>
+<section id="save-to-file">
+<h3>save to file<a class="headerlink" href="#save-to-file" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;ensemble_run/prism_400&quot;</span>
+<span class="n">df_q</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_daily_q_all.csv&quot;</span><span class="p">)</span>
+<span class="n">df_et</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_daily_ET_all.csv&quot;</span><span class="p">)</span>
+<span class="n">df_sm</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_daily_snowmelt_all.csv&quot;</span><span class="p">)</span>
+<span class="n">df_swe</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_daily_SWE_all.csv&quot;</span><span class="p">)</span>
+
+<span class="n">df_8d_et</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_8d_ET_all.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_q = pd.read_csv(result_dir + &quot;ensemble_run/ens_knl/ensemble_q_all_396.csv&quot;, index_col = 0)</span>
+
+<span class="c1"># # use shifted USGS streamflow as obs data</span>
+<span class="c1"># df_q[&#39;obs discharge [m^3/d]&#39;] = obs_daily_q.loc[&#39;2015-10-01&#39;:&#39;2019-10-02&#39;, &#39;watershed boundary discharge [m^3/d]&#39;].values</span>
+
+<span class="c1"># df_q.to_csv(result_dir + &quot;ensemble_run/ens_knl/ensemble_q_all_396.csv&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="snow-cover-data">
+<h3>snow cover data<a class="headerlink" href="#snow-cover-data" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_q = pd.read_csv(result_dir + &quot;ensemble_run/ens_knl/ensemble_q_all_396.csv&quot;, index_col=0)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_q.dropna(axis = 1, inplace = True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_modis_snowcover</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname_modis_snowcover</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;datetime&#39;</span><span class="p">)</span>
+<span class="n">df_modis_snowcover</span> <span class="o">=</span> <span class="n">df_modis_snowcover</span><span class="p">[[</span><span class="s2">&quot;snow cover pct [-]&quot;</span><span class="p">]]</span>
+<span class="n">df_modis_snowcover</span> <span class="o">=</span> <span class="n">df_modis_snowcover</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">df_modis_snowcover</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_modis_snowcover</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_snow_cover</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">])})</span>
+<span class="n">df_snow_cover</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># i = 1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">df_q</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+    
+    <span class="c1"># if i not in [&#39;ens.7&#39;]:</span>
+    <span class="n">idir</span> <span class="o">=</span> <span class="n">work_dir</span> <span class="o">+</span> <span class="s2">&quot;PRISM_ensemble_400/&quot;</span>  <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">ATSutils</span><span class="o">.</span><span class="n">get_snow_cover</span><span class="p">(</span><span class="n">idir</span><span class="p">)</span>
+
+    <span class="n">df_snow_cover</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_snow_cover</span><span class="p">,</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;snow_cover_pct [-]&quot;</span><span class="p">]],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_snow_cover</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;snow_cover_pct [-]&quot;</span><span class="p">:</span><span class="n">i</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "930ae89fafb947e2bf5acce7549af562", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_snow_cover</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ens.51</th>
+      <th>ens.52</th>
+      <th>ens.53</th>
+      <th>ens.54</th>
+      <th>ens.55</th>
+      <th>ens.56</th>
+      <th>ens.57</th>
+      <th>ens.58</th>
+      <th>ens.59</th>
+      <th>ens.60</th>
+      <th>...</th>
+      <th>ens.437</th>
+      <th>ens.438</th>
+      <th>ens.439</th>
+      <th>ens.440</th>
+      <th>ens.441</th>
+      <th>ens.442</th>
+      <th>ens.443</th>
+      <th>ens.444</th>
+      <th>ens.445</th>
+      <th>ens.446</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015-10-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2015-10-02</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2015-10-03</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2015-10-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2015-10-05</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-09-27</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2019-09-28</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2019-09-29</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2019-09-30</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2019-10-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>1462 rows × 396 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_snow_cover</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_modis_snowcover</span><span class="p">[[</span><span class="s2">&quot;snow cover pct [-]&quot;</span><span class="p">]],</span> <span class="n">df_snow_cover</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_snow_cover</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;snow cover pct [-]&#39;</span><span class="p">:</span><span class="s1">&#39;MODIS snowcover [-]&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_snow_cover</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_daily_snowcover_all.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">df_snow_cover</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># df_snow_cover[[&#39;MODIS snowcover [-]&#39;]].plot(ax=ax, kind = &#39;scatter&#39;, color = &#39;k&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_snow_cover</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_snow_cover</span><span class="p">[</span><span class="s1">&#39;MODIS snowcover [-]&#39;</span><span class="p">],</span> <span class="s1">&#39;*--k&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">custom_legend</span><span class="p">([</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ensemble&#39;</span><span class="p">,</span> <span class="s1">&#39;MODIS&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Snowcover percentage [-]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Snowcover percentage [-]&#39;)
+</pre></div>
+</div>
+<img alt="../_images/sensitivity_analysis_52_1.png" src="../_images/sensitivity_analysis_52_1.png" />
+</div>
+</div>
+<p>Merge with MODIS 8-day maximum snowcover. Here we recalculate the 8-day maximum snowcover from ATS using snow cover data during 8-day period.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df_snow_cover = pd.read_csv(result_dir + &quot;ensemble_run-400/ensemble_daily_snowcover_all.csv&quot;, index_col=&#39;datetime&#39;, parse_dates=[&#39;datetime&#39;])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_ind</span> <span class="o">=</span> <span class="n">df_modis_snowcover</span><span class="o">.</span><span class="n">index</span>
+
+<span class="n">df_8d_snowcover</span> <span class="o">=</span> <span class="n">df_snow_cover</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time_ind</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># df_8d_snowcover.pop(&#39;MODIS snowcover [-]&#39;)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_ind</span><span class="p">))[:]:</span>
+    <span class="n">itime</span> <span class="o">=</span> <span class="n">time_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">btime</span> <span class="o">=</span> <span class="n">df_snow_cover</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">btime</span> <span class="o">=</span> <span class="n">time_ind</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+    <span class="n">istart</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_snow_cover</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">btime</span><span class="p">)</span>
+    <span class="n">iend</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_snow_cover</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">itime</span><span class="p">)</span>
+    <span class="c1"># `loc` includes both ends, but `iloc` does not include end bound!</span>
+    <span class="n">imax</span> <span class="o">=</span> <span class="n">df_snow_cover</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">iend</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># return NA is sum() contains NA</span>
+    <span class="n">df_8d_snowcover</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">itime</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">imax</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_8d_snowcover</span><span class="p">[</span><span class="s1">&#39;MODIS snowcover [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_modis_snowcover</span><span class="p">[</span><span class="s1">&#39;snow cover pct [-]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># df_8d_et.drop(columns = [&#39;obs ET [mm/d]&#39;], inplace = True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">df_8d_snowcover</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_8d_snowcover</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_8d_snowcover</span><span class="p">[</span><span class="s1">&#39;MODIS snowcover [-]&#39;</span><span class="p">],</span> <span class="s1">&#39;*-k&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">custom_legend</span><span class="p">([</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ensemble&#39;</span><span class="p">,</span> <span class="s1">&#39;MODIS&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Snowcover percentage [-]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Snowcover percentage [-]&#39;)
+</pre></div>
+</div>
+<img alt="../_images/sensitivity_analysis_57_1.png" src="../_images/sensitivity_analysis_57_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_8d_snowcover</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">result_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">/ensemble_8d_snowcover_all.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "pyvis"
+        },
+        kernelOptions: {
+            kernelName: "pyvis",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'pyvis'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="model_evaluation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Model evaluation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="model_calibration.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Model calibration using Machine Learning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Pin Shuai, Ethan Coon, and etc.<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

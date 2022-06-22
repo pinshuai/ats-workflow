@@ -1,0 +1,1192 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Write ATS input file &#8212; ATS workflow</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Run ATS model" href="run.html" />
+    <link rel="prev" title="Download and post-process MODIS LAI" href="MODIS.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">ATS workflow</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    ATS modeling workflow
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model Setup
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="mesh.html">
+   Example: mesh a delineated watershed
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="daymet.html">
+   Download Daymet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="MODIS.html">
+   Download and post-process MODIS LAI
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Write ATS input file
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Execute Model
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="run.html">
+   Run ATS model
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model Post-processes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_surface.html">
+   Plot surface variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_subsurface.html">
+   Plot subsurface variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_evaluation.html">
+   Model evaluation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sensitivity Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="sensitivity_analysis.html">
+   Sensitivity analysis
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Model Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_calibration.html">
+   Model calibration using Machine Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/pinshuai/ats-workflow/main?urlpath=tree/src/chapters/write_ATS_input.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/pinshuai/ats-workflow"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/pinshuai/ats-workflow/issues/new?title=Issue%20on%20page%20%2Fchapters/write_ATS_input.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/write_ATS_input.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   Next Steps
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Write ATS input file</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   Next Steps
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="write-ats-input-file">
+<h1>Write ATS input file<a class="headerlink" href="#write-ats-input-file" title="Permalink to this headline">#</a></h1>
+<p>We now generate three input files – two for spinup (steadystate solution and cyclic steadystate solution) and one for transient runs.</p>
+<p>Steadystate has its own physics, but cyclic steadystate and transient share a common set of physics.  Each have their own met data strategy.</p>
+<p>The first step is to generate the sections of xml that will replace parts of the template files.  This is done prior to loading any templates to make clear that these are totally generated from scratch using the ats_input_spec tool.</p>
+<p>Note that throughout, we will assume an additional level of folder nesting, e.g. runs will be completed in ‘../spinup-CoalCreek/run0’, meaning that we have to append an extra ‘../’ to the start of all filenames.  This makes it easier to deal with mistakes, continued runs, etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">yaml</span><span class="o">,</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># ats_input_spec library, to be moved to amanzi_xml</span>
+<span class="kn">import</span> <span class="nn">ats_input_spec</span>
+<span class="kn">import</span> <span class="nn">ats_input_spec.public</span>
+<span class="kn">import</span> <span class="nn">ats_input_spec.io</span>
+
+<span class="c1"># amanzi_xml, included in AMANZI_SRC_DIR/tools/amanzi_xml</span>
+<span class="kn">import</span> <span class="nn">amanzi_xml.utils.io</span> <span class="k">as</span> <span class="nn">aio</span>
+<span class="kn">import</span> <span class="nn">amanzi_xml.utils.search</span> <span class="k">as</span> <span class="nn">asearch</span>
+<span class="kn">import</span> <span class="nn">amanzi_xml.utils.errors</span> <span class="k">as</span> <span class="nn">aerrors</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;NeversinkHeadwaters_11Catchments_cluster&#39;</span> <span class="c1"># name the domain, used in filenames, etc</span>
+<span class="n">canopy</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&quot;../data/&quot;</span>
+<span class="n">input_dir</span> <span class="o">=</span> <span class="s2">&quot;../model/inputs/&quot;</span>
+<span class="c1"># mesh_dir = &quot;../../data/meshes&quot;</span>
+
+<span class="n">template_dir</span> <span class="o">=</span><span class="n">input_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;template_xml/master/ecohydro/&quot;</span>
+<span class="n">out_dir</span> <span class="o">=</span> <span class="s2">&quot;../data/WW_output/&quot;</span>
+<span class="n">pickle_dir</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">+</span> <span class="s2">&quot;pickle/&quot;</span>
+<span class="n">processed_dir</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;processed/&quot;</span>
+
+<span class="c1"># case = &#39;cyber&#39;</span>
+<span class="c1"># if canopy:</span>
+<span class="c1">#     template_filename = template_dir + f&quot;reactive-canopy-{case}-template.xml&quot;</span>
+<span class="c1"># else:</span>
+<span class="c1">#     template_filename = template_dir + f&quot;reactive-{case}-template.xml&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_config.yaml&quot;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;daymet_filename&#39;: &#39;../data/processed/NeversinkHeadwaters_11Catchments_DayMet_1980_2020-UTM.h5&#39;,
+ &#39;daymet_spinup_filename&#39;: &#39;../data/processed/NeversinkHeadwaters_11Catchments_DayMet_typical_1980_2020-UTM.h5&#39;,
+ &#39;mesh_filename&#39;: &#39;../data/meshes/NeversinkHeadwaters_11Catchments-clustered.exo&#39;,
+ &#39;subsurface_properties_filename&#39;: &#39;../data/WW_output/NeversinkHeadwaters_11Catchments_subsurface_properties-clustered.csv&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a dictionary of outputs -- will include all filenames generated</span>
+<span class="c1"># config = {}</span>
+
+<span class="c1"># name = &quot;NeversinkHeadwaters&quot;</span>
+<span class="c1"># input xmls</span>
+<span class="n">mesh_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;../..&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;mesh_filename&#39;</span><span class="p">])</span>
+
+<span class="c1"># config[&#39;subsurface_properties_filename&#39;] = data_dir + &quot;WW_output/subsurface_prop.csv&quot;</span>
+<span class="c1"># input data</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;modis_typical_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">processed_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;NeversinkHeadwaters_MODIS_LAI_typical_1980_2020.h5&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">processed_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;NeversinkHeadwaters_Daymet_1980_2020-UTM.h5&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_spinup_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">processed_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;NeversinkHeadwaters_DayMet_typical_1980_2020-UTM.h5&#39;</span>
+<span class="c1"># run dirs</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_steadystate_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_rundir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;../model/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_spinup_steadystate&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_cyclic_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_rundir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;../model/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_spinup_cyclic&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;transient_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_rundir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;../model/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_transient&#39;</span>
+
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_steadystate_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_template&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;spinup_steadystate-template.xml&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_cyclic_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_template&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;spinup_cyclic-template.xml&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;transient_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_template&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;transient-template.xml&#39;</span>
+
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;generated_ats&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_generated_ats.xml&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_steadystate_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_spinup_steadystate.xml&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_cyclic_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_spinup_cyclic.xml&#39;</span>
+<span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;transient_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_transient.xml&#39;</span>
+<span class="c1"># if canopy:</span>
+<span class="c1">#     config[f&#39;spinup_cyclic_{name}_filename&#39;] = input_dir + f&#39;{name}_spinup_cyclic-reactive-canopy-{case}.xml&#39;</span>
+<span class="c1">#     config[f&#39;transient_{name}_filename&#39;] = input_dir + f&#39;{name}_transient-reactive-canopy-{case}.xml&#39;    </span>
+<span class="c1"># else:</span>
+<span class="c1">#     config[f&#39;spinup_cyclic_{name}_filename&#39;] = input_dir + f&#39;{name}_spinup_cyclic-reactive-{case}.xml&#39;</span>
+<span class="c1">#     config[f&#39;transient_{name}_filename&#39;] = input_dir + f&#39;{name}_transient-reactive-{case}.xml&#39;</span>
+
+
+<span class="c1"># subcatchment_labels = [&#39;poly_bottom&#39;, &#39;poly_eastbranch&#39;, &#39;poly_westbranch&#39;]</span>
+
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">41</span> <span class="c1"># in deg</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;mean_precip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.500629987318984e-08</span> <span class="c1"># in m/s</span>
+<span class="n">latitude</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
+<span class="n">mean_precip</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;mean_precip&#39;</span><span class="p">]</span>
+
+<span class="n">start_day</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">end_day</span> <span class="o">=</span> <span class="mi">3650</span> <span class="c1"># in days</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_subcatchment_labels.p&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">subcatchment_labels</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_sidesets.p&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">ls</span><span class="p">,</span> <span class="n">ss</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_nlcd.p&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">nlcd_labels_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">canopy</span><span class="p">:</span>
+    <span class="n">nlcd_indices</span><span class="p">,</span> <span class="n">nlcd_labels</span> <span class="o">=</span> <span class="n">nlcd_labels_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">nlcd_labels_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the basin-averaged, annual-averaged precip rate</span>
+<span class="c1"># precip_total = ats_typ[&#39;precipitation rain [m s^-1]&#39;] + ats_typ[&#39;precipitation snow [m SWE s^-1]&#39;]</span>
+<span class="c1"># mean_precip = precip_total.mean()</span>
+<span class="c1"># mean_precip = 2.500629987318984e-08</span>
+<span class="c1"># logging.info(f&#39;Mean annual precip rate [m s^-1] = {mean_precip}&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subsurface_props</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;subsurface_properties_filename&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;ats_id&#39;</span><span class="p">)</span>
+<span class="c1"># subsurface_props.loc[999, &#39;native_index&#39;] = 999</span>
+<span class="c1"># subsurface_props[&#39;native_index&#39;] = subsurface_props[&#39;native_index&#39;].astype(float).astype(int).astype(str)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the subsurface and surface domains</span>
+<span class="c1">#</span>
+<span class="c1"># Note this also adds a &quot;computational domain&quot; region to the region list, and a vis spec </span>
+<span class="c1"># for &quot;domain&quot;</span>
+<span class="k">def</span> <span class="nf">add_domains</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span> <span class="n">surface_region</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="n">snow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> 
+                                 <span class="n">domain_name</span><span class="o">=</span><span class="s1">&#39;domain&#39;</span><span class="p">,</span> 
+                                 <span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+                                 <span class="n">mesh_type</span><span class="o">=</span><span class="s1">&#39;read mesh file&#39;</span><span class="p">,</span>
+                                 <span class="n">mesh_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span><span class="n">mesh_filename</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">surface_region</span><span class="p">:</span>
+        <span class="n">main_list</span><span class="p">[</span><span class="s1">&#39;mesh&#39;</span><span class="p">][</span><span class="s1">&#39;domain&#39;</span><span class="p">][</span><span class="s1">&#39;build columns from set&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">surface_region</span>    
+    
+        <span class="c1"># Note this also adds a &quot;surface domain&quot; region to the region list and a vis spec for </span>
+        <span class="c1"># &quot;surface&quot;</span>
+        <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span>
+                                <span class="n">domain_name</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span>
+                                <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                <span class="n">mesh_type</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span>
+                                <span class="n">mesh_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;surface sideset name&#39;</span><span class="p">:</span><span class="s1">&#39;surface&#39;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">snow</span><span class="p">:</span>
+        <span class="c1"># Add the snow and canopy domains, which are aliases to the surface</span>
+        <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span>
+                                <span class="n">domain_name</span><span class="o">=</span><span class="s1">&#39;snow&#39;</span><span class="p">,</span>
+                                <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                <span class="n">mesh_type</span><span class="o">=</span><span class="s1">&#39;aliased&#39;</span><span class="p">,</span>
+                                <span class="n">mesh_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;target&#39;</span><span class="p">:</span><span class="s1">&#39;surface&#39;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">canopy</span><span class="p">:</span>
+        <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span>
+                                <span class="n">domain_name</span><span class="o">=</span><span class="s1">&#39;canopy&#39;</span><span class="p">,</span>
+                                <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                <span class="n">mesh_type</span><span class="o">=</span><span class="s1">&#39;aliased&#39;</span><span class="p">,</span>
+                                <span class="n">mesh_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;target&#39;</span><span class="p">:</span><span class="s1">&#39;surface&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The mafic potential seems wrong below!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_land_cover</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">nlcd_indices</span><span class="p">,</span> <span class="n">nlcd_labels</span><span class="p">):</span>
+    <span class="c1"># next write a land-cover section for each NLCD type</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">nlcd_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nlcd_indices</span><span class="p">,</span> <span class="n">nlcd_labels</span><span class="p">):</span>
+        <span class="c1"># this will load default values instead of pulling from the template</span>
+        <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">set_land_cover_default_constants</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">nlcd_name</span><span class="p">)</span>
+
+    <span class="n">land_cover_list</span> <span class="o">=</span> <span class="n">main_list</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">][</span><span class="s1">&#39;initial conditions&#39;</span><span class="p">][</span><span class="s1">&#39;land cover types&#39;</span><span class="p">]</span>
+    <span class="c1"># update some defaults</span>
+    <span class="c1"># [&#39;Other&#39;, &#39;Deciduous Forest&#39;, &#39;Evergreen Forest&#39;, &#39;Shrub/Scrub&#39;]</span>
+    <span class="c1"># note, these are from the CLM Technical Note v4.5</span>
+    <span class="c1">#</span>
+    <span class="c1"># Rooting depth curves from CLM TN 4.5 table 8.3</span>
+    <span class="c1">#</span>
+    <span class="c1"># Note, the mafic potential values are likely pretty bad for the types of van Genuchten </span>
+    <span class="c1"># curves we are using (ETC -- add paper citation about this topic).  Likely they need</span>
+    <span class="c1"># to be modified.  Note that these values are in [mm] from CLM TN 4.5 table 8.1, so the </span>
+    <span class="c1"># factor of 10 converts to [Pa]</span>
+    <span class="c1">#</span>
+    <span class="c1"># Note, albedo of canopy taken from CLM TN 4.5 table 3.1</span>
+    
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile alpha [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">7.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile beta [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;rooting depth max [m]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully closed stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2750000</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully open stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7400</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of snow [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of bare ground [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of canopy [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of transpiration [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile alpha [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">7.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile beta [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;rooting depth max [m]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully closed stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2500785</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully open stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">647262</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of snow [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of bare ground [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of canopy [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Evergreen Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of transpiration [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile alpha [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">6.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile beta [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;rooting depth max [m]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully closed stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2196768</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully open stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">343245</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of snow [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of bare ground [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of canopy [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Deciduous Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of transpiration [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile alpha [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">7.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;rooting profile beta [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;rooting depth max [m]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully closed stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4197396</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;mafic potential at fully open stomata [Pa]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">813981</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of snow [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of bare ground [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of canopy [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">land_cover_list</span><span class="p">[</span><span class="s1">&#39;Shrub/Scrub&#39;</span><span class="p">][</span><span class="s1">&#39;Priestley-Taylor alpha of transpiration [-]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add soil sets: note we need a way to name the set, so we use, e.g. SSURGO-MUKEY.</span>
+<span class="k">def</span> <span class="nf">soil_set_name</span><span class="p">(</span><span class="n">ats_id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ats_id</span> <span class="o">==</span> <span class="mi">999</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;bedrock&#39;</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">subsurface_props</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ats_id</span><span class="p">][</span><span class="s1">&#39;source&#39;</span><span class="p">]</span>
+    <span class="n">native_id</span> <span class="o">=</span> <span class="n">subsurface_props</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ats_id</span><span class="p">][</span><span class="s1">&#39;native_index&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">native_id</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">,</span><span class="nb">list</span><span class="p">]:</span>
+        <span class="n">native_id</span> <span class="o">=</span> <span class="n">native_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">native_id</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">native_id</span> <span class="o">=</span> <span class="n">native_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="s2">&quot;native_id is not a known type!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">native_id</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get an ATS &quot;main&quot; input spec list -- note, this is a dummy and is not used to write any files yet</span>
+<span class="k">def</span> <span class="nf">get_main</span><span class="p">(</span><span class="n">mesh_filename</span><span class="p">,</span> <span class="n">subsurface_props</span><span class="p">,</span> <span class="n">subcatchment_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">snow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">main_list</span> <span class="o">=</span> <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">get_main</span><span class="p">()</span>
+    
+    <span class="c1"># get PKs</span>
+    <span class="n">flow_pk</span> <span class="o">=</span> <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_leaf_pk</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="n">main_list</span><span class="p">[</span><span class="s1">&#39;cycle driver&#39;</span><span class="p">][</span><span class="s1">&#39;PK tree&#39;</span><span class="p">],</span> 
+                                            <span class="s1">&#39;richards-spec&#39;</span><span class="p">)</span>
+
+    <span class="c1"># add the mesh and all domains</span>
+    <span class="c1"># mesh_filename = os.path.join(&#39;..&#39;, config[&#39;mesh_filename&#39;])</span>
+    <span class="n">add_domains</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="n">canopy</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">canopy</span><span class="p">:</span>
+        <span class="c1"># add labeled sets</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+                <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_region_labeled_set</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">setid</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">entity</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">:</span>
+                <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_region_labeled_set</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">j</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">j</span><span class="o">.</span><span class="n">setid</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span> <span class="s1">&#39;FACE&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;no sidesets provided. adding surface and bottom only&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">iname</span><span class="p">,</span><span class="nb">id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_region_labeled_set</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">iname</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span> <span class="s1">&#39;FACE&#39;</span><span class="p">)</span> 
+           
+        <span class="c1"># add land cover</span>
+        <span class="n">add_land_cover</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">nlcd_indices</span><span class="p">,</span> <span class="n">nlcd_labels</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">iname</span><span class="p">,</span><span class="nb">id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_region_labeled_set</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">iname</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span> <span class="s1">&#39;FACE&#39;</span><span class="p">)</span>
+
+    <span class="c1"># add soil material ID regions, porosity, permeability, and WRMs</span>
+    <span class="k">for</span> <span class="n">ats_id</span> <span class="ow">in</span> <span class="n">subsurface_props</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="n">subsurface_props</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ats_id</span><span class="p">]</span>
+        <span class="n">set_name</span> <span class="o">=</span> <span class="n">soil_set_name</span><span class="p">(</span><span class="n">ats_id</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;van Genuchten n [-]&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.5</span><span class="p">:</span>
+            <span class="n">smoothing_interval</span> <span class="o">=</span> <span class="mf">0.01</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">smoothing_interval</span> <span class="o">=</span> <span class="mf">0.0</span>
+        
+        <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_soil_type</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">set_name</span><span class="p">,</span> <span class="n">ats_id</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">,</span>
+                                            <span class="nb">float</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;porosity [-]&#39;</span><span class="p">]),</span>
+                                            <span class="nb">float</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;permeability [m^2]&#39;</span><span class="p">]),</span> 
+                                            <span class="mf">1.e-9</span><span class="p">,</span> <span class="c1"># pore compressibility, maybe too large?</span>
+                                            <span class="nb">float</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;van Genuchten alpha [Pa^-1]&#39;</span><span class="p">]),</span>
+                                            <span class="nb">float</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;van Genuchten n [-]&#39;</span><span class="p">]),</span>
+                                            <span class="nb">float</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;residual saturation [-]&#39;</span><span class="p">]),</span>
+                                            <span class="nb">float</span><span class="p">(</span><span class="n">smoothing_interval</span><span class="p">))</span>
+        
+    <span class="c1"># add observations for each subcatchment for transient runs</span>
+    <span class="c1"># this will add default observed variables instead of getting those from template</span>
+    
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observations_water_balance</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;computational domain&quot;</span><span class="p">,</span> 
+                                                               <span class="n">surface_region</span><span class="o">=</span> <span class="s2">&quot;surface domain&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># add a few additional observations</span>
+    <span class="c1"># make sure to use &quot;external sides&quot; as region for calculating net gw flux!</span>
+    
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;SWE [m]&#39;</span><span class="p">,</span> <span class="s1">&#39;snow-water_equivalent&#39;</span><span class="p">,</span> 
+                                          <span class="s1">&#39;surface domain&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;max ponded depth [m]&#39;</span><span class="p">,</span> <span class="s1">&#39;surface-ponded_depth&#39;</span><span class="p">,</span> 
+                                          <span class="s1">&#39;surface domain&#39;</span><span class="p">,</span> <span class="s1">&#39;maximum&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;water to surface [m d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;canopy-throughfall_drainage_rain&#39;</span><span class="p">,</span> 
+                                          <span class="s1">&#39;surface domain&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;snow to surface [m SWE d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;canopy-throughfall_drainage_snow&#39;</span><span class="p">,</span> 
+                                          <span class="s1">&#39;surface domain&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;canopy drainage [m d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;canopy-drainage&#39;</span><span class="p">,</span> 
+                                          <span class="s1">&#39;surface domain&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;total evapotranspiration [m d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;surface-total_evapotranspiration&#39;</span><span class="p">,</span> 
+                                          <span class="s1">&#39;surface domain&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+    
+    <span class="k">if</span> <span class="n">subcatchment_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">subcatchment_labels</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observations_water_balance</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> 
+                                                                 <span class="n">outlet_region</span> <span class="o">=</span> <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; outlet&#39;</span><span class="p">)</span>
+            <span class="c1"># add a few additional observations</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;SWE [m]&#39;</span><span class="p">,</span> <span class="s1">&#39;snow-water_equivalent&#39;</span><span class="p">,</span> 
+                                                  <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; surface&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;max ponded depth [m]&#39;</span><span class="p">,</span> <span class="s1">&#39;surface-ponded_depth&#39;</span><span class="p">,</span> 
+                                                  <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; surface&#39;</span><span class="p">,</span> <span class="s1">&#39;maximum&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;water to surface [m d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;canopy-throughfall_drainage_rain&#39;</span><span class="p">,</span> 
+                                                  <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; surface&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;snow to surface [m SWE d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;canopy-throughfall_drainage_snow&#39;</span><span class="p">,</span> 
+                                                  <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; surface&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;canopy drainage [m d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;canopy-drainage&#39;</span><span class="p">,</span> 
+                                                  <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; surface&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">public</span><span class="o">.</span><span class="n">add_observeable</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="s1">&#39;total evapotranspiration [m d^-1]&#39;</span><span class="p">,</span> <span class="s1">&#39;surface-total_evapotranspiration&#39;</span><span class="p">,</span> 
+                                                  <span class="n">region</span> <span class="o">+</span> <span class="s1">&#39; surface&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">,</span><span class="s1">&#39;cell&#39;</span><span class="p">,</span> <span class="n">time_integrated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>            
+        
+    
+    
+    <span class="k">return</span> <span class="n">main_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">populate_basic_properties</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">main_xml</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">homogeneous_wrm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">homogeneous_poro</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">homogeneous_perm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This function updates an xml object with the above properties for mesh, regions, soil props, and lc props&quot;&quot;&quot;</span>
+    <span class="c1"># find and replace the mesh list</span>
+    <span class="n">mesh_i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;mesh&#39;</span><span class="p">)</span>
+    <span class="n">xml</span><span class="p">[</span><span class="n">mesh_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">child_by_name</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="s1">&#39;mesh&#39;</span><span class="p">)</span>
+
+    <span class="c1"># find and replace the regions list</span>
+    <span class="n">region_i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;regions&#39;</span><span class="p">)</span>
+    <span class="n">xml</span><span class="p">[</span><span class="n">region_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">child_by_name</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="s1">&#39;regions&#39;</span><span class="p">)</span>
+
+    <span class="c1"># find and replace the WRMs list -- note here we only replace the inner &quot;WRM parameters&quot; because the</span>
+    <span class="c1"># demo has this in the PK, not in the field evaluators list</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">homogeneous_wrm</span><span class="p">:</span>
+        <span class="n">wrm_list</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;PKs&#39;</span><span class="p">,</span> <span class="s1">&#39;water retention evaluator&#39;</span><span class="p">])</span>
+        <span class="n">wrm_i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wrm_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;WRM parameters&#39;</span><span class="p">)</span>
+        <span class="n">wrm_list</span><span class="p">[</span><span class="n">wrm_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;PKs&#39;</span><span class="p">,</span><span class="s1">&#39;water retention evaluator&#39;</span><span class="p">,</span><span class="s1">&#39;WRM parameters&#39;</span><span class="p">])</span>
+
+    <span class="n">fe_list</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;field evaluators&#39;</span><span class="p">])</span>
+
+    <span class="c1"># find and replace porosity, permeability</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">homogeneous_poro</span><span class="p">:</span>
+        <span class="n">poro_i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fe_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;base_porosity&#39;</span><span class="p">)</span>
+        <span class="n">fe_list</span><span class="p">[</span><span class="n">poro_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;field evaluators&#39;</span><span class="p">,</span> <span class="s1">&#39;base_porosity&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">homogeneous_perm</span><span class="p">:</span>
+        <span class="n">perm_i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fe_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;permeability&#39;</span><span class="p">)</span>
+        <span class="n">fe_list</span><span class="p">[</span><span class="n">perm_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;field evaluators&#39;</span><span class="p">,</span> <span class="s1">&#39;permeability&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">canopy</span><span class="p">:</span>
+        <span class="c1"># find and replace land cover</span>
+        <span class="n">consts_list</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;initial conditions&#39;</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lc_i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">consts_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;land cover types&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">consts_list</span><span class="p">[</span><span class="n">lc_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;initial conditions&#39;</span><span class="p">,</span> <span class="s1">&#39;land cover types&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_unique_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">homogeneous_wrm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">homogeneous_poro</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">homogeneous_perm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;_h&#39;</span>
+    <span class="k">if</span> <span class="n">homogeneous_perm</span><span class="p">:</span>
+        <span class="n">suffix</span> <span class="o">+=</span> <span class="s1">&#39;K&#39;</span>
+    <span class="k">if</span> <span class="n">homogeneous_poro</span><span class="p">:</span>
+        <span class="n">suffix</span> <span class="o">+=</span> <span class="s1">&#39;p&#39;</span>
+    <span class="k">if</span> <span class="n">homogeneous_wrm</span><span class="p">:</span>
+        <span class="n">suffix</span> <span class="o">+=</span> <span class="s1">&#39;w&#39;</span>
+    <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;_h&#39;</span><span class="p">:</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="n">suffix</span>
+        
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_spinup_steadystate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">template_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">create_unique_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_steadystate_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">]</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Writing spinup steadystate: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># write the spinup xml file</span>
+    <span class="c1"># load the template file</span>
+    <span class="c1"># xml = aio.fromFile(template_dir + &#39;spinup_steadystate-template.xml&#39;)</span>
+    <span class="n">xml</span> <span class="o">=</span> <span class="n">aio</span><span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="n">template_file</span><span class="p">)</span>
+    <span class="c1"># populate basic properties for mesh, regions, and soil properties</span>
+    <span class="n">populate_basic_properties</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">main_xml</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># set the mean avg source as 60% of mean precip</span>
+    <span class="n">precip_el</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;field evaluators&#39;</span><span class="p">,</span> <span class="s1">&#39;surface-precipitation&#39;</span><span class="p">,</span> 
+                                        <span class="s1">&#39;function-constant&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">])</span>
+    <span class="n">precip_el</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">mean_precip</span> <span class="o">*</span> <span class="mf">.6</span><span class="p">)</span>
+
+    <span class="c1"># # update mismatch outlet region</span>
+    <span class="c1"># par = asearch.find_path(xml, [&#39;regions&#39;, &#39;poly_bottom surface outlet&#39;, &#39;label&#39;])</span>
+    <span class="c1"># par.setValue(&#39;10012&#39;)</span>
+    <span class="c1"># par = asearch.find_path(xml, [&#39;regions&#39;, &#39;surface domain outlet&#39;, &#39;label&#39;])</span>
+    <span class="c1"># par.setValue(&#39;10012&#39;)</span>
+    <span class="c1"># par = asearch.find_path(xml, [&#39;regions&#39;, &#39;poly_westbranch surface outlet&#39;, &#39;label&#39;])</span>
+    <span class="c1"># par.setValue(&#39;10010&#39;)     </span>
+    
+    <span class="c1"># write to disk</span>
+    <span class="c1"># config[f&#39;spinup_steadystate_{name}_filename&#39;] = model_dir + f&#39;input_xml/spinup_steadystate.xml&#39;</span>
+    <span class="n">aio</span><span class="o">.</span><span class="n">toFile</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_steadystate_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">])</span>
+
+    <span class="c1"># make a run directory</span>
+    <span class="c1"># config[f&#39;spinup_steadystate_{name}_rundir&#39;] = f&#39;../model/{name}_spinup_steadystate&#39;</span>
+    <span class="c1"># try:</span>
+    <span class="c1">#     os.mkdir(config[f&#39;spinup_steadystate_{name}_rundir&#39;])</span>
+    <span class="c1"># except FileExistsError:</span>
+    <span class="c1">#     pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_transient</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">template_filename</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cyclic_steadystate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">1980</span><span class="p">,</span> 
+                    <span class="n">end_year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">start_day</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_day</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># make a unique name based on options</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">create_unique_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+
+    <span class="k">if</span> <span class="n">cyclic_steadystate</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;spinup_cyclic&#39;</span>
+        <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1980</span>
+        <span class="n">end_year</span> <span class="o">=</span> <span class="mi">1990</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="s1">&#39;spinup_steadystate&#39;</span>
+        <span class="n">runnum</span> <span class="o">=</span> <span class="s1">&#39;run1&#39;</span>     
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;transient&#39;</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="s1">&#39;spinup_cyclic&#39;</span>
+        <span class="n">runnum</span> <span class="o">=</span> <span class="s1">&#39;run2&#39;</span>
+        
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">]</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Writing </span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># template_filename = template_dir + f&#39;{prefix}-template.xml&#39;</span>
+    
+    <span class="c1"># load the template file</span>
+    <span class="n">xml</span> <span class="o">=</span> <span class="n">aio</span><span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="n">template_filename</span><span class="p">)</span>
+
+    <span class="c1"># populate basic properties for mesh, regions, and soil properties</span>
+    <span class="n">populate_basic_properties</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">main_xml</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># update the DayMet filenames</span>
+    <span class="c1"># wind speed uses default?</span>
+    <span class="k">if</span> <span class="n">cyclic_steadystate</span><span class="p">:</span>
+        <span class="n">daymet_filename</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_spinup_filename&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">daymet_filename</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_filename&#39;</span><span class="p">]</span>
+        
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;surface-incoming_shortwave_radiation&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;surface-precipitation_rain&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;snow-precipitation&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;surface-air_temperature&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;surface-relative_humidity&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;surface-temperature&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;canopy-temperature&#39;</span><span class="p">]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">par</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;field evaluators&#39;</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="n">aerrors</span><span class="o">.</span><span class="n">MissingXMLError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">par</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;../..&#39;</span><span class="p">,</span> <span class="n">daymet_filename</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">canopy</span><span class="p">:</span>
+    <span class="c1"># update the LAI filenames</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">asearch</span><span class="o">.</span><span class="n">findall_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;canopy-leaf_area_index&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]):</span>
+            <span class="n">par</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;../..&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;modis_typical_filename&#39;</span><span class="p">]))</span>
+    
+    <span class="c1"># update the start and end time -- start at Oct 1 of year 0, end 10 years later</span>
+    <span class="k">if</span> <span class="n">start_day</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start_day</span> <span class="o">=</span> <span class="mi">274</span> <span class="o">+</span> <span class="mi">365</span><span class="o">*</span><span class="p">(</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1980</span><span class="p">)</span>
+    <span class="n">par</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cycle driver&#39;</span><span class="p">,</span> <span class="s1">&#39;start time&#39;</span><span class="p">])</span>
+    <span class="n">par</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">start_day</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">end_day</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">end_day</span> <span class="o">=</span> <span class="mi">274</span> <span class="o">+</span> <span class="mi">365</span><span class="o">*</span><span class="p">(</span><span class="n">end_year</span> <span class="o">-</span> <span class="mi">1980</span><span class="p">)</span>
+    <span class="n">par</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cycle driver&#39;</span><span class="p">,</span> <span class="s1">&#39;end time&#39;</span><span class="p">])</span>
+    <span class="n">par</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">end_day</span><span class="p">)</span>
+    
+    <span class="c1"># update the restart filenames</span>
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">asearch</span><span class="o">.</span><span class="n">findall_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;initial condition&#39;</span><span class="p">,</span> <span class="s1">&#39;restart file&#39;</span><span class="p">]):</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">previous</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_rundir&#39;</span><span class="p">],</span> <span class="s1">&#39;checkpoint_final.h5&#39;</span><span class="p">))</span>
+
+    <span class="c1"># update the observations list</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">el</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span> <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;observations&#39;</span><span class="p">)</span>
+    <span class="n">xml</span><span class="p">[</span><span class="n">obs</span><span class="p">]</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">child_by_name</span><span class="p">(</span><span class="n">main_xml</span><span class="p">,</span> <span class="s1">&#39;observations&#39;</span><span class="p">)</span>
+   
+    <span class="c1"># update surface-incident-shortwave-radiation</span>
+    <span class="n">par</span> <span class="o">=</span> <span class="n">asearch</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;field evaluators&#39;</span><span class="p">,</span> <span class="s1">&#39;surface-incident_shortwave_radiation&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude [degrees]&#39;</span><span class="p">])</span>
+    <span class="n">par</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span>   
+    
+    <span class="c1"># write to disk and make a directory for running the run</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_filename&#39;</span><span class="p">]</span>
+    <span class="c1"># rundir = config[f&#39;{prefix}_{name}_rundir&#39;]</span>
+
+    <span class="n">aio</span><span class="o">.</span><span class="n">toFile</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="c1"># try:</span>
+    <span class="c1">#     os.mkdir(rundir)</span>
+    <span class="c1"># except FileExistsError:</span>
+    <span class="c1">#     pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the first file, we load a spinup template and write the needed quantities into that file, saving it to the appropriate run directory.  Note there is no DayMet or land cover or LAI properties needed for this run.  The only property that is needed is the domain-averaged, mean annual rainfall rate.  We then take off some for ET (note too wet spins up faster than too dry, so don’t take off too much…).</p>
+<p>Create a dummy xml file with the content that template file can use.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the main list, this file is used for filling the template file</span>
+<span class="n">main_list</span> <span class="o">=</span> <span class="n">get_main</span><span class="p">(</span><span class="n">mesh_filename</span><span class="p">,</span> <span class="n">subsurface_props</span><span class="p">,</span> <span class="n">subcatchment_labels</span><span class="o">=</span><span class="n">subcatchment_labels</span><span class="p">,</span> <span class="n">canopy</span><span class="o">=</span><span class="n">canopy</span><span class="p">)</span>
+<span class="n">ats_input_spec</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">main_list</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;generated_ats&#39;</span><span class="p">])</span>
+<span class="n">main_xml</span> <span class="o">=</span> <span class="n">ats_input_spec</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">to_xml</span><span class="p">(</span><span class="n">main_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/jovyan/ats/ats_input_spec/ats_input_spec/io.py:43: UserWarning: Creating an incomplete XML object, missing entries!
+  warnings.warn(&#39;Creating an incomplete XML object, missing entries!&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the second file, we load a transient run template.  This file needs the basics, plus DayMet and LAI as the “typical year data”.  Also we set the run directory that will be used for the steadystate run.</p>
+<p>For the third file, we load a transient run template as well.  This file needs the basics, DayMet with the actual data, and we choose for this run to use the MODIS typical year.  MODIS is only available for 2002 on, so if we didn’t need 1980-2002 we could use the real data, but for this run we want a longer record.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the fully-heterogeneous runs</span>
+<span class="c1"># if include_heterogeneous:</span>
+<span class="n">write_spinup_steadystate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_steadystate_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_template&#39;</span><span class="p">])</span>
+<span class="c1"># make sure the cyclic ends near Oct. 1</span>
+<span class="n">write_transient</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>  <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;spinup_cyclic_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_template&#39;</span><span class="p">],</span> <span class="n">canopy</span><span class="o">=</span><span class="n">canopy</span><span class="p">,</span> 
+                <span class="n">cyclic_steadystate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                <span class="c1"># start_day=start_day, end_day=end_day,</span>
+                <span class="n">end_year</span><span class="o">=</span><span class="mi">1990</span>
+               <span class="p">)</span>
+<span class="n">write_transient</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;transient_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_template&#39;</span><span class="p">],</span> <span class="n">canopy</span><span class="o">=</span><span class="n">canopy</span><span class="p">,</span> 
+                <span class="n">cyclic_steadystate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_day</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_day</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># # create homogeneous runs</span>
+<span class="c1"># if include_homogeneous:</span>
+<span class="c1">#     write_spinup_steadystate(name, homogeneous_wrm=True, homogeneous_poro=True, homogeneous_perm=True)</span>
+<span class="c1">#     write_transient(name, True, homogeneous_wrm=True, homogeneous_poro=True, homogeneous_perm=True)</span>
+<span class="c1">#     write_transient(name, False, homogeneous_wrm=True, homogeneous_poro=True, homogeneous_perm=True)</span>
+    
+<span class="c1"># if include_homogeneous_wrm:</span>
+<span class="c1">#     write_spinup_steadystate(name, homogeneous_wrm=True, homogeneous_poro=False, homogeneous_perm=False)</span>
+<span class="c1">#     write_transient(name, True, homogeneous_wrm=True, homogeneous_poro=False, homogeneous_perm=False)</span>
+<span class="c1">#     write_transient(name, False, homogeneous_wrm=True, homogeneous_poro=False, homogeneous_perm=False)</span>
+    
+<span class="c1"># if include_homogeneous_wrm_porosity:</span>
+<span class="c1">#     write_spinup_steadystate(name, homogeneous_wrm=True, homogeneous_poro=True, homogeneous_perm=False)</span>
+<span class="c1">#     write_transient(name, True, homogeneous_wrm=True, homogeneous_poro=True, homogeneous_perm=False)</span>
+<span class="c1">#     write_transient(name, False, homogeneous_wrm=True, homogeneous_poro=True, homogeneous_perm=False)</span>
+    
+<span class="c1"># if include_homogeneous_wrm_permeability:</span>
+<span class="c1">#     write_spinup_steadystate(name, homogeneous_wrm=True, homogeneous_poro=False, homogeneous_perm=True)</span>
+<span class="c1">#     write_transient(name, True, homogeneous_wrm=True, homogeneous_poro=False, homogeneous_perm=True)</span>
+<span class="c1">#     write_transient(name, False, homogeneous_wrm=True, homogeneous_poro=False, homogeneous_perm=True)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-05-26 22:06:19,838 - root - INFO: Writing spinup steadystate: ../model/inputs/NeversinkHeadwaters_11Catchments_cluster_spinup_steadystate.xml
+2022-05-26 22:06:19,877 - root - INFO: Writing spinup_cyclic: ../model/inputs/NeversinkHeadwaters_11Catchments_cluster_spinup_cyclic.xml
+2022-05-26 22:06:19,959 - root - INFO: Writing transient: ../model/inputs/NeversinkHeadwaters_11Catchments_cluster_transient.xml
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_dir</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_config.yaml&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;this workflow is a total success&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-05-26 22:06:41,283 - root - INFO: this workflow is a total success
+</pre></div>
+</div>
+</div>
+</div>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<p>Changes needed to update the xml file:</p>
+<ul class="simple">
+<li><p>change <code class="docutils literal notranslate"><span class="pre">mass_flux</span></code> to <code class="docutils literal notranslate"><span class="pre">water_flux</span></code> to work with the master branch</p></li>
+<li><p>change <code class="docutils literal notranslate"><span class="pre">net</span> <span class="pre">groundwater</span> <span class="pre">flux</span></code> applied boundary from <code class="docutils literal notranslate"><span class="pre">&quot;computational</span> <span class="pre">domain</span> <span class="pre">boundary&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;external_sides&quot;</span></code></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "watershed_workflow"
+        },
+        kernelOptions: {
+            kernelName: "watershed_workflow",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'watershed_workflow'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="MODIS.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Download and post-process MODIS LAI</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="run.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Run ATS model</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Pin Shuai, Ethan Coon, and etc.<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
