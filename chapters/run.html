@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Run ATS model &#8212; ATS workflow</title>
+    <title>Running ATS model &#8212; ATS workflow</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -21,7 +21,7 @@
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -143,7 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Run ATS model
+   Running ATS model
   </a>
  </li>
 </ul>
@@ -370,14 +370,57 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#local-pc">
-   Local PC
+  <a class="reference internal nav-link" href="#single-job-on-local-pc">
+   Single Job on Local PC
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#high-performance-computing">
-   High-performance computing
+  <a class="reference internal nav-link" href="#single-job-on-high-performance-computing-hpc">
+   Single Job on High-performance Computing (HPC)
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#batch-job">
+   Batch Job
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-for-loop">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+      <span class="pre">
+       loop
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-job-arrays">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       job
+      </span>
+      <span class="pre">
+       Arrays
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-matk">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MATK
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -388,7 +431,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Run ATS model</h1>
+                <h1>Running ATS model</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -399,14 +442,57 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#local-pc">
-   Local PC
+  <a class="reference internal nav-link" href="#single-job-on-local-pc">
+   Single Job on Local PC
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#high-performance-computing">
-   High-performance computing
+  <a class="reference internal nav-link" href="#single-job-on-high-performance-computing-hpc">
+   Single Job on High-performance Computing (HPC)
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#batch-job">
+   Batch Job
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-for-loop">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+      <span class="pre">
+       loop
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-job-arrays">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       job
+      </span>
+      <span class="pre">
+       Arrays
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-matk">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MATK
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -418,11 +504,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="run-ats-model">
-<h1>Run ATS model<a class="headerlink" href="#run-ats-model" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="running-ats-model">
+<h1>Running ATS model<a class="headerlink" href="#running-ats-model" title="Permalink to this headline">#</a></h1>
 <p>This section provides the scripts used for executing ATS models on both local PC and high-performance computing (e.g., NERSC)</p>
-<section id="local-pc">
-<h2>Local PC<a class="headerlink" href="#local-pc" title="Permalink to this headline">#</a></h2>
+<section id="single-job-on-local-pc">
+<h2>Single Job on Local PC<a class="headerlink" href="#single-job-on-local-pc" title="Permalink to this headline">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># using single core</span>
 ats --xml_file<span class="o">=</span>input.xml
 
@@ -431,8 +517,8 @@ mpirun -n <span class="m">4</span> ats --xml_file<span class="o">=</span>input.x
 </pre></div>
 </div>
 </section>
-<section id="high-performance-computing">
-<h2>High-performance computing<a class="headerlink" href="#high-performance-computing" title="Permalink to this headline">#</a></h2>
+<section id="single-job-on-high-performance-computing-hpc">
+<h2>Single Job on High-performance Computing (HPC)<a class="headerlink" href="#single-job-on-high-performance-computing-hpc" title="Permalink to this headline">#</a></h2>
 <p>A shell script is usually used for submitting jobs on HPC. Here is a sample job script for running ATS on Cori NERSC.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -440,7 +526,7 @@ mpirun -n <span class="m">4</span> ats --xml_file<span class="o">=</span>input.x
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -l</span>
 
-<span class="c1">#SBATCH -A PROJECT</span>
+<span class="c1">#SBATCH -A PROJECT_REPO</span>
 <span class="c1">#SBATCH -N 2</span>
 <span class="c1">#SBATCH -t 14:00:00</span>
 <span class="c1">#SBATCH -L SCRATCH</span>
@@ -453,6 +539,146 @@ mpirun -n <span class="m">4</span> ats --xml_file<span class="o">=</span>input.x
 srun -n <span class="m">64</span> ats --xml_file<span class="o">=</span>./input.xml
 </pre></div>
 </div>
+</section>
+<section id="batch-job">
+<h2>Batch Job<a class="headerlink" href="#batch-job" title="Permalink to this headline">#</a></h2>
+<p>This section provides scripts for launching batch job on HPC. This is useful for ensemble runs.</p>
+<section id="using-for-loop">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">loop</span></code><a class="headerlink" href="#using-for-loop" title="Permalink to this headline">#</a></h3>
+<p>Launch job using a sbatch script. Basically write a for loop and submit entire jobs using <code class="docutils literal notranslate"><span class="pre">srun</span></code>. The example script below submits 40 small jobs through a single submission using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. It requests a total of 160 nodes (each job uses 4 nodes) and a time limit of 22 hours.</p>
+<div class="admonition-important admonition">
+<p class="admonition-title">Important</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> between each <code class="docutils literal notranslate"><span class="pre">srun</span></code> execution, and <code class="docutils literal notranslate"><span class="pre">wait</span></code> after the entire <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">loop</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">sleep</span></code> to provide additional time between each job submission.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#SBATCH</span> <span class="pre">--no-kill</span></code> is an option to prevent batch job failure if one of the nodes it has been allocated fails. The user will assume the responsibilities for fault-tolerance should a node fail (Don’t use this if you are not sure). See the <a class="reference external" href="https://slurm.schedmd.com/sbatch.html#OPT_no-kill">Slurm documentation</a> for more information.</p></li>
+</ul>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -l</span>
+
+<span class="c1">#SBATCH -A PROJECT_REPO</span>
+<span class="c1">#SBATCH -N 160</span>
+<span class="c1">#SBATCH -t 22:00:00</span>
+<span class="c1">#SBATCH -L SCRATCH</span>
+<span class="c1">#SBATCH -J JOB_NAME</span>
+<span class="c1">#SBATCH --qos regular</span>
+<span class="c1">#SBATCH --mail-type ALL</span>
+<span class="c1">#SBATCH --mail-user pin.shuai@pnnl.gov</span>
+<span class="c1">#SBATCH -C haswell</span>
+<span class="c1">#SBATCH --no-kill</span>
+
+module use -a /global/project/projectdirs/m3421/ats-new/modulefiles
+module load ats/ecoon-land_cover/cori-haswell/intel-6.0.5-mpich-7.7.10/opt
+
+<span class="k">for</span> i <span class="k">in</span> <span class="o">{</span><span class="m">1</span>..40<span class="o">}</span>
+<span class="k">do</span>
+    <span class="nb">cd</span> /path/to/batch_job/ens<span class="nv">$i</span>
+    srun -N <span class="m">4</span> -n <span class="m">128</span> -e job%J.err -o job%J.out ats --xml_file<span class="o">=</span>input.xml sleep <span class="m">5</span> <span class="p">&amp;</span>
+<span class="k">done</span>
+
+sleep <span class="m">1</span>
+
+<span class="nb">wait</span>
+</pre></div>
+</div>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>Simple workflow</p></li>
+<li><p>Finish the ensemble jobs all at once.</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>Long queue time at the beginning</p></li>
+<li><p>May not work well for relatively large ensemble runs (e.g., &gt;200) because of the potential node failure.</p></li>
+</ul>
+</section>
+<section id="using-job-arrays">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">job</span> <span class="pre">Arrays</span></code><a class="headerlink" href="#using-job-arrays" title="Permalink to this headline">#</a></h3>
+<p>Job array provides a convenient way to schedule similar jobs quickly and easily. The example script below submits 30 jobs. Each job uses 1 node and has the same time limit and QOS. See <a class="reference external" href="https://slurm.schedmd.com/job_array.html">Slurm documentation</a> on job arrays.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -l</span>
+
+<span class="c1">#SBATCH -A PROJECT_REPO</span>
+<span class="c1">#SBATCH -N 1</span>
+<span class="c1">#SBATCH -t 24:00:00</span>
+<span class="c1">#SBATCH -L SCRATCH</span>
+<span class="c1">#SBATCH --ntasks-per-node 32</span>
+<span class="c1">#SBATCH --array=1-30</span>
+<span class="c1">#SBATCH -J JOB_NAME</span>
+<span class="c1">#SBATCH --qos regular</span>
+<span class="c1">#SBATCH --mail-type ALL</span>
+<span class="c1">#SBATCH --mail-user pin.shuai@pnnl.gov</span>
+
+<span class="c1">#SBATCH --output=array_%A_%a.out</span>
+
+module use -a /global/project/projectdirs/m3421/ats-new/modulefiles
+module load ats/ecoon-land_cover/cori-haswell/intel-6.0.5-mpich-7.7.10/opt
+
+<span class="c1"># Print the task id.</span>
+<span class="nb">echo</span> <span class="s2">&quot;My SLURM_ARRAY_TASK_ID: &quot;</span> <span class="nv">$SLURM_ARRAY_TASK_ID</span>
+
+<span class="nv">inode</span><span class="o">=</span><span class="si">${</span><span class="nv">SLURM_ARRAY_TASK_ID</span><span class="si">}</span>
+
+<span class="nb">cd</span> /path/to/batch_job/ens<span class="nv">$inode</span>
+srun -n <span class="m">32</span> ats --xml_file<span class="o">=</span>input.xml
+</pre></div>
+</div>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>Submit jobs quickly and easily.</p></li>
+<li><p>The queue time maybe short if running smaller jobs (e.g., short time limit).</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>Long queue time overall if running large ensembles because Slurm scheduler prioritizes fewer jobs requesting many nodes ahead of many jobs requesting fewer nodes (array tasks are considered individual jobs).</p></li>
+</ul>
+</section>
+<section id="using-matk">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">MATK</span></code><a class="headerlink" href="#using-matk" title="Permalink to this headline">#</a></h3>
+<p>Use python scripts to combine input file generation, job submission, sensitivity analysis, and model evaluation through Model Analysis ToolKit (<code class="docutils literal notranslate"><span class="pre">MATK</span></code>). MATK facilitates model analysis within the Python computational environment. See <a class="reference external" href="http://dharp.github.io/matk/">MATK documentation</a> for more information.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -l</span>
+
+<span class="c1">#SBATCH --account=PROJECT_REPO</span>
+<span class="c1">#SBATCH -N 66</span>
+<span class="c1">#SBATCH --tasks-per-node=32</span>
+<span class="c1">#SBATCH -t 06:00:00</span>
+<span class="c1">#SBATCH --job-name=sensitivity_study</span>
+<span class="c1">#SBATCH --qos regular</span>
+<span class="c1">#SBATCH --mail-type ALL</span>
+<span class="c1">#SBATCH --mail-user pin.shuai@pnnl.gov</span>
+<span class="c1">#SBATCH -C haswell</span>
+<span class="c1">#SBATCH -o ./sensitivity_study.out</span>
+<span class="c1">#SBATCH -e ./sensitivity_study.err</span>
+
+module use -a /global/project/projectdirs/m3421/ats-new/modulefiles
+module load python
+module load matk
+module load ats/ecoon-land_cover/cori-haswell/intel-6.0.5-mpich-7.7.10/opt
+
+python run_sensitivity.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">run_sensitivity.py</span></code> is a python script that user uses to generate model parameters for the ensemble, schedule the forward runs, and post-processing of model results.</p>
+</div>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>Manage jobs more efficiently (e.g., keep track of finished and unfinished jobs for resubmission)</p></li>
+<li><p>Can leverage more functionality from <code class="docutils literal notranslate"><span class="pre">MATK</span></code> (e.g., model calibration using PEST)</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>Need to istall <code class="docutils literal notranslate"><span class="pre">MATK</span></code> and learn how to use it</p></li>
+<li><p>The total queue time may be longer than a big <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">loop</span></code> submission.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more workflow tools, see <a class="reference external" href="https://docs.nersc.gov/jobs/workflow-tools/">NERSC documentation</a>.</p>
+</div>
+</section>
 </section>
 </section>
 
