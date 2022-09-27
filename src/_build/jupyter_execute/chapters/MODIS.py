@@ -3,7 +3,7 @@
 
 # # Download and post-process MODIS LAI 
 
-# MODIS product:
+# **MODIS product list**:
 # 
 # |Product|File name|Spatial resolution|Temporal resolution|Period|
 # |---|---|---|---|---|
@@ -11,6 +11,10 @@
 # |Landcover|MCD12Q1.006_500m_aid0001.nc|500-m|yearly|2001-01-01 - present|
 # |ET|MOD16A2GF.006_500m_aid0001.nc|500-m|8-day|2000-01-01 - present|
 # |Snowcover|MOD10A2.006_500m_aid0001.nc|500-m|6-day?|2000-02-24 - present|
+# 
+# ```{note}
+# To download using the script, make sure you have registered an Earthdata Login account at: https://urs.earthdata.nasa.gov/users/new.
+# ```
 
 # In[1]:
 
