@@ -563,8 +563,8 @@
             <ParameterList name="function" type="ParameterList">
               <ParameterList name="function-bilinear-and-time" type="ParameterList">
                 <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="row coordinate [m]" />
-                <Parameter name="column header" type="string" value="col coordinate [m]" />
+                <Parameter name="row header" type="string" value="y [m]" />
+                <Parameter name="column header" type="string" value="x [m]" />
                 <Parameter name="row coordinate" type="string" value="y" />
                 <Parameter name="column coordinate" type="string" value="x" />
                 <Parameter name="time header" type="string" value="time [s]" />
@@ -586,8 +586,8 @@
             <ParameterList name="function" type="ParameterList">
               <ParameterList name="function-bilinear-and-time" type="ParameterList">
                 <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="row coordinate [m]" />
-                <Parameter name="column header" type="string" value="col coordinate [m]" />
+                <Parameter name="row header" type="string" value="y [m]" />
+                <Parameter name="column header" type="string" value="x [m]" />
                 <Parameter name="row coordinate" type="string" value="y" />
                 <Parameter name="column coordinate" type="string" value="x" />
                 <Parameter name="time header" type="string" value="time [s]" />
@@ -606,8 +606,8 @@
             <ParameterList name="function" type="ParameterList">
               <ParameterList name="function-bilinear-and-time" type="ParameterList">
                 <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="row coordinate [m]" />
-                <Parameter name="column header" type="string" value="col coordinate [m]" />
+                <Parameter name="row header" type="string" value="y [m]" />
+                <Parameter name="column header" type="string" value="x [m]" />
                 <Parameter name="row coordinate" type="string" value="y" />
                 <Parameter name="column coordinate" type="string" value="x" />
                 <Parameter name="time header" type="string" value="time [s]" />
@@ -626,8 +626,8 @@
             <ParameterList name="function" type="ParameterList">
               <ParameterList name="function-bilinear-and-time" type="ParameterList">
                 <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="row coordinate [m]" />
-                <Parameter name="column header" type="string" value="col coordinate [m]" />
+                <Parameter name="row header" type="string" value="y [m]" />
+                <Parameter name="column header" type="string" value="x [m]" />
                 <Parameter name="row coordinate" type="string" value="y" />
                 <Parameter name="column coordinate" type="string" value="x" />
                 <Parameter name="time header" type="string" value="time [s]" />
@@ -646,8 +646,8 @@
             <ParameterList name="function" type="ParameterList">
               <ParameterList name="function-bilinear-and-time" type="ParameterList">
                 <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="row coordinate [m]" />
-                <Parameter name="column header" type="string" value="col coordinate [m]" />
+                <Parameter name="row header" type="string" value="y [m]" />
+                <Parameter name="column header" type="string" value="x [m]" />
                 <Parameter name="row coordinate" type="string" value="y" />
                 <Parameter name="column coordinate" type="string" value="x" />
                 <Parameter name="time header" type="string" value="time [s]" />
@@ -675,8 +675,8 @@
                 <ParameterList name="function2" type="ParameterList">
                   <ParameterList name="function-bilinear-and-time" type="ParameterList">
                     <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                    <Parameter name="row header" type="string" value="row coordinate [m]" />
-                    <Parameter name="column header" type="string" value="col coordinate [m]" />
+                    <Parameter name="row header" type="string" value="y [m]" />
+                    <Parameter name="column header" type="string" value="x [m]" />
                     <Parameter name="row coordinate" type="string" value="y" />
                     <Parameter name="column coordinate" type="string" value="x" />
                     <Parameter name="time header" type="string" value="time [s]" />
