@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Running ATS model &#8212; ATS workflow</title>
+    <title>Running ATS model &#8212; ATS Watershed Workflow</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Plot surface variables" href="plot_surface.html" />
-    <link rel="prev" title="Write ATS input file" href="write_ATS_input.html" />
+    <link rel="prev" title="Write ATS input file" href="3-ats_input_file.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -92,7 +92,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <h1 class="site-logo" id="site-title">ATS workflow</h1>
+      <h1 class="site-logo" id="site-title">ATS Watershed Workflow</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -115,35 +115,30 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="mesh.html">
-   Example: mesh a delineated watershed
+  <a class="reference internal" href="1-mesh.html">
+   Generate Watershed Mesh
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="daymet.html">
+  <a class="reference internal" href="2-daymet.html">
    Download Daymet
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MODIS.html">
-   Download and post-process MODIS LAI
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="write_ATS_input.html">
-   Write ATS input file
+  <a class="reference internal" href="3-ats_input_file.html">
+   Generate ATS Input File
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Execute Model
+  Model Run
  </span>
 </p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Running ATS model
+   Run ATS on Local/HPC Machine
   </a>
  </li>
 </ul>
@@ -165,13 +160,13 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="model_evaluation.html">
-   Model evaluation
+   Model Evaluation
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Sensitivity Analysis
+  Model Sensitivity Analysis
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -370,6 +365,11 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-docker">
+   Using Docker
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#single-job-on-local-pc">
    Single Job on Local PC
   </a>
@@ -442,6 +442,11 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-docker">
+   Using Docker
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#single-job-on-local-pc">
    Single Job on Local PC
   </a>
@@ -507,8 +512,22 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="running-ats-model">
 <h1>Running ATS model<a class="headerlink" href="#running-ats-model" title="Permalink to this headline">#</a></h1>
 <p>This section provides the scripts used for executing ATS models on both local PC and high-performance computing (e.g., NERSC)</p>
+<section id="using-docker">
+<h2>Using Docker<a class="headerlink" href="#using-docker" title="Permalink to this headline">#</a></h2>
+<p>Docker image can be used to quickly test run ATS models. The following example shows how to run ATS model using one of the example input file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ats-workflow
+
+docker run -it --rm -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/amanzi_user/work pshuai/ats:v1.5 /bin/bash -c <span class="s2">&quot;cd model/1-spinup_steadystate &amp;&amp; ats --xml_file=../inputs/CoalCreek_spinup_steadystate.xml&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Docker is useful for testing and debugging. However, it is not recommended for running large simulations. For production runs, see the following sections.</p>
+</div>
+</section>
 <section id="single-job-on-local-pc">
 <h2>Single Job on Local PC<a class="headerlink" href="#single-job-on-local-pc" title="Permalink to this headline">#</a></h2>
+<p>Follow the <a class="reference external" href="https://github.com/amanzi/amanzi/blob/master/INSTALL_ATS.md">ATS installation guide</a> to install ATS on your local PC. Once ATS is installed, you can run ATS using the following command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># using single core</span>
 ats --xml_file<span class="o">=</span>input.xml
 
@@ -709,7 +728,7 @@ python run_sensitivity.py
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="write_ATS_input.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="3-ats_input_file.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>

@@ -11,7 +11,12 @@ cd ats-workflow
 docker run -it --rm -v $(pwd):/home/amanzi_user/work pshuai/ats:v1.5 /bin/bash -c "cd model/1-spinup_steadystate && ats --xml_file=../inputs/CoalCreek_spinup_steadystate.xml"
 ```
 
+```{note}
+Docker is useful for testing and debugging. However, it is not recommended for running large simulations. For production runs, see the following sections.
+```
+
 ## Single Job on Local PC
+Follow the [ATS installation guide](https://github.com/amanzi/amanzi/blob/master/INSTALL_ATS.md) to install ATS on your local PC. Once ATS is installed, you can run ATS using the following command.
 
 ```bash
 # using single core
