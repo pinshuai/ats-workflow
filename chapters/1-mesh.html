@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Example: mesh a delineated watershed &#8212; ATS Watershed Workflow</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,56 +61,87 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/1-mesh';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Download Daymet" href="2-daymet.html" />
     <link rel="prev" title="ATS modeling workflow" href="../intro.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="container-fluid" id="banner"></div>
-
     
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">ATS Watershed Workflow</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">ATS Watershed Workflow</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -108,482 +150,270 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model Setup
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Setup</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Generate Watershed Mesh
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="2-daymet.html">
-   Download Daymet
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="3-ats_input_file.html">
-   Generate ATS Input File
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Generate Watershed Mesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-daymet.html">Download Daymet</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-ats_input_file.html">Generate ATS Input File</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model Run
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Run</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="run.html">
-   Run ATS on Local/HPC Machine
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run ATS on Local/HPC Machine</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model Post-processes
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Post-processes</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="plot_surface.html">
-   Plot surface variables
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="plot_subsurface.html">
-   Plot subsurface variables
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="model_evaluation.html">
-   Model Evaluation
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="plot_surface.html">Plot surface variables</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="plot_subsurface.html">Plot subsurface variables</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">Model Evaluation</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model Sensitivity Analysis
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Sensitivity Analysis</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="sensitivity_analysis.html">
-   Sensitivity analysis
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="sensitivity_analysis.html">Sensitivity analysis</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Model Calibration
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Calibration</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="model_calibration.html">
-   Model calibration using Machine Learning
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="model_calibration.html">Model calibration using Machine Learning</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/pinshuai/ats-workflow/main?urlpath=tree/src/chapters/1-mesh.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pinshuai/ats-workflow" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pinshuai/ats-workflow/issues/new?title=Issue%20on%20page%20%2Fchapters/1-mesh.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/1-mesh.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/pinshuai/ats-workflow"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/pinshuai/ats-workflow/issues/new?title=Issue%20on%20page%20%2Fchapters/1-mesh.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/1-mesh.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sources-and-setup">
-   Sources and setup
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sources">
-     Sources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#generate-the-surface-mesh">
-   Generate the surface mesh
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#meshing">
-     Meshing
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-watershed-outlet-optional">
-     Add watershed outlet (optional)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#surface-properties">
-   Surface properties
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#land-cover">
-     Land Cover
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#lai">
-     LAI
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#subsurface-properties">
-   Subsurface properties
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ssurgo-soil-properties">
-     SSURGO Soil Properties
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#glhymps-geologic-layer">
-     GLHYMPS geologic layer
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#depth-to-bedrock">
-   Depth-to-bedrock
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mesh-extrusion">
-   Mesh extrusion
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-mesh-file">
-     Save mesh file
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Example: mesh a delineated watershed</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sources-and-setup">
-   Sources and setup
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sources">
-     Sources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#generate-the-surface-mesh">
-   Generate the surface mesh
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#meshing">
-     Meshing
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-watershed-outlet-optional">
-     Add watershed outlet (optional)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#surface-properties">
-   Surface properties
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#land-cover">
-     Land Cover
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#lai">
-     LAI
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#subsurface-properties">
-   Subsurface properties
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ssurgo-soil-properties">
-     SSURGO Soil Properties
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#glhymps-geologic-layer">
-     GLHYMPS geologic layer
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#depth-to-bedrock">
-   Depth-to-bedrock
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mesh-extrusion">
-   Mesh extrusion
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#save-mesh-file">
-     Save mesh file
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Example: mesh a delineated watershed</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-setup">Sources and setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-the-surface-mesh">Generate the surface mesh</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meshing">Meshing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-watershed-outlet-optional">Add watershed outlet (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-properties">Surface properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#land-cover">Land Cover</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lai">LAI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsurface-properties">Subsurface properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssurgo-soil-properties">SSURGO Soil Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glhymps-geologic-layer">GLHYMPS geologic layer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-to-bedrock">Depth-to-bedrock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh-extrusion">Mesh extrusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-mesh-file">Save mesh file</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="example-mesh-a-delineated-watershed">
-<h1>Example: mesh a delineated watershed<a class="headerlink" href="#example-mesh-a-delineated-watershed" title="Permalink to this headline">#</a></h1>
+<h1>Example: mesh a delineated watershed<a class="headerlink" href="#example-mesh-a-delineated-watershed" title="Permalink to this heading">#</a></h1>
 <p>Here we mesh the Coal Creek Watershed, CO as an example of how to pull data in from default locations and generate a fully functional ATS mesh.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -635,7 +465,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="sources-and-setup">
-<h2>Sources and setup<a class="headerlink" href="#sources-and-setup" title="Permalink to this headline">#</a></h2>
+<h2>Sources and setup<a class="headerlink" href="#sources-and-setup" title="Permalink to this heading">#</a></h2>
 <p>Next we set up the source watershed and coordinate system and all data sources for our mesh.  We will use the CRS (in UTM coordinates) that is included in the shapefile.</p>
 <p><span style="color:blue;">If the CRS is in lat-lon (in degrees), convert it to UTM (in meters).</span></p>
 <div class="cell docutils container">
@@ -687,51 +517,51 @@ title="Print to PDF"
 </div>
 </div>
 <section id="sources">
-<h3>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h3>
+<h3>Sources<a class="headerlink" href="#sources" title="Permalink to this heading">#</a></h3>
 <p>A wide range of data sources are available and shown below:</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>source</p></th>
-<th class="text-align:center head"><p>File_Manager</p></th>
-<th class="text-align:center head"><p>Options</p></th>
+<tr class="row-odd"><th class="head text-center"><p>source</p></th>
+<th class="head text-center"><p>File_Manager</p></th>
+<th class="head text-center"><p>Options</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>sources[‘DEM’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNED()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">arc-second</span></code> (*); <code class="docutils literal notranslate"><span class="pre">1/3</span> <span class="pre">arc-second</span></code></p></td>
+<tr class="row-even"><td class="text-center"><p>sources[‘DEM’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNED()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">arc-second</span></code> (*); <code class="docutils literal notranslate"><span class="pre">1/3</span> <span class="pre">arc-second</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>sources[‘HUC’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNHD()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">NHDPlus</span></code> (*); <code class="docutils literal notranslate"><span class="pre">NHD</span></code>; <code class="docutils literal notranslate"><span class="pre">WBD</span></code></p></td>
+<tr class="row-odd"><td class="text-center"><p>sources[‘HUC’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNHD()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">NHDPlus</span></code> (*); <code class="docutils literal notranslate"><span class="pre">NHD</span></code>; <code class="docutils literal notranslate"><span class="pre">WBD</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>sources[‘hydrography’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNHD()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">NHDPlus</span></code> (*); <code class="docutils literal notranslate"><span class="pre">NHD</span></code></p></td>
+<tr class="row-even"><td class="text-center"><p>sources[‘hydrography’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNHD()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">NHDPlus</span></code> (*); <code class="docutils literal notranslate"><span class="pre">NHD</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>sources[‘land cover’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNLCD()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">NLCD</span> <span class="pre">(L48)</span></code> (*); <code class="docutils literal notranslate"><span class="pre">NLCD</span> <span class="pre">(AK)</span></code>; <code class="docutils literal notranslate"><span class="pre">MODIS</span></code></p></td>
+<tr class="row-odd"><td class="text-center"><p>sources[‘land cover’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNLCD()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">NLCD</span> <span class="pre">(L48)</span></code> (*); <code class="docutils literal notranslate"><span class="pre">NLCD</span> <span class="pre">(AK)</span></code>; <code class="docutils literal notranslate"><span class="pre">MODIS</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>sources[‘geologic structure’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerGLHYMPS()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">GLHYMPS</span></code> (*)</p></td>
+<tr class="row-even"><td class="text-center"><p>sources[‘geologic structure’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerGLHYMPS()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">GLHYMPS</span></code> (*)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>sources[‘soil structure’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNRCS()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">NRCS</span> <span class="pre">SSURGO</span></code> (*)</p></td>
+<tr class="row-odd"><td class="text-center"><p>sources[‘soil structure’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerNRCS()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">NRCS</span> <span class="pre">SSURGO</span></code> (*)</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>sources[‘DTB’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerSoilGrids2017()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">SoilGrids2017</span></code> (*)</p></td>
+<tr class="row-even"><td class="text-center"><p>sources[‘DTB’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerSoilGrids2017()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">SoilGrids2017</span></code> (*)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>sources[‘lai’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerMODISAppEEARS()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">MODIS</span></code> (*)</p></td>
+<tr class="row-odd"><td class="text-center"><p>sources[‘lai’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerMODISAppEEARS()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">MODIS</span></code> (*)</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>sources[‘meteorology’]</p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerDaymet()</span></code></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">DayMet</span></code> (*)</p></td>
+<tr class="row-even"><td class="text-center"><p>sources[‘meteorology’]</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">FileManagerDaymet()</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">DayMet</span></code> (*)</p></td>
 </tr>
 </tbody>
 </table>
@@ -745,42 +575,42 @@ title="Print to PDF"
 </div>
 <p>By default, Watershed-Workflow (WW) will place all the downloads in a folder named <code class="docutils literal notranslate"><span class="pre">data_library</span></code> or the mounted data volume and has the following structure (generated by WW):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
-├── dem
-│   ├── 13as_raw
-│   └── 1as_raw
-├── hydrography
-├── land_cover
-│   ├── MODIS
-│   ├── NLCD_2016_Land_Cover_L48
-│   └── NLCD_2019_Land_Cover_L48
-├── meteorology
-│   └── daymet
-└── soil_structure
-    ├── GLHYMPS
-    ├── SSURGO
-    ├── SoilGrids2017
-    └── depth-to-bedrock
+├──<span class="w"> </span>dem
+│<span class="w">   </span>├──<span class="w"> </span>13as_raw
+│<span class="w">   </span>└──<span class="w"> </span>1as_raw
+├──<span class="w"> </span>hydrography
+├──<span class="w"> </span>land_cover
+│<span class="w">   </span>├──<span class="w"> </span>MODIS
+│<span class="w">   </span>├──<span class="w"> </span>NLCD_2016_Land_Cover_L48
+│<span class="w">   </span>└──<span class="w"> </span>NLCD_2019_Land_Cover_L48
+├──<span class="w"> </span>meteorology
+│<span class="w">   </span>└──<span class="w"> </span>daymet
+└──<span class="w"> </span>soil_structure
+<span class="w">    </span>├──<span class="w"> </span>GLHYMPS
+<span class="w">    </span>├──<span class="w"> </span>SSURGO
+<span class="w">    </span>├──<span class="w"> </span>SoilGrids2017
+<span class="w">    </span>└──<span class="w"> </span>depth-to-bedrock
 </pre></div>
 </div>
 <p>Some of the sources do not have API and they need to be downloaded manually. Here are a list of sources to download:</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>source</p></th>
-<th class="text-align:center head"><p>Download Link</p></th>
-<th class="text-align:center head"><p>Local Path</p></th>
-<th class="text-align:center head"><p>Notes</p></th>
+<tr class="row-odd"><th class="head text-center"><p>source</p></th>
+<th class="head text-center"><p>Download Link</p></th>
+<th class="head text-center"><p>Local Path</p></th>
+<th class="head text-center"><p>Notes</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>GLHYMPS v2</p></td>
-<td class="text-align:center"><p><a class="reference external" href="https://doi.org/10.5683/SP2/TTJNIU">link</a></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">data/soil_structure/GLHYMPS</span></code></p></td>
-<td class="text-align:center"><p>~2.4 GB. Unzip the .zip file and place all the files under the path</p></td>
+<tr class="row-even"><td class="text-center"><p>GLHYMPS v2</p></td>
+<td class="text-center"><p><a class="reference external" href="https://doi.org/10.5683/SP2/TTJNIU">link</a></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">data/soil_structure/GLHYMPS</span></code></p></td>
+<td class="text-center"><p>~2.4 GB. Unzip the .zip file and place all the files under the path</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>Depth-to-bedrock (~2.4 GB)</p></td>
-<td class="text-align:center"><p><a class="reference external" href="http://globalchange.bnu.edu.cn/research/dtb.jsp">Link</a></p></td>
-<td class="text-align:center"><p><code class="docutils literal notranslate"><span class="pre">data/soil_structure/depth-to-bedrock</span></code></p></td>
-<td class="text-align:center"><p>~10 GB. Look for file named <code class="docutils literal notranslate"><span class="pre">Global_absoluteDTB_M_250m_ll.tif</span></code> (250 m resolution). This file is slightly different from the data found in <a class="reference external" href="https://soilgrids.org/">SoilGrids</a>. Why?</p></td>
+<tr class="row-odd"><td class="text-center"><p>Depth-to-bedrock (~2.4 GB)</p></td>
+<td class="text-center"><p><a class="reference external" href="http://globalchange.bnu.edu.cn/research/dtb.jsp">Link</a></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">data/soil_structure/depth-to-bedrock</span></code></p></td>
+<td class="text-center"><p>~10 GB. Look for file named <code class="docutils literal notranslate"><span class="pre">Global_absoluteDTB_M_250m_ll.tif</span></code> (250 m resolution). This file is slightly different from the data found in <a class="reference external" href="https://soilgrids.org/">SoilGrids</a>. Why?</p></td>
 </tr>
 </tbody>
 </table>
@@ -839,7 +669,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="generate-the-surface-mesh">
-<h2>Generate the surface mesh<a class="headerlink" href="#generate-the-surface-mesh" title="Permalink to this headline">#</a></h2>
+<h2>Generate the surface mesh<a class="headerlink" href="#generate-the-surface-mesh" title="Permalink to this heading">#</a></h2>
 <p>First we’ll generate the flattened, 2D triangulation, which builds on hydrography data.  Then we download a digital elevation map from the National Elevation Dataset, and extrude that 2D triangulation to a 3D surface mesh based on interpolation between pixels of the DEM.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1010,11 +840,11 @@ title="Print to PDF"
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_12_1.png" src="../_images/1-mesh_12_1.png" />
+<img alt="../_images/a78d8029062d9436f69e14131d8b5248bfb65c2a4343c6f1b3df3ce744508847.png" src="../_images/a78d8029062d9436f69e14131d8b5248bfb65c2a4343c6f1b3df3ce744508847.png" />
 </div>
 </div>
 <section id="meshing">
-<h3>Meshing<a class="headerlink" href="#meshing" title="Permalink to this headline">#</a></h3>
+<h3>Meshing<a class="headerlink" href="#meshing" title="Permalink to this heading">#</a></h3>
 <p>Triangulation refinement: refine triangles if their area (in m^2) is greater than A(d), where d is the distance from the triangle centroid to the nearest stream. A(d) is a piecewise linear function – A = A0 if d &lt;= d0, A = A1 if d &gt;= d1, and linearly interpolates between the two endpoints.</p>
 <p>Adjust distance and area parameters to refine triangles.</p>
 <p><span style="color:blue;"> Be careful with the min triangular area (e.g., &lt;1 m^2) in the meshes. It will likely cause the model to run extremely slowly. You may also receive an error saying the tolerance value (i.e., the minimum node distance) is too small.</span> You can increase the smoothing parameter such as <code class="docutils literal notranslate"><span class="pre">simplify_hucs</span></code> or <code class="docutils literal notranslate"><span class="pre">simplify_rivers</span></code> to make the boundaries smoother and meshes coarser.</p>
@@ -1059,7 +889,7 @@ title="Print to PDF"
 2023-07-19 19:12:00,687 - root - INFO:   max area = 49649.99279785156
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_14_1.png" src="../_images/1-mesh_14_1.png" />
+<img alt="../_images/e8df127b8089639c13a6c406c17a89ceb5aab0fcd0e2656975b6adaabc8efa84.png" src="../_images/e8df127b8089639c13a6c406c17a89ceb5aab0fcd0e2656975b6adaabc8efa84.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1121,7 +951,7 @@ title="Print to PDF"
  Text(4308000.0, 0, &#39;&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_17_1.png" src="../_images/1-mesh_17_1.png" />
+<img alt="../_images/046df052da5db682f7b4d67e1b037716a6a7b70abe83b6f0e55db5191e657c6a.png" src="../_images/046df052da5db682f7b4d67e1b037716a6a7b70abe83b6f0e55db5191e657c6a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1173,7 +1003,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Elevation [m]&#39;)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_18_2.png" src="../_images/1-mesh_18_2.png" />
+<img alt="../_images/5122b35670861e62fa18e082b6be0a170f87450fe7265fba38f2c6fea5955e12.png" src="../_images/5122b35670861e62fa18e082b6be0a170f87450fe7265fba38f2c6fea5955e12.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1206,12 +1036,12 @@ title="Print to PDF"
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>max diff =  93.59001668278142
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_21_1.png" src="../_images/1-mesh_21_1.png" />
+<img alt="../_images/d817f10b00e75c973780e6d7efffbc317a8c21806d4f05229e6225188ddff52e.png" src="../_images/d817f10b00e75c973780e6d7efffbc317a8c21806d4f05229e6225188ddff52e.png" />
 </div>
 </div>
 </section>
 <section id="add-watershed-outlet-optional">
-<h3>Add watershed outlet (optional)<a class="headerlink" href="#add-watershed-outlet-optional" title="Permalink to this headline">#</a></h3>
+<h3>Add watershed outlet (optional)<a class="headerlink" href="#add-watershed-outlet-optional" title="Permalink to this heading">#</a></h3>
 <p>This will add the outlet region in the mesh for better capturing the streamflow in post-processing. Here there is only one catchment with one outlet. However, this may be necessary for watershed with multiple subcatchments with multiple outlets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1284,7 +1114,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1-mesh_27_0.png" src="../_images/1-mesh_27_0.png" />
+<img alt="../_images/8f637fea7e5c679e36f2aba5cfa747fba5e5eb9d35f64ad0368ac6b0bbb76332.png" src="../_images/8f637fea7e5c679e36f2aba5cfa747fba5e5eb9d35f64ad0368ac6b0bbb76332.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1314,11 +1144,11 @@ title="Print to PDF"
 </section>
 </section>
 <section id="surface-properties">
-<h2>Surface properties<a class="headerlink" href="#surface-properties" title="Permalink to this headline">#</a></h2>
+<h2>Surface properties<a class="headerlink" href="#surface-properties" title="Permalink to this heading">#</a></h2>
 <p>Meshes interact with data to provide forcing, parameters, and more in the actual simulation.  Specifically, we need vegetation type on the surface to provide information about transpiration and subsurface structure to provide information about water retention curves, etc.</p>
 <p>We’ll start by downloading and collecting land cover from the NLCD dataset, and generate sets for each land cover type that cover the surface.  Likely these will be some combination of grass, deciduous forest, coniferous forest, and mixed.</p>
 <section id="land-cover">
-<h3>Land Cover<a class="headerlink" href="#land-cover" title="Permalink to this headline">#</a></h3>
+<h3>Land Cover<a class="headerlink" href="#land-cover" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># download the NLCD raster</span>
@@ -1378,7 +1208,7 @@ setting face color =  [95 21 42 ... 52 42 42]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_33_2.png" src="../_images/1-mesh_33_2.png" />
+<img alt="../_images/9e84d06bcd69782f148e9d224d22f41f42d8386d7a0e95c6f08d1e34fcd5a4cb.png" src="../_images/9e84d06bcd69782f148e9d224d22f41f42d8386d7a0e95c6f08d1e34fcd5a4cb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1421,11 +1251,11 @@ setting face color =  [95 21 42 ... 52 42 42]
 </div>
 </section>
 <section id="lai">
-<h3>LAI<a class="headerlink" href="#lai" title="Permalink to this headline">#</a></h3>
+<h3>LAI<a class="headerlink" href="#lai" title="Permalink to this heading">#</a></h3>
 <p>Download MODIS LAI and LULC, block until it is finished!
 NOTE: if you get an error here about MODIS AppEEARs username and password, realize that you must register for a login in the AppEEARs database.  See: <code class="docutils literal notranslate"><span class="pre">print(sources['lai'].__doc__)</span></code></p>
 <p>You may encounter download issues if the files are too big. In that case, manually download the MODIS data using <a class="reference external" href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>. Here are brief steps:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Sign in if you already registered.</p></li>
 <li><p>Click <code class="docutils literal notranslate"><span class="pre">Extract</span> <span class="pre">--&gt;</span> <span class="pre">Area</span></code></p></li>
 <li><p>Click <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">request</span></code></p></li>
@@ -1537,7 +1367,7 @@ setting face color =  [ 9 10  9 ...  8  9  8]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_41_2.png" src="../_images/1-mesh_41_2.png" />
+<img alt="../_images/519405b65fb9976d06f4b8054c1c30218d6dca2a059fa8dabe6f8bb4e1981f37.png" src="../_images/519405b65fb9976d06f4b8054c1c30218d6dca2a059fa8dabe6f8bb4e1981f37.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1553,7 +1383,7 @@ setting face color =  [ 9 10  9 ...  8  9  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1-mesh_42_0.png" src="../_images/1-mesh_42_0.png" />
+<img alt="../_images/8e71f19dffe4fabc4806c83a6439024a8349469652f101957c126e29cbecbf47.png" src="../_images/8e71f19dffe4fabc4806c83a6439024a8349469652f101957c126e29cbecbf47.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1640,7 +1470,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_46_3.png" src="../_images/1-mesh_46_3.png" />
+<img alt="../_images/f406207dd5a3ebd193b4d0be9fc982b566e0c0dabbb1898cd516c0b6a0fc59fb.png" src="../_images/f406207dd5a3ebd193b4d0be9fc982b566e0c0dabbb1898cd516c0b6a0fc59fb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1838,7 +1668,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x4095141c60&gt;
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_52_1.png" src="../_images/1-mesh_52_1.png" />
+<img alt="../_images/546452b8f7782c5e009927750ee5164e2b1b60912a81bab61e288674d865821d.png" src="../_images/546452b8f7782c5e009927750ee5164e2b1b60912a81bab61e288674d865821d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2007,7 +1837,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x4095c63f10&gt;
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_56_1.png" src="../_images/1-mesh_56_1.png" />
+<img alt="../_images/ea708ce4b036a3a5a3f50f5726b718b62c8e4a106955b7188cbce028c07825d2.png" src="../_images/ea708ce4b036a3a5a3f50f5726b718b62c8e4a106955b7188cbce028c07825d2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2029,7 +1859,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;time [datetime],time [datetime]&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_58_1.png" src="../_images/1-mesh_58_1.png" />
+<img alt="../_images/0e911ce1558485513c9a4e6ceaa5f176e6d7e4239479e9b7e552bb4e4df8e4ea.png" src="../_images/0e911ce1558485513c9a4e6ceaa5f176e6d7e4239479e9b7e552bb4e4df8e4ea.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2180,11 +2010,11 @@ setting face color =  [10  8  8 ... 10  8  8]
 </section>
 </section>
 <section id="subsurface-properties">
-<h2>Subsurface properties<a class="headerlink" href="#subsurface-properties" title="Permalink to this headline">#</a></h2>
+<h2>Subsurface properties<a class="headerlink" href="#subsurface-properties" title="Permalink to this heading">#</a></h2>
 <p>Get soil structure from SSURGO.  By soil structure, here we calculate, for each formation identified in SSURGO, a soil depth, porosity, permeability, and percent sand/silt/clay (which are then handed off to Rosetta to get a van Genuchten model).</p>
 <p>Below this soil we also identify a geologic layer provided by GLHYMPS.  This provides information about the deeper subsurface.</p>
 <section id="ssurgo-soil-properties">
-<h3>SSURGO Soil Properties<a class="headerlink" href="#ssurgo-soil-properties" title="Permalink to this headline">#</a></h3>
+<h3>SSURGO Soil Properties<a class="headerlink" href="#ssurgo-soil-properties" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># download the NRCS soils data as shapes and project it onto the mesh</span>
@@ -2272,7 +2102,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_64_3.png" src="../_images/1-mesh_64_3.png" />
+<img alt="../_images/887cb2563ab1a8d0cf2506ceb51ba27eb535fca2b0d992a9ebd428b70bd729a0.png" src="../_images/887cb2563ab1a8d0cf2506ceb51ba27eb535fca2b0d992a9ebd428b70bd729a0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2721,7 +2551,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_66_3.png" src="../_images/1-mesh_66_3.png" />
+<img alt="../_images/9579ed42c68f1671aa72224b81f7b2b5f31e1111386b252e1c4f15de078cb6d0.png" src="../_images/9579ed42c68f1671aa72224b81f7b2b5f31e1111386b252e1c4f15de078cb6d0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2771,7 +2601,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;log permeability (Rosetta) [m^2]&#39;)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_67_3.png" src="../_images/1-mesh_67_3.png" />
+<img alt="../_images/888d4e3dd564c15ca6c9ee6359b338d76aa46bea1e2f250e10ccfc9550d0eae0.png" src="../_images/888d4e3dd564c15ca6c9ee6359b338d76aa46bea1e2f250e10ccfc9550d0eae0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2798,13 +2628,13 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Median soil thickness = 1.52 [m]
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_68_1.png" src="../_images/1-mesh_68_1.png" />
+<img alt="../_images/b9c5d73e2de3b4ee7cb175176466e46a59a0c6235eaf09e666ea59be7ba35828.png" src="../_images/b9c5d73e2de3b4ee7cb175176466e46a59a0c6235eaf09e666ea59be7ba35828.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reindex_remove_duplicates</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Removes duplicates, creating a new index and saving the old index as tuples of duplicate values. In place!&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes duplicates, creating a new index and saving the old index as tuples of duplicate values. In place!&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
             <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -2826,7 +2656,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replace_column_nans</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_nan</span><span class="p">,</span> <span class="n">col_replacement</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;In a df, replace col_nan entries by col_replacement if is nan.  In Place!&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;In a df, replace col_nan entries by col_replacement if is nan.  In Place!&quot;&quot;&quot;</span>
     <span class="n">row_indexer</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_nan</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_indexer</span><span class="p">,</span> <span class="n">col_nan</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_indexer</span><span class="p">,</span> <span class="n">col_replacement</span><span class="p">]</span>
     <span class="k">return</span>
@@ -3392,12 +3222,12 @@ setting face color =  [1000 1011 1005 ... 1012   -1 1012]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_73_3.png" src="../_images/1-mesh_73_3.png" />
+<img alt="../_images/5beb387b9d9e2f7fa3f5d32f088815029e05bb268706b65b5a5aec9e9d6950f7.png" src="../_images/5beb387b9d9e2f7fa3f5d32f088815029e05bb268706b65b5a5aec9e9d6950f7.png" />
 </div>
 </div>
 </section>
 <section id="glhymps-geologic-layer">
-<h3>GLHYMPS geologic layer<a class="headerlink" href="#glhymps-geologic-layer" title="Permalink to this headline">#</a></h3>
+<h3>GLHYMPS geologic layer<a class="headerlink" href="#glhymps-geologic-layer" title="Permalink to this heading">#</a></h3>
 <p>A copy of GLHYMPS v2 geologic shapefile has to be manually downloaded before running the following scripts (see source section for download instructions).</p>
 <p>This will get properties (i.e., permeability and porosity) for each geologic layer. In case of missing data, default values of permeability (inf?) and porosity (0.01) will be used. Default van Genuchten alpha, n, and residual saturation are used due to lack of soil/silt/clay pct information. <span style="color:blue;"> </span></p>
 <div class="cell docutils container">
@@ -3650,7 +3480,7 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_77_3.png" src="../_images/1-mesh_77_3.png" />
+<img alt="../_images/60ab8685761ad43ea324d2f3044b419c24c64f5e580adc6a31c2500a070d97e9.png" src="../_images/60ab8685761ad43ea324d2f3044b419c24c64f5e580adc6a31c2500a070d97e9.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3689,7 +3519,7 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1800x900 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_78_3.png" src="../_images/1-mesh_78_3.png" />
+<img alt="../_images/4b3de61eba150f2df6813927fb162eba2fda94ecd925f077910fe75e6fd8956d.png" src="../_images/4b3de61eba150f2df6813927fb162eba2fda94ecd925f077910fe75e6fd8956d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3818,13 +3648,13 @@ setting face color =  [103 103 102 ... 102 102 102]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_80_3.png" src="../_images/1-mesh_80_3.png" />
+<img alt="../_images/8cbc053f7308da15aff01be9840c08af96ea19642989187d556d7cd762d8efe0.png" src="../_images/8cbc053f7308da15aff01be9840c08af96ea19642989187d556d7cd762d8efe0.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="depth-to-bedrock">
-<h2>Depth-to-bedrock<a class="headerlink" href="#depth-to-bedrock" title="Permalink to this headline">#</a></h2>
+<h2>Depth-to-bedrock<a class="headerlink" href="#depth-to-bedrock" title="Permalink to this heading">#</a></h2>
 <p>Depth to bedrock is taken from the <a class="reference external" href="http://globalchange.bnu.edu.cn/research/dtb.jsp">SoilGrids</a> product.  Here we download a US-based, clipped version of this global product, as file sizes are quite large (all products potentially used total over 100GB).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3870,12 +3700,12 @@ setting face color =  [103 103 102 ... 102 102 102]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/1-mesh_83_1.png" src="../_images/1-mesh_83_1.png" />
+<img alt="../_images/08590e1b9c5ee47ccd87513cf19593efc99330832b775462afba4ef590a4be68.png" src="../_images/08590e1b9c5ee47ccd87513cf19593efc99330832b775462afba4ef590a4be68.png" />
 </div>
 </div>
 </section>
 <section id="mesh-extrusion">
-<h2>Mesh extrusion<a class="headerlink" href="#mesh-extrusion" title="Permalink to this headline">#</a></h2>
+<h2>Mesh extrusion<a class="headerlink" href="#mesh-extrusion" title="Permalink to this heading">#</a></h2>
 <p>Given the surface mesh and material IDs on both the surface and subsurface, we can extrude the surface mesh in the vertical to make a 3D mesh.</p>
 <p>First, all integer IDs in Exodus files must be unique.  This includes Material IDs, side sets, etc.  We create the Material ID map and data frame.  This is used to standardize IDs from multiple data sources.  Traditionally, ATS numbers Material IDs/Side Sets as:</p>
 <ul class="simple">
@@ -4203,7 +4033,7 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 <p>Next we extrude the DEM to create a 3D mesh.</p>
 <p>The most difficult aspect of extrusion is creating meshes that:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>aren’t huge numbers of cells</p></li>
 <li><p>aren’t huge cell thicknesses, especially near the surface</p></li>
 <li><p>follow implied interfaces, e.g. bottom of soil and bottom of geologic layer</p></li>
@@ -4422,7 +4252,7 @@ Extruded 3D side sets
 </div>
 </div>
 <section id="save-mesh-file">
-<h3>Save mesh file<a class="headerlink" href="#save-mesh-file" title="Permalink to this headline">#</a></h3>
+<h3>Save mesh file<a class="headerlink" href="#save-mesh-file" title="Permalink to this heading">#</a></h3>
 <p>This will write the 3D mesh to ExodusII using arbitrary polyhedra specification.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4533,7 +4363,7 @@ Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
             mode: "watershed_workflow"
         },
         kernelOptions: {
-            kernelName: "watershed_workflow",
+            name: "watershed_workflow",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -4541,50 +4371,128 @@ Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
     </script>
     <script>kernelName = 'watershed_workflow'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">ATS modeling workflow</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ATS modeling workflow</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="2-daymet.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="2-daymet.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Download Daymet</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Pin Shuai, Ethan Coon, and etc.<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-and-setup">Sources and setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-the-surface-mesh">Generate the surface mesh</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meshing">Meshing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-watershed-outlet-optional">Add watershed outlet (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-properties">Surface properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#land-cover">Land Cover</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lai">LAI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsurface-properties">Subsurface properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssurgo-soil-properties">SSURGO Soil Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glhymps-geologic-layer">GLHYMPS geologic layer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-to-bedrock">Depth-to-bedrock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh-extrusion">Mesh extrusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-mesh-file">Save mesh file</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pin Shuai, Ethan Coon, and etc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
