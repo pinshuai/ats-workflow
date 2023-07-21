@@ -448,7 +448,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="ats-modeling-workflow">
 <h1>ATS modeling workflow<a class="headerlink" href="#ats-modeling-workflow" title="Permalink to this headline">#</a></h1>
-<p>This is a Jupyter Book about modeling workflows using the Advanced Terrestrial Simulator (ATS) <span id="id1">[<a class="reference internal" href="#id3" title="Ethan T. Coon, J. David Moulton, Evgeny Kikinzon, Markus Berndt, Gianmarco Manzini, Rao Garimella, Konstantin Lipnikov, and Scott L. Painter. Coupling surface flow and subsurface flow in complex soil structures using mimetic finite differences. Advances in Water Resources, 144(July):103701, 2020. URL: https://doi.org/10.1016/j.advwatres.2020.103701, doi:10.1016/j.advwatres.2020.103701.">CMK+20</a>]</span>. Thoughout this book, you will learn the basics of integrated watershed modeling ranging from model setup, executation, and post-processes. This book is intended to introduce beginers to process-based hydrologic modeling and does not cover the basics in programming using Python.</p>
+<p>This is a Jupyter Book about modeling workflows using the Advanced Terrestrial Simulator (ATS) <span id="id1">[<a class="reference internal" href="#id3" title="Ethan T. Coon, J. David Moulton, Evgeny Kikinzon, Markus Berndt, Gianmarco Manzini, Rao Garimella, Konstantin Lipnikov, and Scott L. Painter. Coupling surface flow and subsurface flow in complex soil structures using mimetic finite differences. Advances in Water Resources, 144(July):103701, 2020. URL: https://doi.org/10.1016/j.advwatres.2020.103701, doi:10.1016/j.advwatres.2020.103701.">1</a>]</span>. Thoughout this book, you will learn the basics of integrated watershed modeling ranging from model setup, executation, and post-processes. This book is intended to introduce beginers to process-based hydrologic modeling and does not cover the basics in programming using Python.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To start, you will either need to install ATS locally or use pre-installed ATS on HPC clusters. The installation instruction can be found under <a class="reference external" href="https://github.com/amanzi/amanzi/blob/master/INSTALL_ATS.md">ATS Github repo</a></p>
@@ -465,7 +465,8 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 <ol class="simple">
 <li><p>Open a terminal and clone this repository</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/pinshuai/ats-workflow.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># specify a tag (e.g., v1.0) to clone a specific version of the repo</span>
+git clone -b v1.0 https://github.com/pinshuai/ats-workflow.git
 
 <span class="nb">cd</span> ats-workflow
 </pre></div>
@@ -475,6 +476,10 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull pinshuai/ats-workflow:v1.0
 </pre></div>
+</div>
+<div class="admonition-important admonition">
+<p class="admonition-title">Important</p>
+<p>Make sure the tag name is the same as the docker image tag name. For example, if you are using <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> tag, you will need to use <code class="docutils literal notranslate"><span class="pre">pinshuai/ats-workflow:v1.0</span></code> as the docker image name.</p>
 </div>
 <ol class="simple">
 <li><p>Run the Docker image</p></li>
@@ -517,10 +522,10 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 <h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id2">
 <dl class="citation">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">CMK+20</a></span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Ethan T. Coon, J. David Moulton, Evgeny Kikinzon, Markus Berndt, Gianmarco Manzini, Rao Garimella, Konstantin Lipnikov, and Scott L. Painter. Coupling surface flow and subsurface flow in complex soil structures using mimetic finite differences. <em>Advances in Water Resources</em>, 144(July):103701, 2020. URL: <a class="reference external" href="https://doi.org/10.1016/j.advwatres.2020.103701">https://doi.org/10.1016/j.advwatres.2020.103701</a>, <a class="reference external" href="https://doi.org/10.1016/j.advwatres.2020.103701">doi:10.1016/j.advwatres.2020.103701</a>.</p>
 </dd>
-<dt class="label" id="id4"><span class="brackets">JSS+23</span></dt>
+<dt class="label" id="id4"><span class="brackets">2</span></dt>
 <dd><p>Peishi Jiang, Pin Shuai, Alexander Sun, Maruti K. Mudunuru, and Xingyuan Chen. Knowledge-informed deep learning for hydrological model calibration: an application to Coal Creek Watershed in Colorado. <em>Hydrology and Earth System Sciences</em>, 27(14):2621–2644, July 2023. Publisher: Copernicus GmbH. URL: <a class="reference external" href="https://hess.copernicus.org/articles/27/2621/2023/">https://hess.copernicus.org/articles/27/2621/2023/</a> (visited on 2023-07-19), <a class="reference external" href="https://doi.org/10.5194/hess-27-2621-2023">doi:10.5194/hess-27-2621-2023</a>.</p>
 </dd>
 </dl>
