@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>ATS modeling workflow &#8212; ATS workflow</title>
+    <title>ATS modeling workflow &#8212; ATS Watershed Workflow</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Example: mesh a delineated watershed" href="chapters/mesh.html" />
+    <link rel="next" title="Example: mesh a delineated watershed" href="chapters/1-mesh.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -91,7 +91,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <h1 class="site-logo" id="site-title">ATS workflow</h1>
+      <h1 class="site-logo" id="site-title">ATS Watershed Workflow</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -114,35 +114,30 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapters/mesh.html">
-   Example: mesh a delineated watershed
+  <a class="reference internal" href="chapters/1-mesh.html">
+   Generate Watershed Mesh
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapters/daymet.html">
+  <a class="reference internal" href="chapters/2-daymet.html">
    Download Daymet
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapters/MODIS.html">
-   Download and post-process MODIS LAI
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="chapters/write_ATS_input.html">
-   Write ATS input file
+  <a class="reference internal" href="chapters/3-ats_input_file.html">
+   Generate ATS Input File
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Execute Model
+  Model Run
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapters/run.html">
-   Running ATS model
+   Run ATS on Local/HPC Machine
   </a>
  </li>
 </ul>
@@ -164,13 +159,13 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapters/model_evaluation.html">
-   Model evaluation
+   Model Evaluation
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Sensitivity Analysis
+  Model Sensitivity Analysis
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -369,6 +364,28 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prerequisites">
+   Prerequisites
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#instructions">
+   Instructions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changelog">
+   Changelog
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#v1-0">
+     v1.0
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bibliography">
    Bibliography
   </a>
@@ -393,6 +410,28 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prerequisites">
+   Prerequisites
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#instructions">
+   Instructions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changelog">
+   Changelog
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#v1-0">
+     v1.0
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bibliography">
    Bibliography
   </a>
@@ -409,18 +448,85 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="ats-modeling-workflow">
 <h1>ATS modeling workflow<a class="headerlink" href="#ats-modeling-workflow" title="Permalink to this headline">#</a></h1>
-<p>This is a Jupyter Book about modeling workflows using the Advanced Terrestrial Simulator (ATS) <span id="id1">[<a class="reference internal" href="#id3" title="Ethan T. Coon, J. David Moulton, Evgeny Kikinzon, Markus Berndt, Gianmarco Manzini, Rao Garimella, Konstantin Lipnikov, and Scott L. Painter. Coupling surface flow and subsurface flow in complex soil structures using mimetic finite differences. Advances in Water Resources, 144(July):103701, 2020. URL: https://doi.org/10.1016/j.advwatres.2020.103701, doi:10.1016/j.advwatres.2020.103701.">CMK+20</a>]</span>. Thoughout this book, you will learn the basics of integrated watershed modeling ranging from model setup, executation, and post-processes. This book is intended to introduce new people to process-based hydrologic modeling and does not cover the basics in programming using Python.</p>
+<p>This is a Jupyter Book about modeling workflows using the Advanced Terrestrial Simulator (ATS) <span id="id1">[<a class="reference internal" href="#id3" title="Ethan T. Coon, J. David Moulton, Evgeny Kikinzon, Markus Berndt, Gianmarco Manzini, Rao Garimella, Konstantin Lipnikov, and Scott L. Painter. Coupling surface flow and subsurface flow in complex soil structures using mimetic finite differences. Advances in Water Resources, 144(July):103701, 2020. URL: https://doi.org/10.1016/j.advwatres.2020.103701, doi:10.1016/j.advwatres.2020.103701.">1</a>]</span>. Thoughout this book, you will learn the basics of integrated watershed modeling ranging from model setup, executation, and post-processes. This book is intended to introduce beginers to process-based hydrologic modeling and does not cover the basics in programming using Python.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To start, you will either need to install ATS locally or use pre-installed ATS on HPC clusters. The installation instruction can be found under <a class="reference external" href="https://github.com/amanzi/amanzi/blob/master/INSTALL_ATS.md">ATS Github repo</a></p>
 </div>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.docker.com/get-docker/">Docker</a>
+This workflow uses Docker to run all notebooks. You will need to install Docker on your machine. Please follow the <a class="reference external" href="https://docs.docker.com/get-docker/">Docker installation guide</a>.</p></li>
+</ul>
+</section>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>Open a terminal and clone this repository</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># specify a tag (e.g., v1.0) to clone a specific version of the repo</span>
+git clone -b v1.0 https://github.com/pinshuai/ats-workflow.git
+
+<span class="nb">cd</span> ats-workflow
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Pull the Docker image</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull pinshuai/ats-workflow:v1.0
+</pre></div>
+</div>
+<div class="admonition-important admonition">
+<p class="admonition-title">Important</p>
+<p>Make sure the tag name is the same as the docker image tag name. For example, if you are using <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> tag, you will need to use <code class="docutils literal notranslate"><span class="pre">pinshuai/ats-workflow:v1.0</span></code> as the docker image name.</p>
+</div>
+<ol class="simple">
+<li><p>Run the Docker image</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it --rm -p <span class="m">8888</span>:8888 -e <span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/jovyan/workdir:delegated -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/data:/home/jovyan/data:delegated pinshuai/ats-workflow:v1.0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Make sure the local port number (8888) is not occupied by other processes. Alternatively, you can change the local port number to other numbers (e.g., <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">8890:8888</span></code>).</p></li>
+<li><p>On Windows, you may need to replace <code class="docutils literal notranslate"><span class="pre">$(pwd)</span></code> with the absolute path of the current directory (e.g., <code class="docutils literal notranslate"><span class="pre">C:\Home\Documents\ats-workflow</span></code>).</p></li>
+</ul>
+</div>
+<ol class="simple">
+<li><p>Follow the prompt on screen to open the Jupyter Lab in your browser. For example, copy the following URL to your browser.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://127.0.0.1:8888/lab?token<span class="o">=</span>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+</pre></div>
+</div>
+<div class="admonition-important admonition">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>If you are using a local port number different than <code class="docutils literal notranslate"><span class="pre">8888</span></code>, you will need to manually replace <code class="docutils literal notranslate"><span class="pre">8888</span></code> with the new port number (e.g., <code class="docutils literal notranslate"><span class="pre">8890</span></code>) specified in the last step in the url.</p></li>
+</ul>
+</div>
+<p>Now you should be able to run all notebooks within the Jupyter Lab.</p>
 <p>You can find more about <a class="reference external" href="https://jupyterbook.org/en/stable/intro.html">Jupyter Book</a> and <a class="reference external" href="https://amanzi.github.io/">ATS</a>.</p>
+</section>
+<section id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">#</a></h2>
+<section id="v1-0">
+<h3>v1.0<a class="headerlink" href="#v1-0" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>2023-07-21: Initial release. The meshing, downloading forcing, and generating input files workflow has been updated to work with ATS v1.5.x using Coal Creek Watershed as an example.</p></li>
+</ul>
+</section>
+</section>
 <section id="bibliography">
 <h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id2">
 <dl class="citation">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">CMK+20</a></span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Ethan T. Coon, J. David Moulton, Evgeny Kikinzon, Markus Berndt, Gianmarco Manzini, Rao Garimella, Konstantin Lipnikov, and Scott L. Painter. Coupling surface flow and subsurface flow in complex soil structures using mimetic finite differences. <em>Advances in Water Resources</em>, 144(July):103701, 2020. URL: <a class="reference external" href="https://doi.org/10.1016/j.advwatres.2020.103701">https://doi.org/10.1016/j.advwatres.2020.103701</a>, <a class="reference external" href="https://doi.org/10.1016/j.advwatres.2020.103701">doi:10.1016/j.advwatres.2020.103701</a>.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets">2</span></dt>
+<dd><p>Peishi Jiang, Pin Shuai, Alexander Sun, Maruti K. Mudunuru, and Xingyuan Chen. Knowledge-informed deep learning for hydrological model calibration: an application to Coal Creek Watershed in Colorado. <em>Hydrology and Earth System Sciences</em>, 27(14):2621–2644, July 2023. Publisher: Copernicus GmbH. URL: <a class="reference external" href="https://hess.copernicus.org/articles/27/2621/2023/">https://hess.copernicus.org/articles/27/2621/2023/</a> (visited on 2023-07-19), <a class="reference external" href="https://doi.org/10.5194/hess-27-2621-2023">doi:10.5194/hess-27-2621-2023</a>.</p>
 </dd>
 </dl>
 </div>
@@ -464,7 +570,7 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="chapters/mesh.html" title="next page">
+    <a class='right-next' id="next-link" href="chapters/1-mesh.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Example: mesh a delineated watershed</p>
