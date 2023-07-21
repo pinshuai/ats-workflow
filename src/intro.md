@@ -1,6 +1,6 @@
 # ATS modeling workflow
 
-This is a Jupyter Book about modeling workflows using the Advanced Terrestrial Simulator (ATS) {cite}`Coon2020`. Thoughout this book, you will learn the basics of integrated watershed modeling ranging from model setup, executation, and post-processes. This book is intended to introduce beginers to process-based hydrologic modeling and does not cover the basics in programming using Python.
+This is a Jupyter Book about modeling workflows using the Advanced Terrestrial Simulator (ATS) {cite:p}`Coon2020`. Thoughout this book, you will learn the basics of integrated watershed modeling ranging from model setup, executation, and post-processes. This book is intended to introduce beginers to process-based hydrologic modeling and does not cover the basics in programming using Python.
 
 ```{note}
 To start, you will either need to install ATS locally or use pre-installed ATS on HPC clusters. The installation instruction can be found under [ATS Github repo](https://github.com/amanzi/amanzi/blob/master/INSTALL_ATS.md)
@@ -14,17 +14,22 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 
 1. Open a terminal and clone this repository
 ```bash
-git clone https://github.com/pinshuai/ats-workflow.git
+# specify a tag (e.g., v1.0) to clone a specific version of the repo
+git clone -b v1.0 https://github.com/pinshuai/ats-workflow.git
 
 cd ats-workflow
 ```
 
-2. Pull the Docker image
+1. Pull the Docker image
 ```bash
 docker pull pinshuai/ats-workflow:v1.0
 ```
 
-3. Run the Docker image
+```{admonition} Important
+Make sure the tag name is the same as the docker image tag name. For example, if you are using `v1.0` tag, you will need to use `pinshuai/ats-workflow:v1.0` as the docker image name.
+```
+
+1. Run the Docker image
 
 ```bash
 docker run -it --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan/workdir:delegated -v $(pwd)/data:/home/jovyan/data:delegated pinshuai/ats-workflow:v1.0
@@ -56,4 +61,5 @@ You can find more about [Jupyter Book](https://jupyterbook.org/en/stable/intro.h
 
 ## Bibliography
 ```{bibliography} references.bib
+:style: plain
 ```
