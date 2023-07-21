@@ -7,23 +7,29 @@ parts:
 
   - caption: Model Setup
     chapters:
-      - file: chapters/mesh.ipynb
-      - file: chapters/daymet.ipynb
-      - file: chapters/MODIS.ipynb
-      - file: chapters/write_ATS_input.ipynb
+      - file: chapters/1-mesh.ipynb
+        title: Generate Watershed Mesh
+      - file: chapters/2-daymet.ipynb
+        title: Download Daymet Forcing Data
+      - file: chapters/3-ats_input_file.ipynb
+        title: Generate ATS Input File
 
 
-  - caption: Execute Model
+  - caption: Model Run
     chapters:
       - file: chapters/run.md
+        title: Run ATS on Local/HPC Machine
 
   - caption: Model Post-processes
     chapters:
       - file: chapters/plot_surface.ipynb
+        title: Plot Surface Variables
       - file: chapters/plot_subsurface.ipynb
+        title: Plot Subsurface Variables
       - file: chapters/model_evaluation.ipynb
+        title: Model Evaluation
 
-  - caption: Sensitivity Analysis
+  - caption: Model Sensitivity Analysis
     chapters:
       - file: chapters/sensitivity_analysis.ipynb
 

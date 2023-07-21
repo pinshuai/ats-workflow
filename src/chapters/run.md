@@ -2,6 +2,15 @@
 
 This section provides the scripts used for executing ATS models on both local PC and high-performance computing (e.g., NERSC)
 
+## Using Docker
+Docker image can be used to quickly test run ATS models. The following example shows how to run ATS model using one of the example input file.
+
+```bash
+cd ats-workflow
+
+docker run -it --rm -v $(pwd):/home/amanzi_user/work pshuai/ats:v1.5 /bin/bash -c "cd model/1-spinup_steadystate && ats --xml_file=../inputs/CoalCreek_spinup_steadystate.xml"
+```
+
 ## Single Job on Local PC
 
 ```bash
