@@ -414,7 +414,7 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 <li><p>Open a terminal and clone this repository</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># specify a tag (e.g., v1.0) to clone a specific version of the repo</span>
-git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v1.0<span class="w"> </span>https://github.com/pinshuai/ats-workflow.git
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v1.0<span class="w"> </span>https://github.com/pinshuai/ats-workflow<span class="w"> </span>
 
 <span class="nb">cd</span><span class="w"> </span>ats-workflow
 </pre></div>
@@ -422,17 +422,17 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <ol class="arabic simple">
 <li><p>Pull the Docker image</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>pinshuai/ats-workflow:v1.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>pshuai/ats_workflow:v1.0
 </pre></div>
 </div>
 <div class="admonition-important admonition">
 <p class="admonition-title">Important</p>
-<p>Make sure the tag name is the same as the docker image tag name. For example, if you are using <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> tag, you will need to use <code class="docutils literal notranslate"><span class="pre">pinshuai/ats-workflow:v1.0</span></code> as the docker image name.</p>
+<p>Make sure the tag name is the same as the docker image tag name. For example, if you are using <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> tag, you will need to use <code class="docutils literal notranslate"><span class="pre">pshuai/ats_workflow:v1.0</span></code> as the docker image name.</p>
 </div>
 <ol class="arabic simple">
 <li><p>Run the Docker image</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-e<span class="w"> </span><span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/jovyan/workdir:delegated<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/data:/home/jovyan/data:delegated<span class="w"> </span>pinshuai/ats-workflow:v1.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-e<span class="w"> </span><span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/jovyan/workdir:delegated<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/data:/home/jovyan/data:delegated<span class="w"> </span>pshuai/ats_workflow:v1.0
 </pre></div>
 </div>
 <div class="admonition note">
