@@ -15,24 +15,24 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 1. Open a terminal and clone this repository
 ```bash
 # specify a tag (e.g., v1.0) to clone a specific version of the repo
-git clone -b v1.0 https://github.com/pinshuai/ats-workflow.git
+git clone -b v1.0 https://github.com/pinshuai/ats-workflow 
 
 cd ats-workflow
 ```
 
 1. Pull the Docker image
 ```bash
-docker pull pinshuai/ats-workflow:v1.0
+docker pull pshuai/ats_workflow:v1.0
 ```
 
 ```{admonition} Important
-Make sure the tag name is the same as the docker image tag name. For example, if you are using `v1.0` tag, you will need to use `pinshuai/ats-workflow:v1.0` as the docker image name.
+Make sure the tag name is the same as the docker image tag name. For example, if you are using `v1.0` tag, you will need to use `pshuai/ats_workflow:v1.0` as the docker image name.
 ```
 
 1. Run the Docker image
 
 ```bash
-docker run -it --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan/workdir:delegated -v $(pwd)/data:/home/jovyan/data:delegated pinshuai/ats-workflow:v1.0
+docker run -it --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan/workdir:delegated -v $(pwd)/data:/home/jovyan/data:delegated pshuai/ats_workflow:v1.0
 ```
 
 ```{note}
