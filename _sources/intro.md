@@ -20,7 +20,7 @@ git clone -b v1.0 https://github.com/pinshuai/ats-workflow
 cd ats-workflow
 ```
 
-1. Pull the Docker image
+2. Pull the Docker image
 ```bash
 docker pull pshuai/ats_workflow:v1.0
 ```
@@ -29,13 +29,15 @@ docker pull pshuai/ats_workflow:v1.0
 Make sure the tag name is the same as the docker image tag name. For example, if you are using `v1.0` tag, you will need to use `pshuai/ats_workflow:v1.0` as the docker image name.
 ```
 
-1. Run the Docker image
+3. Run the Docker image
 
 ```bash
 docker run -it --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan/workdir:delegated -v $(pwd)/data:/home/jovyan/data:delegated pshuai/ats_workflow:v1.0
 ```
 
 ```{note}
+- The docker command above mounted two local volumes to the container through `-v`. The first mounts current working directory (i.e., `path/to/ats-workflow`) to the `workdir` insider docker. The second mounts a local data directory to the `data` directory inside docker. In fact, you can mount any data directory you want for storing large raw data such as GLHYMPS, NLCD landcover, and depth-to-bedrock.
+
 - Make sure the local port number (8888) is not occupied by other processes. Alternatively, you can change the local port number to other numbers (e.g., `-p 8890:8888`).
 
 - On Windows, you may need to replace `$(pwd)` with the absolute path of the current directory (e.g., `C:\Home\Documents\ats-workflow`).
