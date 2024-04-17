@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -138,9 +138,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="#">
+  
   
   
   
@@ -346,6 +348,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -355,6 +358,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -389,6 +393,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changelog">Changelog</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#v1-1">v1.1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#v1-0">v1.0</a></li>
 </ul>
 </li>
@@ -424,12 +429,28 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 <li><p>Open a terminal and clone this repository</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># specify a tag (e.g., v1.0) to clone a specific version of the repo</span>
-git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v1.0<span class="w"> </span>https://github.com/pinshuai/ats-workflow<span class="w"> </span>
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v1.1<span class="w"> </span>https://github.com/pinshuai/ats-workflow<span class="w"> </span>
 
 <span class="nb">cd</span><span class="w"> </span>ats-workflow
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
+<li><p>Download data
+All data associated with the notebook examples can be downloaded from <a class="reference external" href="https://doi.org/10.5281/zenodo.10982775">Zenodo</a>.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install zenodo_get</span>
+pip3<span class="w"> </span>install<span class="w"> </span>zenodo_get
+
+<span class="c1"># download data from zenodo. This will download a zip file (e.g., data.zip)</span>
+zenodo_get<span class="w"> </span><span class="m">10</span>.5281/zenodo.10982774
+</pre></div>
+</div>
+<p>Extract the data and put them in the right folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract data.zip to current data folder</span>
+tar<span class="w"> </span>-xf<span class="w"> </span>data.zip<span class="w"> </span>-C<span class="w"> </span>./data
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
 <li><p>Pull the Docker image</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>pshuai/ats_workflow:v1.0
@@ -439,7 +460,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <p class="admonition-title">Important</p>
 <p>Make sure the tag name is the same as the docker image tag name. For example, if you are using <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> tag, you will need to use <code class="docutils literal notranslate"><span class="pre">pshuai/ats_workflow:v1.0</span></code> as the docker image name.</p>
 </div>
-<ol class="arabic simple" start="3">
+<ol class="arabic simple" start="4">
 <li><p>Run the Docker image</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-e<span class="w"> </span><span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/jovyan/workdir:delegated<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/data:/home/jovyan/data:delegated<span class="w"> </span>pshuai/ats_workflow:v1.0
@@ -453,7 +474,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <li><p>On Windows, you may need to replace <code class="docutils literal notranslate"><span class="pre">$(pwd)</span></code> with the absolute path of the current directory (e.g., <code class="docutils literal notranslate"><span class="pre">C:\Home\Documents\ats-workflow</span></code>).</p></li>
 </ul>
 </div>
-<ol class="arabic simple" start="4">
+<ol class="arabic simple" start="5">
 <li><p>Follow the prompt on screen to open the Jupyter Lab in your browser. For example, copy the following URL to your browser.</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://127.0.0.1:8888/lab?token<span class="o">=</span>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -470,6 +491,12 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 </section>
 <section id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">#</a></h2>
+<section id="v1-1">
+<h3>v1.1<a class="headerlink" href="#v1-1" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>2024-04-16: Added instructions to download supplemental data from zenodo; updated notebooks to set the data library. This allows all notebooks to run regardless of upstream data source changes.</p></li>
+</ul>
+</section>
 <section id="v1-0">
 <h3>v1.0<a class="headerlink" href="#v1-0" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -531,7 +558,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="right-next"
        href="chapters/1-mesh.html"
@@ -560,6 +587,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changelog">Changelog</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#v1-1">v1.1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#v1-0">v1.0</a></li>
 </ul>
 </li>
@@ -585,6 +613,7 @@ By Pin Shuai, Ethan Coon, and etc.
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -611,8 +640,8 @@ By Pin Shuai, Ethan Coon, and etc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

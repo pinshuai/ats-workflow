@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -139,9 +139,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -347,6 +349,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -356,6 +359,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -468,6 +472,13 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">watershed_workflow</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set_data_directory</span><span class="p">(</span><span class="s1">&#39;../../data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
 <span class="kn">from</span> <span class="nn">modvis</span> <span class="kn">import</span> <span class="n">ATSutils</span>
 </pre></div>
@@ -518,15 +529,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:11:21,257 - root - INFO: 
-2023-07-19 19:11:21,261 - root - INFO: Meshing shape: ../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp
-2023-07-19 19:11:21,265 - root - INFO: ==============================
-2023-07-19 19:11:21,272 - root - INFO: 
-2023-07-19 19:11:21,276 - root - INFO: Loading shapes
-2023-07-19 19:11:21,279 - root - INFO: ------------------------------
-2023-07-19 19:11:21,282 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
-2023-07-19 19:11:21,461 - root - INFO: ... found 1 shapes
-2023-07-19 19:11:21,466 - root - INFO: Converting to shapely
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,201 - root - INFO: 
+2024-04-17 05:10:34,204 - root - INFO: Meshing shape: ../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp
+2024-04-17 05:10:34,208 - root - INFO: ==============================
+2024-04-17 05:10:34,211 - root - INFO: 
+2024-04-17 05:10:34,214 - root - INFO: Loading shapes
+2024-04-17 05:10:34,216 - root - INFO: ------------------------------
+2024-04-17 05:10:34,218 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
+2024-04-17 05:10:34,354 - root - INFO: ... found 1 shapes
+2024-04-17 05:10:34,357 - root - INFO: Converting to shapely
 </pre></div>
 </div>
 </div>
@@ -667,18 +678,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:11:21,613 - root - INFO: Using sources:
-2023-07-19 19:11:21,616 - root - INFO: --------------
-2023-07-19 19:11:21,621 - root - INFO: HUC: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
-2023-07-19 19:11:21,625 - root - INFO: hydrography: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
-2023-07-19 19:11:21,630 - root - INFO: DEM: National Elevation Dataset (NED)
-2023-07-19 19:11:21,635 - root - INFO: soil structure: National Resources Conservation Service Soil Survey (NRCS Soils)
-2023-07-19 19:11:21,638 - root - INFO: geologic structure: ../../data/examples/CoalCreek/sources/GLHYMPS/CoalCreek_glhymps_v2.shp
-2023-07-19 19:11:21,642 - root - INFO: land cover: raster
-2023-07-19 19:11:21,645 - root - INFO: lai: MODIS
-2023-07-19 19:11:21,649 - root - INFO: soil thickness: None
-2023-07-19 19:11:21,653 - root - INFO: meteorology: DayMet 1km
-2023-07-19 19:11:21,657 - root - INFO: depth to bedrock: raster
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,479 - root - INFO: Using sources:
+2024-04-17 05:10:34,482 - root - INFO: --------------
+2024-04-17 05:10:34,485 - root - INFO: HUC: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
+2024-04-17 05:10:34,487 - root - INFO: hydrography: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
+2024-04-17 05:10:34,492 - root - INFO: DEM: National Elevation Dataset (NED)
+2024-04-17 05:10:34,494 - root - INFO: soil structure: National Resources Conservation Service Soil Survey (NRCS Soils)
+2024-04-17 05:10:34,497 - root - INFO: geologic structure: ../../data/examples/CoalCreek/sources/GLHYMPS/CoalCreek_glhymps_v2.shp
+2024-04-17 05:10:34,500 - root - INFO: land cover: raster
+2024-04-17 05:10:34,503 - root - INFO: lai: MODIS
+2024-04-17 05:10:34,506 - root - INFO: soil thickness: None
+2024-04-17 05:10:34,509 - root - INFO: meteorology: DayMet 1km
+2024-04-17 05:10:34,515 - root - INFO: depth to bedrock: raster
 </pre></div>
 </div>
 </div>
@@ -706,7 +717,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:11:21,890 - root - INFO: Found watershed in HUC: 140200010204
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,697 - root - INFO: Found watershed in HUC: 140200010204
 </pre></div>
 </div>
 </div>
@@ -732,117 +743,117 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:11:22,041 - root - INFO: 
-2023-07-19 19:11:22,044 - root - INFO: Loading Hydrography
-2023-07-19 19:11:22,048 - root - INFO: ------------------------------
-2023-07-19 19:11:22,051 - root - INFO: Loading streams in HUC 140200010204
-2023-07-19 19:11:22,060 - root - INFO:          and/or bounds (317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)
-2023-07-19 19:11:22,068 - root - INFO:   Using Hydrography file &quot;/home/jovyan/data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&quot;
-2023-07-19 19:11:22,072 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;/home/jovyan/data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDFlowline&#39; for streams in &#39;(317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)&#39;
-2023-07-19 19:11:22,962 - root - INFO:   Found total of 205 in bounds.
-2023-07-19 19:11:22,969 - root - INFO:   Filtering reaches not in-network
-2023-07-19 19:11:22,974 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;/home/jovyan/data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDPlusFlowlineVAA&#39; for river network properties in &#39;(-107.10720481215337, 38.82724324194855, -106.97604331554375, 38.89570604410164)&#39;
-2023-07-19 19:11:34,854 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;/home/jovyan/data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDPlusEROMMA&#39; for river network properties in &#39;(-107.10720481215337, 38.82724324194855, -106.97604331554375, 38.89570604410164)&#39;
-2023-07-19 19:11:43,355 - root - INFO: ... found 201 reaches
-2023-07-19 19:11:43,359 - root - INFO: Converting to shapely
-2023-07-19 19:11:43,496 - root - INFO: Converting to out_crs
-2023-07-19 19:11:43,775 - root - INFO: Removed 83 of 201 reaches not in shape
-2023-07-19 19:11:43,780 - root - INFO: 
-2023-07-19 19:11:43,783 - root - INFO: Constructing river network
-2023-07-19 19:11:43,785 - root - INFO: ------------------------------
-2023-07-19 19:11:43,788 - root - INFO: Generating the river tree
-2023-07-19 19:11:43,793 - root - INFO:  ... generated 2 rivers
-2023-07-19 19:11:43,801 - root - INFO: Pruning by fractional contributing area &lt; 0.01
-2023-07-19 19:11:43,806 - root - INFO: ... total contributing area = 193.58910018
-2023-07-19 19:11:43,809 - root - INFO: ... removing: 0.48949999 of 193.58910018
-2023-07-19 19:11:43,814 - root - INFO: ... removing: 0.36239995 of 193.58910018
-2023-07-19 19:11:43,819 - root - INFO: ... removing: 1.92720001 of 193.58910018
-2023-07-19 19:11:43,823 - root - INFO: ... removing: 0.8301999800000001 of 193.58910018
-2023-07-19 19:11:43,828 - root - INFO: ... removing: 0.18070001 of 193.58910018
-2023-07-19 19:11:43,836 - root - INFO: ... removing: 0.38759999 of 193.58910018
-2023-07-19 19:11:43,841 - root - INFO: ... removing: 0.83940003 of 193.58910018
-2023-07-19 19:11:43,846 - root - INFO: ... removing: 0.5789000000000001 of 193.58910018
-2023-07-19 19:11:43,852 - root - INFO: ... removing: 0.95399999 of 193.58910018
-2023-07-19 19:11:43,855 - root - INFO: ... removing: 0.97809997 of 193.58910018
-2023-07-19 19:11:43,859 - root - INFO: ... removing: 0.7281000200000001 of 193.58910018
-2023-07-19 19:11:43,865 - root - INFO: ... removing: 0.53450003 of 193.58910018
-2023-07-19 19:11:43,868 - root - INFO: ... removing: 0.33420002 of 193.58910018
-2023-07-19 19:11:43,873 - root - INFO: ... removing: 1.7706000000000002 of 193.58910018
-2023-07-19 19:11:43,876 - root - INFO: ... removing: 0.40239999 of 193.58910018
-2023-07-19 19:11:43,883 - root - INFO: ... removing: 0.3447 of 193.58910018
-2023-07-19 19:11:43,887 - root - INFO: ... removing: 1.79579997 of 193.58910018
-2023-07-19 19:11:43,890 - root - INFO: ... removing: 0.9384999700000001 of 193.58910018
-2023-07-19 19:11:43,895 - root - INFO: ... removing: 1.10790005 of 193.58910018
-2023-07-19 19:11:43,898 - root - INFO: ... removing: 1.42430003 of 193.58910018
-2023-07-19 19:11:43,902 - root - INFO: ... removing: 1.48390002 of 193.58910018
-2023-07-19 19:11:43,905 - root - INFO: ... removing: 0.87100001 of 193.58910018
-2023-07-19 19:11:43,911 - root - INFO: ... removing: 0.19800001 of 193.58910018
-2023-07-19 19:11:43,914 - root - INFO: ... removing: 0.4647 of 193.58910018
-2023-07-19 19:11:43,920 - root - INFO: ... removing: 0.50140003 of 193.58910018
-2023-07-19 19:11:43,924 - root - INFO: ... removing: 0.7591999700000001 of 193.58910018
-2023-07-19 19:11:43,929 - root - INFO: ... removing: 0.5633 of 193.58910018
-2023-07-19 19:11:43,935 - root - INFO: ... removing: 0.63440005 of 193.58910018
-2023-07-19 19:11:43,938 - root - INFO: ... removing: 0.62940001 of 193.58910018
-2023-07-19 19:11:43,942 - root - INFO: ... removing: 1.87300002 of 193.58910018
-2023-07-19 19:11:43,946 - root - INFO: ... removing: 1.8664 of 193.58910018
-2023-07-19 19:11:43,950 - root - INFO: ... removing: 0.33550002 of 193.58910018
-2023-07-19 19:11:43,954 - root - INFO: ... removing: 1.05729998 of 193.58910018
-2023-07-19 19:11:43,958 - root - INFO: ... total contributing area = 193.58910018
-2023-07-19 19:11:43,962 - root - INFO: ... pruned 33
-2023-07-19 19:11:43,965 - root - INFO: 
-2023-07-19 19:11:43,968 - root - INFO: Simplifying
-2023-07-19 19:11:43,971 - root - INFO: ------------------------------
-2023-07-19 19:11:43,975 - root - INFO: Simplifying rivers
-2023-07-19 19:11:44,033 - root - INFO:   ...cleaned inner segment of length 21.0141 at centroid (325697.73040492646, 4304206.45329683)
-2023-07-19 19:11:44,041 - root - INFO: Simplifying HUCs
-2023-07-19 19:11:44,052 - root - INFO: Snapping river and HUC (nearly) coincident nodes
-2023-07-19 19:11:44,072 - root - INFO:   snapping polygon segment boundaries to river endpoints
-2023-07-19 19:11:44,114 - root - INFO:   snapping river endpoints to the polygon
-2023-07-19 19:11:44,125 - root - INFO:     snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
-2023-07-19 19:11:44,150 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
-2023-07-19 19:11:44,166 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
-2023-07-19 19:11:44,462 - root - INFO:   cutting at crossings
-2023-07-19 19:11:44,467 - root - INFO: intersection found
-2023-07-19 19:11:44,523 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,527 - root - INFO:       split HUC boundary seg into 2 pieces
-2023-07-19 19:11:44,532 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,541 - root - INFO: intersection found
-2023-07-19 19:11:44,551 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,554 - root - INFO:       split HUC boundary seg into 1 pieces
-2023-07-19 19:11:44,558 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,573 - root - INFO: intersection found
-2023-07-19 19:11:44,585 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,589 - root - INFO:       split HUC boundary seg into 1 pieces
-2023-07-19 19:11:44,592 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,617 - root - INFO: intersection found
-2023-07-19 19:11:44,672 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,676 - root - INFO:       split HUC boundary seg into 2 pieces
-2023-07-19 19:11:44,680 - root - INFO:       split reach seg into 2 pieces
-2023-07-19 19:11:44,704 - root - INFO: Cutting crossings and removing external segments
-2023-07-19 19:11:44,708 - root - INFO:   cutting at crossings
-2023-07-19 19:11:44,713 - root - INFO: intersection found
-2023-07-19 19:11:44,724 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,728 - root - INFO:       split HUC boundary seg into 1 pieces
-2023-07-19 19:11:44,731 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,745 - root - INFO: intersection found
-2023-07-19 19:11:44,755 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,758 - root - INFO:       split HUC boundary seg into 1 pieces
-2023-07-19 19:11:44,761 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,774 - root - INFO: intersection found
-2023-07-19 19:11:44,787 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,791 - root - INFO:       split HUC boundary seg into 1 pieces
-2023-07-19 19:11:44,794 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,821 - root - INFO: intersection found
-2023-07-19 19:11:44,834 - root - INFO:   - cutting reach at external boundary of HUCs:
-2023-07-19 19:11:44,837 - root - INFO:       split HUC boundary seg into 1 pieces
-2023-07-19 19:11:44,840 - root - INFO:       split reach seg into 1 pieces
-2023-07-19 19:11:44,862 - root - INFO: 
-2023-07-19 19:11:44,866 - root - INFO: Simplification Diagnostics
-2023-07-19 19:11:44,869 - root - INFO: ------------------------------
-2023-07-19 19:11:44,893 - root - INFO:   river min seg length: 63.505778633192975
-2023-07-19 19:11:44,901 - root - INFO:   river median seg length: 165.69096496550588
-2023-07-19 19:11:44,913 - root - INFO:   HUC min seg length: 0.0
-2023-07-19 19:11:44,919 - root - INFO:   HUC median seg length: 63.75381709415594
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,806 - root - INFO: 
+2024-04-17 05:10:34,808 - root - INFO: Loading Hydrography
+2024-04-17 05:10:34,810 - root - INFO: ------------------------------
+2024-04-17 05:10:34,812 - root - INFO: Loading streams in HUC 140200010204
+2024-04-17 05:10:34,817 - root - INFO:          and/or bounds (317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)
+2024-04-17 05:10:34,823 - root - INFO:   Using Hydrography file &quot;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&quot;
+2024-04-17 05:10:34,826 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDFlowline&#39; for streams in &#39;(317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)&#39;
+2024-04-17 05:10:35,842 - root - INFO:   Found total of 205 in bounds.
+2024-04-17 05:10:35,846 - root - INFO:   Filtering reaches not in-network
+2024-04-17 05:10:35,850 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDPlusFlowlineVAA&#39; for river network properties in &#39;(-107.10720481215337, 38.82724324194855, -106.97604331554375, 38.89570604410164)&#39;
+2024-04-17 05:10:46,849 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDPlusEROMMA&#39; for river network properties in &#39;(-107.10720481215337, 38.82724324194855, -106.97604331554375, 38.89570604410164)&#39;
+2024-04-17 05:10:54,957 - root - INFO: ... found 201 reaches
+2024-04-17 05:10:54,960 - root - INFO: Converting to shapely
+2024-04-17 05:10:55,083 - root - INFO: Converting to out_crs
+2024-04-17 05:10:55,343 - root - INFO: Removed 83 of 201 reaches not in shape
+2024-04-17 05:10:55,346 - root - INFO: 
+2024-04-17 05:10:55,347 - root - INFO: Constructing river network
+2024-04-17 05:10:55,349 - root - INFO: ------------------------------
+2024-04-17 05:10:55,351 - root - INFO: Generating the river tree
+2024-04-17 05:10:55,355 - root - INFO:  ... generated 2 rivers
+2024-04-17 05:10:55,360 - root - INFO: Pruning by fractional contributing area &lt; 0.01
+2024-04-17 05:10:55,363 - root - INFO: ... total contributing area = 193.58910018
+2024-04-17 05:10:55,367 - root - INFO: ... removing: 0.48949999 of 193.58910018
+2024-04-17 05:10:55,371 - root - INFO: ... removing: 0.36239995 of 193.58910018
+2024-04-17 05:10:55,375 - root - INFO: ... removing: 1.92720001 of 193.58910018
+2024-04-17 05:10:55,378 - root - INFO: ... removing: 0.8301999800000001 of 193.58910018
+2024-04-17 05:10:55,381 - root - INFO: ... removing: 0.18070001 of 193.58910018
+2024-04-17 05:10:55,383 - root - INFO: ... removing: 0.38759999 of 193.58910018
+2024-04-17 05:10:55,386 - root - INFO: ... removing: 0.83940003 of 193.58910018
+2024-04-17 05:10:55,390 - root - INFO: ... removing: 0.5789000000000001 of 193.58910018
+2024-04-17 05:10:55,395 - root - INFO: ... removing: 0.95399999 of 193.58910018
+2024-04-17 05:10:55,404 - root - INFO: ... removing: 0.97809997 of 193.58910018
+2024-04-17 05:10:55,408 - root - INFO: ... removing: 0.7281000200000001 of 193.58910018
+2024-04-17 05:10:55,411 - root - INFO: ... removing: 0.53450003 of 193.58910018
+2024-04-17 05:10:55,414 - root - INFO: ... removing: 0.33420002 of 193.58910018
+2024-04-17 05:10:55,417 - root - INFO: ... removing: 1.7706000000000002 of 193.58910018
+2024-04-17 05:10:55,420 - root - INFO: ... removing: 0.40239999 of 193.58910018
+2024-04-17 05:10:55,426 - root - INFO: ... removing: 0.3447 of 193.58910018
+2024-04-17 05:10:55,429 - root - INFO: ... removing: 1.79579997 of 193.58910018
+2024-04-17 05:10:55,431 - root - INFO: ... removing: 0.9384999700000001 of 193.58910018
+2024-04-17 05:10:55,434 - root - INFO: ... removing: 1.10790005 of 193.58910018
+2024-04-17 05:10:55,437 - root - INFO: ... removing: 1.42430003 of 193.58910018
+2024-04-17 05:10:55,440 - root - INFO: ... removing: 1.48390002 of 193.58910018
+2024-04-17 05:10:55,442 - root - INFO: ... removing: 0.87100001 of 193.58910018
+2024-04-17 05:10:55,445 - root - INFO: ... removing: 0.19800001 of 193.58910018
+2024-04-17 05:10:55,452 - root - INFO: ... removing: 0.4647 of 193.58910018
+2024-04-17 05:10:55,455 - root - INFO: ... removing: 0.50140003 of 193.58910018
+2024-04-17 05:10:55,459 - root - INFO: ... removing: 0.7591999700000001 of 193.58910018
+2024-04-17 05:10:55,461 - root - INFO: ... removing: 0.5633 of 193.58910018
+2024-04-17 05:10:55,464 - root - INFO: ... removing: 0.63440005 of 193.58910018
+2024-04-17 05:10:55,469 - root - INFO: ... removing: 0.62940001 of 193.58910018
+2024-04-17 05:10:55,472 - root - INFO: ... removing: 1.87300002 of 193.58910018
+2024-04-17 05:10:55,474 - root - INFO: ... removing: 1.8664 of 193.58910018
+2024-04-17 05:10:55,478 - root - INFO: ... removing: 0.33550002 of 193.58910018
+2024-04-17 05:10:55,481 - root - INFO: ... removing: 1.05729998 of 193.58910018
+2024-04-17 05:10:55,484 - root - INFO: ... total contributing area = 193.58910018
+2024-04-17 05:10:55,487 - root - INFO: ... pruned 33
+2024-04-17 05:10:55,489 - root - INFO: 
+2024-04-17 05:10:55,492 - root - INFO: Simplifying
+2024-04-17 05:10:55,495 - root - INFO: ------------------------------
+2024-04-17 05:10:55,502 - root - INFO: Simplifying rivers
+2024-04-17 05:10:55,546 - root - INFO:   ...cleaned inner segment of length 21.0141 at centroid (325697.73040492646, 4304206.45329683)
+2024-04-17 05:10:55,553 - root - INFO: Simplifying HUCs
+2024-04-17 05:10:55,562 - root - INFO: Snapping river and HUC (nearly) coincident nodes
+2024-04-17 05:10:55,577 - root - INFO:   snapping polygon segment boundaries to river endpoints
+2024-04-17 05:10:55,605 - root - INFO:   snapping river endpoints to the polygon
+2024-04-17 05:10:55,613 - root - INFO:     snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
+2024-04-17 05:10:55,629 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
+2024-04-17 05:10:55,640 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
+2024-04-17 05:10:55,906 - root - INFO:   cutting at crossings
+2024-04-17 05:10:55,911 - root - INFO: intersection found
+2024-04-17 05:10:55,956 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:55,960 - root - INFO:       split HUC boundary seg into 2 pieces
+2024-04-17 05:10:55,962 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:55,970 - root - INFO: intersection found
+2024-04-17 05:10:55,976 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:55,980 - root - INFO:       split HUC boundary seg into 1 pieces
+2024-04-17 05:10:55,983 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:56,019 - root - INFO: intersection found
+2024-04-17 05:10:56,028 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:56,033 - root - INFO:       split HUC boundary seg into 1 pieces
+2024-04-17 05:10:56,036 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:56,059 - root - INFO: intersection found
+2024-04-17 05:10:56,101 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:56,104 - root - INFO:       split HUC boundary seg into 2 pieces
+2024-04-17 05:10:56,107 - root - INFO:       split reach seg into 2 pieces
+2024-04-17 05:10:56,124 - root - INFO: Cutting crossings and removing external segments
+2024-04-17 05:10:56,127 - root - INFO:   cutting at crossings
+2024-04-17 05:10:56,130 - root - INFO: intersection found
+2024-04-17 05:10:56,138 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:56,141 - root - INFO:       split HUC boundary seg into 1 pieces
+2024-04-17 05:10:56,143 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:56,154 - root - INFO: intersection found
+2024-04-17 05:10:56,162 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:56,165 - root - INFO:       split HUC boundary seg into 1 pieces
+2024-04-17 05:10:56,167 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:56,177 - root - INFO: intersection found
+2024-04-17 05:10:56,187 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:56,190 - root - INFO:       split HUC boundary seg into 1 pieces
+2024-04-17 05:10:56,192 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:56,214 - root - INFO: intersection found
+2024-04-17 05:10:56,225 - root - INFO:   - cutting reach at external boundary of HUCs:
+2024-04-17 05:10:56,228 - root - INFO:       split HUC boundary seg into 1 pieces
+2024-04-17 05:10:56,230 - root - INFO:       split reach seg into 1 pieces
+2024-04-17 05:10:56,247 - root - INFO: 
+2024-04-17 05:10:56,251 - root - INFO: Simplification Diagnostics
+2024-04-17 05:10:56,254 - root - INFO: ------------------------------
+2024-04-17 05:10:56,270 - root - INFO:   river min seg length: 63.505778633192975
+2024-04-17 05:10:56,277 - root - INFO:   river median seg length: 165.69096496550588
+2024-04-17 05:10:56,286 - root - INFO:   HUC min seg length: 0.0
+2024-04-17 05:10:56,292 - root - INFO:   HUC median seg length: 63.75381709415594
 </pre></div>
 </div>
 </div>
@@ -899,19 +910,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:11:46,599 - root - INFO: 
-2023-07-19 19:11:46,603 - root - INFO: Meshing
-2023-07-19 19:11:46,606 - root - INFO: ------------------------------
-2023-07-19 19:11:46,644 - root - INFO: Triangulating...
-2023-07-19 19:11:46,654 - root - INFO:    98 points and 98 facets
-2023-07-19 19:11:46,657 - root - INFO:  checking graph consistency
-2023-07-19 19:11:46,662 - root - INFO:  tolerance is set to 1
-2023-07-19 19:11:46,676 - root - INFO:  building graph data structures
-2023-07-19 19:11:46,690 - root - INFO:  triangle.build...
-2023-07-19 19:11:57,261 - root - INFO:   ...built: 2897 mesh points and 5610 triangles
-2023-07-19 19:11:57,265 - root - INFO: Plotting triangulation diagnostics
-2023-07-19 19:12:00,683 - root - INFO:   min area = 1569.3751220703125
-2023-07-19 19:12:00,687 - root - INFO:   max area = 49649.99279785156
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:57,811 - root - INFO: 
+2024-04-17 05:10:57,815 - root - INFO: Meshing
+2024-04-17 05:10:57,817 - root - INFO: ------------------------------
+2024-04-17 05:10:57,846 - root - INFO: Triangulating...
+2024-04-17 05:10:57,852 - root - INFO:    98 points and 98 facets
+2024-04-17 05:10:57,856 - root - INFO:  checking graph consistency
+2024-04-17 05:10:57,860 - root - INFO:  tolerance is set to 1
+2024-04-17 05:10:57,870 - root - INFO:  building graph data structures
+2024-04-17 05:10:57,882 - root - INFO:  triangle.build...
+2024-04-17 05:11:07,826 - root - INFO:   ...built: 2897 mesh points and 5610 triangles
+2024-04-17 05:11:07,830 - root - INFO: Plotting triangulation diagnostics
+2024-04-17 05:11:10,903 - root - INFO:   min area = 1569.3751220703125
+2024-04-17 05:11:10,907 - root - INFO:   max area = 49649.99279785156
 </pre></div>
 </div>
 <img alt="../_images/e8df127b8089639c13a6c406c17a89ceb5aab0fcd0e2656975b6adaabc8efa84.png" src="../_images/e8df127b8089639c13a6c406c17a89ceb5aab0fcd0e2656975b6adaabc8efa84.png" />
@@ -928,17 +939,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:12:02,739 - root - INFO: 
-2023-07-19 19:12:02,743 - root - INFO: Loading Raster
-2023-07-19 19:12:02,748 - root - INFO: ------------------------------
-2023-07-19 19:12:02,751 - root - INFO: Collecting raster
-2023-07-19 19:12:02,768 - root - INFO: Collecting DEMs to tile bounds: [-107.11634327399999, 38.817702882000034, -106.96736783099998, 38.90466788700003]
-2023-07-19 19:12:02,775 - root - INFO:   Need:
-2023-07-19 19:12:02,778 - root - INFO:     /home/jovyan/data/dem/USGS_NED_1as_n39_w108.tif
-2023-07-19 19:12:02,782 - root - INFO:     /home/jovyan/data/dem/USGS_NED_1as_n39_w107.tif
-2023-07-19 19:12:02,790 - root - INFO: source files already exist!
-2023-07-19 19:12:03,009 - root - INFO: ... got raster of shape: (313, 536)
-2023-07-19 19:12:03,018 - root - INFO: ... got raster bounds: (-107.11634327399999, 38.90466788700003, -106.96745438510615, 38.81772344247477)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:12,694 - root - INFO: 
+2024-04-17 05:11:12,697 - root - INFO: Loading Raster
+2024-04-17 05:11:12,703 - root - INFO: ------------------------------
+2024-04-17 05:11:12,709 - root - INFO: Collecting raster
+2024-04-17 05:11:12,725 - root - INFO: Collecting DEMs to tile bounds: [-107.11634327399999, 38.817702882000034, -106.96736783099998, 38.90466788700003]
+2024-04-17 05:11:12,732 - root - INFO:   Need:
+2024-04-17 05:11:12,735 - root - INFO:     ../../data/dem/USGS_NED_1as_n39_w108.tif
+2024-04-17 05:11:12,738 - root - INFO:     ../../data/dem/USGS_NED_1as_n39_w107.tif
+2024-04-17 05:11:12,742 - root - INFO: source files already exist!
+2024-04-17 05:11:12,993 - root - INFO: ... got raster of shape: (313, 536)
+2024-04-17 05:11:13,000 - root - INFO: ... got raster bounds: (-107.11634327399999, 38.90466788700003, -106.96745438510615, 38.81772344247477)
 </pre></div>
 </div>
 </div>
@@ -1190,15 +1201,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:12:18,507 - root - INFO: 
-2023-07-19 19:12:18,511 - root - INFO: Loading Raster
-2023-07-19 19:12:18,516 - root - INFO: ------------------------------
-2023-07-19 19:12:18,522 - root - INFO: Collecting raster
-2023-07-19 19:12:19,365 - root - INFO: bounds in my_crs: (-952551.1064432578, 1811083.3381282836, -941371.5911290408, 1818385.78533155)
-2023-07-19 19:12:19,425 - root - INFO: ... got raster of shape: (245, 374)
-2023-07-19 19:12:20,044 - root - INFO: ... got raster bounds: (-952575.0, 1818405.0, -941355.0, 1811055.0)
-2023-07-19 19:12:21,326 - root - INFO: Found land cover dtypes: uint8
-2023-07-19 19:12:21,336 - root - INFO: Found land cover types: {71, 41, 42, 43, 11, 81, 52, 21, 22, 23, 24, 90, 31, 95}
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:27,534 - root - INFO: 
+2024-04-17 05:11:27,537 - root - INFO: Loading Raster
+2024-04-17 05:11:27,539 - root - INFO: ------------------------------
+2024-04-17 05:11:27,543 - root - INFO: Collecting raster
+2024-04-17 05:11:28,365 - root - INFO: bounds in my_crs: (-952551.1064432578, 1811083.3381282836, -941371.5911290408, 1818385.78533155)
+2024-04-17 05:11:28,412 - root - INFO: ... got raster of shape: (245, 374)
+2024-04-17 05:11:28,984 - root - INFO: ... got raster bounds: (-952575.0, 1818405.0, -941355.0, 1811055.0)
+2024-04-17 05:11:30,422 - root - INFO: Found land cover dtypes: uint8
+2024-04-17 05:11:30,432 - root - INFO: Found land cover types: {71, 41, 42, 43, 11, 81, 52, 21, 22, 23, 24, 90, 31, 95}
 </pre></div>
 </div>
 </div>
@@ -1226,7 +1237,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095163d30&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095162e60&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095232fe0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095233c40&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
 setting face color =  [95 21 42 ... 52 42 42]
 </pre></div>
 </div>
@@ -1303,8 +1314,8 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:12:30,202 - root - INFO: ... reading LULC from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD12Q1.006_500m_aid0001.nc
-2023-07-19 19:12:30,329 - root - INFO: ... reading LAI from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD15A3H.006_500m_aid0001.nc
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:39,104 - root - INFO: ... reading LULC from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD12Q1.006_500m_aid0001.nc
+2024-04-17 05:11:39,218 - root - INFO: ... reading LAI from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD15A3H.006_500m_aid0001.nc
 </pre></div>
 </div>
 </div>
@@ -1357,8 +1368,15 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:12:30,978 - root - INFO: Found land cover dtypes: int16
-2023-07-19 19:12:30,985 - root - INFO: Found land cover types: {8, 9, 10, 1}
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:39,807 - root - INFO: Found land cover dtypes: int16
+2024-04-17 05:11:39,813 - root - INFO: Found land cover types: {8, 9, 10, 1}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">modis_lc</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="sa">f</span><span class="s2">&quot;Found negative index: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">modis_lc</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">modis_lc</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> in landcover types! Double check your MODIS LULC download and make sure it covers a larger area than the watershed (e.g., a box that bounds the watershed)&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1386,7 +1404,7 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095a37880&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095a370d0&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095b96e90&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095b97880&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
 setting face color =  [ 9 10  9 ...  8  9  8]
 </pre></div>
 </div>
@@ -1489,7 +1507,7 @@ setting face color =  [ 9 10  9 ...  8  9  8]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095b28640&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095b2ad10&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095d19f60&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095d1a1a0&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
 setting face color =  [10  8  8 ... 10  8  8]
 </pre></div>
 </div>
@@ -1691,7 +1709,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x4095141c60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x409523cd30&gt;
 </pre></div>
 </div>
 <img alt="../_images/546452b8f7782c5e009927750ee5164e2b1b60912a81bab61e288674d865821d.png" src="../_images/546452b8f7782c5e009927750ee5164e2b1b60912a81bab61e288674d865821d.png" />
@@ -1708,7 +1726,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:12:53,160 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_lai_raw.h5
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:59,783 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_lai_raw.h5
 </pre></div>
 </div>
 </div>
@@ -1860,7 +1878,7 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x4095c63f10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x409523cc10&gt;
 </pre></div>
 </div>
 <img alt="../_images/ea708ce4b036a3a5a3f50f5726b718b62c8e4a106955b7188cbce028c07825d2.png" src="../_images/ea708ce4b036a3a5a3f50f5726b718b62c8e4a106955b7188cbce028c07825d2.png" />
@@ -2071,25 +2089,25 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:12:58,836 - root - INFO: 
-2023-07-19 19:12:58,840 - root - INFO: Loading shapes
-2023-07-19 19:12:58,842 - root - INFO: ------------------------------
-2023-07-19 19:12:58,937 - root - INFO: Attempting to download source for target &#39;/home/jovyan/data/soil_structure/SSURGO/SSURGO_-107.1073_38.8271_-106.9759_38.8957.shp&#39;
-2023-07-19 19:12:59,139 - root - INFO:   Found 109 shapes.
-2023-07-19 19:12:59,151 - root - INFO:   and crs: epsg:4326
-2023-07-19 19:12:59,154 - root - INFO:   Downloaded 109 total shapes
-2023-07-19 19:12:59,159 - root - INFO:   Downloaded 32 unique mukeys
-2023-07-19 19:12:59,404 - root - INFO: found 32 unique MUKEYs.
-2023-07-19 19:13:08,108 - root - INFO: Running Rosetta for van Genutchen parameters
-2023-07-19 19:13:08,979 - root - INFO:   ... done
-2023-07-19 19:13:08,996 - root - INFO:   requested 28 values
-2023-07-19 19:13:08,999 - root - INFO:   got 28 responses
-2023-07-19 19:13:09,071 - root - INFO: ... found 32 shapes
-2023-07-19 19:13:09,074 - root - INFO: Converting to shapely
-2023-07-19 19:13:09,085 - root - INFO: Converting to requested CRS
-2023-07-19 19:13:09,303 - root - INFO: Coloring shapes onto raster:
-2023-07-19 19:13:09,314 - root - INFO:   of shape: (735, 1124)
-2023-07-19 19:13:09,317 - root - INFO:   and 32 independent colors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:12:04,934 - root - INFO: 
+2024-04-17 05:12:04,937 - root - INFO: Loading shapes
+2024-04-17 05:12:04,939 - root - INFO: ------------------------------
+2024-04-17 05:12:05,022 - root - INFO: Attempting to download source for target &#39;../../data/soil_structure/SSURGO/SSURGO_-107.1073_38.8271_-106.9759_38.8957.shp&#39;
+2024-04-17 05:12:05,213 - root - INFO:   Found 109 shapes.
+2024-04-17 05:12:05,225 - root - INFO:   and crs: epsg:4326
+2024-04-17 05:12:05,228 - root - INFO:   Downloaded 109 total shapes
+2024-04-17 05:12:05,230 - root - INFO:   Downloaded 32 unique mukeys
+2024-04-17 05:12:05,468 - root - INFO: found 32 unique MUKEYs.
+2024-04-17 05:12:12,425 - root - INFO: Running Rosetta for van Genutchen parameters
+2024-04-17 05:12:13,254 - root - INFO:   ... done
+2024-04-17 05:12:13,266 - root - INFO:   requested 28 values
+2024-04-17 05:12:13,268 - root - INFO:   got 28 responses
+2024-04-17 05:12:13,321 - root - INFO: ... found 32 shapes
+2024-04-17 05:12:13,325 - root - INFO: Converting to shapely
+2024-04-17 05:12:13,333 - root - INFO: Converting to requested CRS
+2024-04-17 05:12:13,538 - root - INFO: Coloring shapes onto raster:
+2024-04-17 05:12:13,548 - root - INFO:   of shape: (735, 1124)
+2024-04-17 05:12:13,551 - root - INFO:   and 32 independent colors
 </pre></div>
 </div>
 </div>
@@ -2121,7 +2139,7 @@ setting face color =  [10  8  8 ... 10  8  8]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095b04d60&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095b053c0&gt;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095c1d3c0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095c1d300&gt;}
 setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 </pre></div>
 </div>
@@ -2615,9 +2633,9 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2458/45597466.py:11: RuntimeWarning: All-NaN axis encountered
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_10039/45597466.py:11: RuntimeWarning: All-NaN axis encountered
   pmin = min(np.nanmin(np.log10(soil_perm_nrcs)), np.nanmin(np.log10(soil_perm_rosetta).min()))
-/tmp/ipykernel_2458/45597466.py:12: RuntimeWarning: All-NaN axis encountered
+/tmp/ipykernel_10039/45597466.py:12: RuntimeWarning: All-NaN axis encountered
   pmax = max(np.nanmax(np.log10(soil_perm_nrcs)), np.nanmax(np.log10(soil_perm_rosetta).max()))
 </pre></div>
 </div>
@@ -3241,7 +3259,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409c79b4c0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409c79b9d0&gt;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409c8cbe80&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409c8cbe20&gt;}
 setting face color =  [1000 1011 1005 ... 1012   -1 1012]
 </pre></div>
 </div>
@@ -3287,18 +3305,18 @@ setting face color =  [1000 1011 1005 ... 1012   -1 1012]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:13:38,410 - root - INFO: target bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
-2023-07-19 19:13:38,414 - root - INFO: 
-2023-07-19 19:13:38,417 - root - INFO: Loading shapes
-2023-07-19 19:13:38,420 - root - INFO: ------------------------------
-2023-07-19 19:13:38,424 - root - INFO: Getting shapes of GLHYMPS on bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
-2023-07-19 19:13:38,722 - root - INFO: ... found 17 shapes
-2023-07-19 19:13:38,724 - root - INFO: Converting to shapely
-2023-07-19 19:13:38,786 - root - INFO: Converting to requested CRS
-2023-07-19 19:13:38,982 - root - INFO: shape union bounds: (309452.03384970897, 4277422.824854818, 338890.05886956863, 4329709.205645651)
-2023-07-19 19:13:38,986 - root - INFO: Coloring shapes onto raster:
-2023-07-19 19:13:38,995 - root - INFO:   of shape: (735, 1124)
-2023-07-19 19:13:38,998 - root - INFO:   and 17 independent colors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:12:41,640 - root - INFO: target bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
+2024-04-17 05:12:41,644 - root - INFO: 
+2024-04-17 05:12:41,647 - root - INFO: Loading shapes
+2024-04-17 05:12:41,649 - root - INFO: ------------------------------
+2024-04-17 05:12:41,652 - root - INFO: Getting shapes of GLHYMPS on bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
+2024-04-17 05:12:41,940 - root - INFO: ... found 17 shapes
+2024-04-17 05:12:41,943 - root - INFO: Converting to shapely
+2024-04-17 05:12:42,001 - root - INFO: Converting to requested CRS
+2024-04-17 05:12:42,200 - root - INFO: shape union bounds: (309452.03384970897, 4277422.824854818, 338890.05886956863, 4329709.205645651)
+2024-04-17 05:12:42,205 - root - INFO: Coloring shapes onto raster:
+2024-04-17 05:12:42,213 - root - INFO:   of shape: (735, 1124)
+2024-04-17 05:12:42,216 - root - INFO:   and 17 independent colors
 </pre></div>
 </div>
 </div>
@@ -3499,7 +3517,7 @@ setting face color =  [1000 1011 1005 ... 1012   -1 1012]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409c99a7a0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409c99a770&gt;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409cada170&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409cada110&gt;}
 setting face color =  [730801 730801 726639 ... 726639 726639 726639]
 </pre></div>
 </div>
@@ -3667,7 +3685,7 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095fc4430&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095fc70d0&gt;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x40963736a0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4096373640&gt;}
 setting face color =  [103 103 102 ... 102 102 102]
 </pre></div>
 </div>
@@ -3698,13 +3716,13 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:13:58,619 - root - INFO: 
-2023-07-19 19:13:58,623 - root - INFO: Loading Raster
-2023-07-19 19:13:58,626 - root - INFO: ------------------------------
-2023-07-19 19:13:58,638 - root - INFO: Collecting raster
-2023-07-19 19:13:58,717 - root - INFO: bounds in my_crs: (-107.10634327399998, 38.82770288200003, -106.97736783099998, 38.89466788700003)
-2023-07-19 19:13:58,724 - root - INFO: ... got raster of shape: (33, 63)
-2023-07-19 19:13:58,736 - root - INFO: ... got raster bounds: (-107.10834499599999, 38.895007756000005, -106.97709501699998, 38.82625776700001)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:00,885 - root - INFO: 
+2024-04-17 05:13:00,889 - root - INFO: Loading Raster
+2024-04-17 05:13:00,892 - root - INFO: ------------------------------
+2024-04-17 05:13:00,901 - root - INFO: Collecting raster
+2024-04-17 05:13:00,972 - root - INFO: bounds in my_crs: (-107.10634327399998, 38.82770288200003, -106.97736783099998, 38.89466788700003)
+2024-04-17 05:13:00,978 - root - INFO: ... got raster of shape: (33, 63)
+2024-04-17 05:13:00,987 - root - INFO: ... got raster bounds: (-107.10834499599999, 38.895007756000005, -106.97709501699998, 38.82625776700001)
 </pre></div>
 </div>
 </div>
@@ -4075,7 +4093,7 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:14:01,910 - root - INFO: max DTB: 27.0 m
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:04,074 - root - INFO: max DTB: 27.0 m
 </pre></div>
 </div>
 </div>
@@ -4162,31 +4180,31 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:14:03,660 - root - INFO: Cell summary:
-2023-07-19 19:14:03,662 - root - INFO: ------------------------------------------------------------
-2023-07-19 19:14:03,666 - root - INFO: l_id	| c_id	|mat_id	| dz		| z_top
-2023-07-19 19:14:03,669 - root - INFO: ------------------------------------------------------------
-2023-07-19 19:14:03,672 - root - INFO:  00 	| 00 	| 1000 	|   0.050000 	|   0.000000
-2023-07-19 19:14:03,676 - root - INFO:  01 	| 01 	| 1000 	|   0.050000 	|   0.050000
-2023-07-19 19:14:03,679 - root - INFO:  02 	| 02 	| 1000 	|   0.050000 	|   0.100000
-2023-07-19 19:14:03,686 - root - INFO:  03 	| 03 	| 1000 	|   0.120000 	|   0.150000
-2023-07-19 19:14:03,690 - root - INFO:  04 	| 04 	| 1000 	|   0.230000 	|   0.270000
-2023-07-19 19:14:03,693 - root - INFO:  05 	| 05 	| 1000 	|   0.500000 	|   0.500000
-2023-07-19 19:14:03,698 - root - INFO:  06 	| 06 	|  103 	|   0.500000 	|   1.000000
-2023-07-19 19:14:03,700 - root - INFO:  07 	| 07 	|  103 	|   0.500000 	|   1.500000
-2023-07-19 19:14:03,704 - root - INFO:  08 	| 08 	|  103 	|   2.000000 	|   2.000000
-2023-07-19 19:14:03,707 - root - INFO:  09 	| 09 	|  103 	|   2.000000 	|   4.000000
-2023-07-19 19:14:03,713 - root - INFO:  10 	| 10 	|  103 	|   2.000000 	|   6.000000
-2023-07-19 19:14:03,717 - root - INFO:  11 	| 11 	|  103 	|   2.000000 	|   8.000000
-2023-07-19 19:14:03,720 - root - INFO:  12 	| 12 	|  103 	|   2.000000 	|  10.000000
-2023-07-19 19:14:03,725 - root - INFO:  13 	| 13 	|  103 	|   2.000000 	|  12.000000
-2023-07-19 19:14:03,729 - root - INFO:  14 	| 14 	|  103 	|   2.000000 	|  14.000000
-2023-07-19 19:14:03,731 - root - INFO:  15 	| 15 	|  103 	|   2.000000 	|  16.000000
-2023-07-19 19:14:03,734 - root - INFO:  16 	| 16 	|  103 	|   2.000000 	|  18.000000
-2023-07-19 19:14:03,737 - root - INFO:  17 	| 17 	|  103 	|   2.000000 	|  20.000000
-2023-07-19 19:14:03,740 - root - INFO:  18 	| 18 	|  999 	|   2.000000 	|  22.000000
-2023-07-19 19:14:03,743 - root - INFO:  19 	| 19 	|  999 	|   2.000000 	|  24.000000
-2023-07-19 19:14:03,749 - root - INFO:  20 	| 20 	|  999 	|   2.000000 	|  26.000000
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:05,722 - root - INFO: Cell summary:
+2024-04-17 05:13:05,724 - root - INFO: ------------------------------------------------------------
+2024-04-17 05:13:05,726 - root - INFO: l_id	| c_id	|mat_id	| dz		| z_top
+2024-04-17 05:13:05,728 - root - INFO: ------------------------------------------------------------
+2024-04-17 05:13:05,730 - root - INFO:  00 	| 00 	| 1000 	|   0.050000 	|   0.000000
+2024-04-17 05:13:05,732 - root - INFO:  01 	| 01 	| 1000 	|   0.050000 	|   0.050000
+2024-04-17 05:13:05,736 - root - INFO:  02 	| 02 	| 1000 	|   0.050000 	|   0.100000
+2024-04-17 05:13:05,738 - root - INFO:  03 	| 03 	| 1000 	|   0.120000 	|   0.150000
+2024-04-17 05:13:05,745 - root - INFO:  04 	| 04 	| 1000 	|   0.230000 	|   0.270000
+2024-04-17 05:13:05,748 - root - INFO:  05 	| 05 	| 1000 	|   0.500000 	|   0.500000
+2024-04-17 05:13:05,751 - root - INFO:  06 	| 06 	|  103 	|   0.500000 	|   1.000000
+2024-04-17 05:13:05,754 - root - INFO:  07 	| 07 	|  103 	|   0.500000 	|   1.500000
+2024-04-17 05:13:05,757 - root - INFO:  08 	| 08 	|  103 	|   2.000000 	|   2.000000
+2024-04-17 05:13:05,760 - root - INFO:  09 	| 09 	|  103 	|   2.000000 	|   4.000000
+2024-04-17 05:13:05,763 - root - INFO:  10 	| 10 	|  103 	|   2.000000 	|   6.000000
+2024-04-17 05:13:05,766 - root - INFO:  11 	| 11 	|  103 	|   2.000000 	|   8.000000
+2024-04-17 05:13:05,769 - root - INFO:  12 	| 12 	|  103 	|   2.000000 	|  10.000000
+2024-04-17 05:13:05,771 - root - INFO:  13 	| 13 	|  103 	|   2.000000 	|  12.000000
+2024-04-17 05:13:05,774 - root - INFO:  14 	| 14 	|  103 	|   2.000000 	|  14.000000
+2024-04-17 05:13:05,776 - root - INFO:  15 	| 15 	|  103 	|   2.000000 	|  16.000000
+2024-04-17 05:13:05,778 - root - INFO:  16 	| 16 	|  103 	|   2.000000 	|  18.000000
+2024-04-17 05:13:05,781 - root - INFO:  17 	| 17 	|  103 	|   2.000000 	|  20.000000
+2024-04-17 05:13:05,783 - root - INFO:  18 	| 18 	|  999 	|   2.000000 	|  22.000000
+2024-04-17 05:13:05,785 - root - INFO:  19 	| 19 	|  999 	|   2.000000 	|  24.000000
+2024-04-17 05:13:05,787 - root - INFO:  20 	| 20 	|  999 	|   2.000000 	|  26.000000
 </pre></div>
 </div>
 </div>
@@ -4310,17 +4328,17 @@ rights in this software.
 Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-19 19:15:40,272 - root - INFO: adding side set: 1
-2023-07-19 19:15:44,048 - root - INFO: adding side set: 2
-2023-07-19 19:15:48,152 - root - INFO: adding side set: 3
-2023-07-19 19:15:51,894 - root - INFO: adding side set: 10001
-2023-07-19 19:15:56,183 - root - INFO: adding side set: 10002
-2023-07-19 19:16:00,163 - root - INFO: adding side set: 10003
-2023-07-19 19:16:03,759 - root - INFO: adding side set: 10004
-2023-07-19 19:16:07,463 - root - INFO: adding side set: 8
-2023-07-19 19:16:11,086 - root - INFO: adding side set: 9
-2023-07-19 19:16:14,985 - root - INFO: adding side set: 10
-2023-07-19 19:16:19,339 - root - INFO: adding elem set: 10000
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:43,847 - root - INFO: adding side set: 1
+2024-04-17 05:13:45,108 - root - INFO: adding side set: 2
+2024-04-17 05:13:46,305 - root - INFO: adding side set: 3
+2024-04-17 05:13:47,457 - root - INFO: adding side set: 10001
+2024-04-17 05:13:48,622 - root - INFO: adding side set: 10002
+2024-04-17 05:13:49,750 - root - INFO: adding side set: 10003
+2024-04-17 05:13:50,858 - root - INFO: adding side set: 10004
+2024-04-17 05:13:52,071 - root - INFO: adding side set: 8
+2024-04-17 05:13:53,388 - root - INFO: adding side set: 9
+2024-04-17 05:13:54,575 - root - INFO: adding side set: 10
+2024-04-17 05:13:55,926 - root - INFO: adding elem set: 10000
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Closing exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
@@ -4412,7 +4430,7 @@ Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../intro.html"
@@ -4492,6 +4510,7 @@ By Pin Shuai, Ethan Coon, and etc.
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -4518,8 +4537,8 @@ By Pin Shuai, Ethan Coon, and etc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

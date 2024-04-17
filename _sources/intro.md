@@ -15,12 +15,30 @@ This workflow uses Docker to run all notebooks. You will need to install Docker 
 1. Open a terminal and clone this repository
 ```bash
 # specify a tag (e.g., v1.0) to clone a specific version of the repo
-git clone -b v1.0 https://github.com/pinshuai/ats-workflow 
+git clone -b v1.1 https://github.com/pinshuai/ats-workflow 
 
 cd ats-workflow
 ```
 
-2. Pull the Docker image
+2. Download data
+All data associated with the notebook examples can be downloaded from [Zenodo](https://doi.org/10.5281/zenodo.10982775).
+
+```bash
+# install zenodo_get
+pip3 install zenodo_get
+
+# download data from zenodo. This will download a zip file (e.g., data.zip)
+zenodo_get 10.5281/zenodo.10982774
+```
+
+Extract the data and put them in the right folder.
+
+```bash
+# extract data.zip to current data folder
+tar -xf data.zip -C ./data
+```
+
+3. Pull the Docker image
 ```bash
 docker pull pshuai/ats_workflow:v1.0
 ```
@@ -29,7 +47,7 @@ docker pull pshuai/ats_workflow:v1.0
 Make sure the tag name is the same as the docker image tag name. For example, if you are using `v1.0` tag, you will need to use `pshuai/ats_workflow:v1.0` as the docker image name.
 ```
 
-3. Run the Docker image
+4. Run the Docker image
 
 ```bash
 docker run -it --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan/workdir:delegated -v $(pwd)/data:/home/jovyan/data:delegated pshuai/ats_workflow:v1.0
@@ -43,7 +61,7 @@ docker run -it --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovya
 - On Windows, you may need to replace `$(pwd)` with the absolute path of the current directory (e.g., `C:\Home\Documents\ats-workflow`).
 ```
 
-4. Follow the prompt on screen to open the Jupyter Lab in your browser. For example, copy the following URL to your browser.
+5. Follow the prompt on screen to open the Jupyter Lab in your browser. For example, copy the following URL to your browser.
 
 ```bash
 http://127.0.0.1:8888/lab?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -57,6 +75,9 @@ Now you should be able to run all notebooks within the Jupyter Lab.
 You can find more about [Jupyter Book](https://jupyterbook.org/en/stable/intro.html) and [ATS](https://amanzi.github.io/).
 
 ## Changelog
+
+### v1.1
+- 2024-04-16: Added instructions to download supplemental data from zenodo; updated notebooks to set the data library. This allows all notebooks to run regardless of upstream data source changes.
 
 ### v1.0
 - 2023-07-21: Initial release. The meshing, downloading forcing, and generating input files workflow has been updated to work with ATS v1.5.x using Coal Creek Watershed as an example. 

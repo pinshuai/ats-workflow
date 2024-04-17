@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -139,9 +139,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -347,6 +349,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -356,6 +359,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -484,6 +488,13 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">watershed_workflow</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set_data_directory</span><span class="p">(</span><span class="s1">&#39;../../data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">watershed_shapefile</span> <span class="o">=</span> <span class="s1">&#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;</span>
 <span class="n">config_fname</span> <span class="o">=</span> <span class="s1">&#39;../../data/examples/CoalCreek/processed/config.yaml&#39;</span>
 </pre></div>
@@ -524,13 +535,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-20 16:42:44,530 - root - INFO: 
-2023-07-20 16:42:44,531 - root - INFO: Loading shapes
-2023-07-20 16:42:44,531 - root - INFO: ------------------------------
-2023-07-20 16:42:44,532 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
-2023-07-20 16:42:44,543 - root - INFO: ... found 1 shapes
-2023-07-20 16:42:44,544 - root - INFO: Converting to shapely
-2023-07-20 16:42:44,546 - root - INFO: crs: epsg:26913
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:44,069 - root - INFO: 
+2024-04-17 05:21:44,072 - root - INFO: Loading shapes
+2024-04-17 05:21:44,075 - root - INFO: ------------------------------
+2024-04-17 05:21:44,077 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
+2024-04-17 05:21:44,213 - root - INFO: ... found 1 shapes
+2024-04-17 05:21:44,216 - root - INFO: Converting to shapely
+2024-04-17 05:21:44,240 - root - INFO: crs: epsg:26913
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)
@@ -561,36 +572,30 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-20 16:42:44,637 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:42:44,638 - root - INFO:   Using existing: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_tmin_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:42:44,638 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:42:44,640 - root - INFO:   Downloading: http://thredds.daac.ornl.gov/thredds/ncss/grid/ornldaac/2129/daymet_v4_daily_na_tmin_2016.nc
-2023-07-20 16:42:44,640 - root - INFO:       to file: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_tmin_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:42:55,559 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:42:55,565 - root - INFO:   Using existing: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_tmax_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:42:55,566 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:42:55,579 - root - INFO:   Downloading: http://thredds.daac.ornl.gov/thredds/ncss/grid/ornldaac/2129/daymet_v4_daily_na_tmax_2016.nc
-2023-07-20 16:42:55,580 - root - INFO:       to file: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_tmax_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:43:07,340 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:43:07,342 - root - INFO:   Using existing: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_prcp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:43:07,342 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:43:07,350 - root - INFO:   Downloading: http://thredds.daac.ornl.gov/thredds/ncss/grid/ornldaac/2129/daymet_v4_daily_na_prcp_2016.nc
-2023-07-20 16:43:07,351 - root - INFO:       to file: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_prcp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:43:15,126 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:43:15,128 - root - INFO:   Using existing: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_srad_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:43:15,136 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:43:15,147 - root - INFO:   Downloading: http://thredds.daac.ornl.gov/thredds/ncss/grid/ornldaac/2129/daymet_v4_daily_na_srad_2016.nc
-2023-07-20 16:43:15,151 - root - INFO:       to file: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_srad_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:43:36,364 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:43:36,378 - root - INFO:   Using existing: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_vp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:43:36,379 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:43:36,380 - root - INFO:   Downloading: http://thredds.daac.ornl.gov/thredds/ncss/grid/ornldaac/2129/daymet_v4_daily_na_vp_2016.nc
-2023-07-20 16:43:36,380 - root - INFO:       to file: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_vp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:44:03,140 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:44:03,141 - root - INFO:   Using existing: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_dayl_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2023-07-20 16:44:03,142 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2023-07-20 16:44:03,142 - root - INFO:   Downloading: http://thredds.daac.ornl.gov/thredds/ncss/grid/ornldaac/2129/daymet_v4_daily_na_dayl_2016.nc
-2023-07-20 16:44:03,143 - root - INFO:       to file: /Users/shuai/github/watershed-workflow/data_library/meteorology/daymet/daymet_dayl_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:44,487 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,492 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,494 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,498 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,501 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,506 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,509 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,514 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,517 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,523 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,526 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,532 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,536 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,541 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,544 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,551 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,555 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,561 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,566 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,571 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,573 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,579 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2024-04-17 05:21:44,582 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2024-04-17 05:21:44,588 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2016_38.9157x-107.1272_38.8072x-106.9560.nc
 </pre></div>
 </div>
 </div>
@@ -633,16 +638,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/shuai/mambaforge/envs/watershed_workflow-2023-04-03/lib/python3.10/site-packages/pyproj/crs/crs.py:1282: UserWarning: You will likely lose important projection information when converting to a PROJ string from another format. See: https://proj.org/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/envs/watershed_workflow/lib/python3.10/site-packages/pyproj/crs/crs.py:1282: UserWarning: You will likely lose important projection information when converting to a PROJ string from another format. See: https://proj.org/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems
   proj = self._crs.to_proj4(version=version)
-2023-07-20 16:44:09,995 - root - INFO: BOUNDS: (-591250.0, -367000.0, -576250.0, -355000.0)
-2023-07-20 16:44:10,002 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364615, 4310206.812630757)
+2024-04-17 05:21:47,829 - root - INFO: BOUNDS: (-591250.0, -367000.0, -576250.0, -355000.0)
+2024-04-17 05:21:47,889 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Reprojected Daymet&#39;)
 </pre></div>
 </div>
-<img alt="../_images/7b23b8ab3ab76256ca858b5069f26a65770898bea25e6f3edc5863ffa9cb687b.png" src="../_images/7b23b8ab3ab76256ca858b5069f26a65770898bea25e6f3edc5863ffa9cb687b.png" />
+<img alt="../_images/15dc58dc37afb2d8de405d893f65218e5528826d4ea1cc47eb32be136687ab4f.png" src="../_images/15dc58dc37afb2d8de405d893f65218e5528826d4ea1cc47eb32be136687ab4f.png" />
 </div>
 </div>
 </section>
@@ -683,8 +688,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-20 16:44:10,164 - root - INFO: Converting to ATS met input
-2023-07-20 16:44:10,168 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_raw.h5
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:48,664 - root - INFO: Converting to ATS met input
+2024-04-17 05:21:48,693 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_raw.h5
 </pre></div>
 </div>
 </div>
@@ -717,7 +722,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-20 16:44:10,762 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_typical.h5
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:54,108 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_typical.h5
 </pre></div>
 </div>
 </div>
@@ -746,8 +751,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-20 16:44:12,976 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364615, 4310206.812630757)
-2023-07-20 16:44:12,978 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364615, 4310206.812630757)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:22:35,489 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
+2024-04-17 05:22:35,509 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Typical Daymet&#39;)
@@ -768,7 +773,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-07-20 16:44:13,081 - root - INFO: Mean annual precip rate [m s^-1] = 2.215898101534863e-08
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:22:36,101 - root - INFO: Mean annual precip rate [m s^-1] = 2.2158981015347973e-08
 </pre></div>
 </div>
 </div>
@@ -793,16 +798,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "watershed_workflow-2023-04-03"
+            mode: "watershed_workflow"
         },
         kernelOptions: {
-            name: "watershed_workflow-2023-04-03",
+            name: "watershed_workflow",
             path: "./chapters"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'watershed_workflow-2023-04-03'</script>
+    <script>kernelName = 'watershed_workflow'</script>
 
                 </article>
               
@@ -812,7 +817,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="1-mesh.html"
@@ -881,6 +886,7 @@ By Pin Shuai, Ethan Coon, and etc.
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -907,8 +913,8 @@ By Pin Shuai, Ethan Coon, and etc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
