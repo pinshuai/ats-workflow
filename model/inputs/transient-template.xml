@@ -5,6 +5,7 @@
       <Parameter name="build columns from set" type="string" value="surface" />
       <ParameterList name="read mesh file parameters" type="ParameterList">
         <Parameter name="file" type="string" value="../data-processesed/NAME.exo" />
+        <Parameter name="format" type="string" value="Exodus II" />
       </ParameterList>
     </ParameterList>
     <ParameterList name="surface" type="ParameterList">
@@ -94,7 +95,7 @@
         <Parameter name="solver type" type="string" value="nka_bt_ats" />
         <Parameter name="timestep controller type" type="string" value="smarter" />
         <ParameterList name="nka_bt_ats parameters" type="ParameterList">
-          <Parameter name="nka lag iterations" type="int" value="0" />
+          <Parameter name="nka lag iterations" type="int" value="2" />
           <Parameter name="max backtrack steps" type="int" value="5" />
           <Parameter name="backtrack lag" type="int" value="0" />
           <Parameter name="backtrack factor" type="double" value="0.5" />
@@ -141,7 +142,7 @@
         <Parameter name="solver type" type="string" value="nka_bt_ats" />
         <Parameter name="timestep controller type" type="string" value="smarter" />
         <ParameterList name="nka_bt_ats parameters" type="ParameterList">
-          <Parameter name="nka lag iterations" type="int" value="0" />
+          <Parameter name="nka lag iterations" type="int" value="2" />
           <Parameter name="max backtrack steps" type="int" value="5" />
           <Parameter name="backtrack lag" type="int" value="0" />
           <Parameter name="backtrack factor" type="double" value="0.5" />
@@ -190,14 +191,14 @@
         <Parameter name="solver type" type="string" value="nka_bt_ats" />
         <Parameter name="timestep controller type" type="string" value="smarter" />
         <ParameterList name="nka_bt_ats parameters" type="ParameterList">
-          <Parameter name="nka lag iterations" type="int" value="0" />
+          <Parameter name="nka lag iterations" type="int" value="2" />
           <Parameter name="max backtrack steps" type="int" value="5" />
           <Parameter name="backtrack lag" type="int" value="0" />
           <Parameter name="backtrack factor" type="double" value="0.5" />
-          <Parameter name="backtrack tolerance" type="double" value="0.01" />
+          <Parameter name="backtrack tolerance" type="double" value="0.0001" />
           <Parameter name="nonlinear tolerance" type="double" value="1e-06" />
           <Parameter name="diverged tolerance" type="double" value="1000000" />
-          <Parameter name="limit iterations" type="int" value="32" />
+          <Parameter name="limit iterations" type="int" value="21" />
         </ParameterList>
         <ParameterList name="timestep controller smarter parameters" type="ParameterList">
           <Parameter name="max iterations" type="int" value="18" />
@@ -235,22 +236,7 @@
       </ParameterList>
 
       <ParameterList name="initial condition" type="ParameterList">
-        <Parameter name="restart file" type="string" value="../run0-spinup_steadystate/NAME-0/checkpoint_final.h5" />
-      </ParameterList>
-
-      <ParameterList name="water retention evaluator" type="ParameterList">
-        <Parameter name="minimum rel perm cutoff" type="double" value=" 0" />
-        <Parameter name="use surface rel perm" type="bool" value="true" />
-        <ParameterList name="WRM parameters" type="ParameterList">
-          <ParameterList name="computational domain" type="ParameterList">
-            <Parameter name="wrm type" type="string" value="van Genuchten" />
-            <Parameter name="region" type="string" value="computational domain" />
-            <Parameter name="van Genuchten n [-]" type="double" value="1.8" />
-            <Parameter name="van Genuchten alpha [Pa^-1]" type="double" value="0.0001" />
-            <Parameter name="residual saturation [-]" type="double" value="0.01" />
-            <Parameter name="smoothing interval width [saturation]" type="double" value=" 0" />
-          </ParameterList>
-        </ParameterList>
+        <Parameter name="restart file" type="string" value="../checkpoint_final.h5" />
       </ParameterList>
 
     </ParameterList>
@@ -273,7 +259,7 @@
       <ParameterList name="boundary conditions">
         <ParameterList name="seepage face head">
           <ParameterList name="surface">
-            <Parameter name="regions" type="Array(string)" value="{computational domain boundary}" />
+            <Parameter name="regions" type="Array(string)" value="{surface domain outlet}" />
             <ParameterList name="boundary head">
               <ParameterList name="function-constant">
                 <Parameter name="value" type="double" value=" 0" />
@@ -284,7 +270,7 @@
       </ParameterList>
 
       <ParameterList name="initial condition" type="ParameterList">
-        <Parameter name="initialize surface head from subsurface" type="bool" value="true" />
+        <Parameter name="restart file" type="string" value="../checkpoint_final.h5" />
       </ParameterList>
 
     </ParameterList>
@@ -372,8 +358,8 @@
         <Parameter name="surface albedos key" type="string" value="surface-albedos" />
         <Parameter name="surface emissivities key" type="string" value="surface-emissivities" />
         <Parameter name="surface temperature key" type="string" value="surface-temperature" />
-        <Parameter name="snow temperature key" type="string" value="surface-temperature" />
-        <Parameter name="canopy temperature key" type="string" value="surface-temperature" />
+        <Parameter name="snow temperature key" type="string" value="snow-temperature" />
+        <Parameter name="canopy temperature key" type="string" value="canopy-temperature" />
         <Parameter name="incoming shortwave radiation key" type="string" value="surface-incident_shortwave_radiation" />
         <Parameter name="incoming longwave radiation key" type="string" value="surface-incoming_longwave_radiation" />
         <Parameter name="area fractions key" type="string" value="surface-area_fractions" />
@@ -405,8 +391,7 @@
         <Parameter name="limiter number of dofs" type="int" value="2" />
         <Parameter name="limiter dof" type="int" value="1" />
         <Parameter name="air temperature key" type="string" value="surface-air_temperature" />
-        <Parameter name="surface temperature key" type="string" value="surface-temperature" />
-        <!-- <Parameter name="relative humidity key" type="string" value="surface-relative_humidity" /> -->
+        <Parameter name="surface temperature key" type="string" value="snow-temperature" />
         <Parameter name="elevation key" type="string" value="surface-elevation" />
         <Parameter name="net radiation key" type="string" value="snow-radiation_balance" />
         <Parameter name="limiter key" type="string" value="surface-area_fractions" />
@@ -434,7 +419,7 @@
         <Parameter name="units" type="string" value="m s^-1" />
       </ParameterList>
       <ParameterList name="surface-evaporation" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="evaporation downregulation via soil resistance" />
+        <Parameter name="evaluator type" type="string" value="evaporation downregulation, soil resistance" />
         <Parameter name="units" type="string" value="m s^-1" />
       </ParameterList>
       <ParameterList name="surface-potential_evaporation" type="ParameterList">
@@ -464,14 +449,14 @@
         <Parameter name="transpiration coefficient" type="double" value="-1" />
       </ParameterList>
       <ParameterList name="transpiration" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="transpiration distribution via rooting depth" />
+        <Parameter name="evaluator type" type="string" value="transpiration distribution, rooting depth" />
         <Parameter name="potential transpiration key" type="string" value="canopy-potential_transpiration_mols" />
       </ParameterList>
       <ParameterList name="plant_wilting_factor" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="plant wilting factor" />
       </ParameterList>
-      <ParameterList name="rooting_depth_fraction" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="rooting depth fraction" />
+      <ParameterList name="root_fraction" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="root fraction" />
       </ParameterList>
       <ParameterList name="canopy-potential_transpiration_mols" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="multiplicative evaluator" />
@@ -498,7 +483,7 @@
       </ParameterList>
       <ParameterList name="surface-total_evapotranspiration" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="additive evaluator" />
-        <Parameter name="dependencies" type="Array(string)" value="{canopy-evaporation,snow-evaporation, surface-evaporation, surface-transpiration}" />
+        <Parameter name="dependencies" type="Array(string)" value="{canopy-evaporation, snow-evaporation, surface-evaporation, surface-transpiration}" />
       </ParameterList>
       <ParameterList name="canopy-leaf_area_index" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="independent variable" />
@@ -667,7 +652,7 @@
               <ParameterList name="function-composition" type="ParameterList">
                 <ParameterList name="function1" type="ParameterList">
                   <ParameterList name="function-linear" type="ParameterList">
-                    <Parameter name="x0" type="Array(double)" value="{-1, 0, 0}" />
+                    <Parameter name="x0" type="Array(double)" value="{86400, 0, 0}" />
                     <Parameter name="y0" type="double" value=" 0" />
                     <Parameter name="gradient" type="Array(double)" value="{ 1, 0, 0}" />
                   </ParameterList>
@@ -771,6 +756,51 @@
           <Parameter name="slope regularization epsilon" type="double" value="0.01" />
         </ParameterList>
       </ParameterList>
+      <ParameterList name="snow-expected_temperature" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="additive evaluator" />
+        <Parameter name="dependencies" type="Array(string)" value="{surface-air_temperature}" />
+        <Parameter name="constant shift" type="double" value="-3" />
+      </ParameterList>
+      <ParameterList name="snow-temperature" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="secondary variable from function" />
+        <Parameter name="dependencies" type="Array(string)" value="{snow-expected_temperature}" />
+        <ParameterList name="function" type="ParameterList">
+          <Parameter name="function type" type="string" value="composition" />
+          <ParameterList name="function1" type="ParameterList">
+            <Parameter name="function type" type="string" value="linear" />
+            <Parameter name="gradient" type="Array(double)" value="{ 1}" />
+            <Parameter name="y0" type="double" value="273.15" />
+          </ParameterList>
+          <ParameterList name="function2" type="ParameterList">
+            <Parameter name="function type" type="string" value="standard math" />
+            <Parameter name="operator" type="string" value="negative" />
+            <Parameter name="shift" type="double" value="273.15" />
+          </ParameterList>
+        </ParameterList>
+      </ParameterList>
+      <ParameterList name="canopy-temperature" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="additive evaluator" />
+        <Parameter name="dependencies" type="Array(string)" value="{surface-air_temperature}" />
+        <Parameter name="constant shift" type="double" value="-1.5" />
+      </ParameterList>
+      <ParameterList name="surface-soil_resistance" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="soil resistance, Sakagucki-Zeng" />
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+      </ParameterList>
+      <ParameterList name="relative_permeability" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="relative permeability, water retention model" />
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+        <Parameter name="minimum rel perm cutoff" type="double" value=" 0" />
+        <Parameter name="use surface rel perm" type="bool" value="true" />
+      </ParameterList>
+      <ParameterList name="saturation_liquid" type="ParameterList">
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+        <Parameter name="evaluator type" type="string" value="water retention model" />
+      </ParameterList>
+      <ParameterList name="saturation_gas" type="ParameterList">
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+        <Parameter name="evaluator type" type="string" value="water retention model" />
+      </ParameterList>
     </ParameterList>
     <ParameterList name="initial conditions" type="ParameterList">
 
@@ -783,93 +813,40 @@
       </ParameterList>
 
       <ParameterList name="land cover types" type="ParameterList">
-        <ParameterList name="Other" type="ParameterList">
-          <Parameter name="rooting depth max [m]" type="double" value="0.5" />
-          <Parameter name="rooting profile alpha [-]" type="double" value=" 7" />
-          <Parameter name="rooting profile beta [-]" type="double" value=" 2" />
-          <Parameter name="mafic potential at fully closed stomata [Pa]" type="double" value="2750000" />
-          <Parameter name="mafic potential at fully open stomata [Pa]" type="double" value="7400" />
-          <Parameter name="leaf on time [doy]" type="double" value="-1" />
-          <Parameter name="leaf off time [doy]" type="double" value="-1" />
-          <Parameter name="Priestley-Taylor alpha of snow [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of bare ground [-]" type="double" value=" 1" />
-          <Parameter name="Priestley-Taylor alpha of canopy [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of transpiration [-]" type="double" value="1.2" />
-          <Parameter name="albedo of bare ground [-]" type="double" value="0.4" />
-          <Parameter name="emissivity of bare ground [-]" type="double" value="0.98" />
-          <Parameter name="albedo of canopy [-]" type="double" value="0.11" />
-          <Parameter name="emissivity of canopy [-]" type="double" value="0.95" />
-          <Parameter name="Beer's law extinction coefficient, shortwave [-]" type="double" value="0.6" />
-          <Parameter name="Beer's law extinction coefficient, longwave [-]" type="double" value=" 5" />
-          <Parameter name="snow transition depth [m]" type="double" value="0.02" />
-          <Parameter name="dessicated zone thickness [m]" type="double" value="0.1" />
-          <Parameter name="Clapp and Hornberger b [-]" type="double" value=" 1" />
-        </ParameterList>
-        <ParameterList name="Deciduous Forest" type="ParameterList">
-          <Parameter name="rooting depth max [m]" type="double" value=" 2" />
+        <ParameterList name="surface domain" type="ParameterList">
+          <Parameter name="rooting depth max [m]" type="double" value="10" />
           <Parameter name="rooting profile alpha [-]" type="double" value=" 6" />
           <Parameter name="rooting profile beta [-]" type="double" value=" 2" />
-          <Parameter name="mafic potential at fully closed stomata [Pa]" type="double" value="2196768" />
-          <Parameter name="mafic potential at fully open stomata [Pa]" type="double" value="343245" />
+          <Parameter name="capillary pressure at fully closed stomata [Pa]" type="double" value="224000" />
+          <Parameter name="capillary pressure at fully open stomata [Pa]" type="double" value="3500" />
+          <Parameter name="Priestley-Taylor alpha of snow [-]" type="double" value="1.26" />
+          <Parameter name="Priestley-Taylor alpha of canopy [-]" type="double" value="1.26" />
+          <Parameter name="Priestley-Taylor alpha of transpiration [-]" type="double" value="1.26" />
+          <Parameter name="Priestley-Taylor alpha of bare ground [-]" type="double" value="1.26" />
+          <Parameter name="Manning's n [?]" type="double" value="0.1" />
           <Parameter name="leaf on time [doy]" type="double" value="-1" />
           <Parameter name="leaf off time [doy]" type="double" value="-1" />
-          <Parameter name="Priestley-Taylor alpha of snow [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of bare ground [-]" type="double" value=" 1" />
-          <Parameter name="Priestley-Taylor alpha of canopy [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of transpiration [-]" type="double" value="1.2" />
           <Parameter name="albedo of bare ground [-]" type="double" value="0.4" />
           <Parameter name="emissivity of bare ground [-]" type="double" value="0.98" />
-          <Parameter name="albedo of canopy [-]" type="double" value="0.1" />
+          <Parameter name="albedo of canopy [-]" type="double" value="0.12" />
           <Parameter name="emissivity of canopy [-]" type="double" value="0.95" />
           <Parameter name="Beer's law extinction coefficient, shortwave [-]" type="double" value="0.6" />
           <Parameter name="Beer's law extinction coefficient, longwave [-]" type="double" value=" 5" />
           <Parameter name="snow transition depth [m]" type="double" value="0.02" />
-          <Parameter name="dessicated zone thickness [m]" type="double" value="0.1" />
-          <Parameter name="Clapp and Hornberger b [-]" type="double" value=" 1" />
         </ParameterList>
-        <ParameterList name="Evergreen Forest" type="ParameterList">
-          <Parameter name="rooting depth max [m]" type="double" value=" 2" />
-          <Parameter name="rooting profile alpha [-]" type="double" value=" 7" />
-          <Parameter name="rooting profile beta [-]" type="double" value=" 2" />
-          <Parameter name="mafic potential at fully closed stomata [Pa]" type="double" value="2500785" />
-          <Parameter name="mafic potential at fully open stomata [Pa]" type="double" value="647262" />
-          <Parameter name="leaf on time [doy]" type="double" value="-1" />
-          <Parameter name="leaf off time [doy]" type="double" value="-1" />
-          <Parameter name="Priestley-Taylor alpha of snow [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of bare ground [-]" type="double" value=" 1" />
-          <Parameter name="Priestley-Taylor alpha of canopy [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of transpiration [-]" type="double" value="1.2" />
-          <Parameter name="albedo of bare ground [-]" type="double" value="0.4" />
-          <Parameter name="emissivity of bare ground [-]" type="double" value="0.98" />
-          <Parameter name="albedo of canopy [-]" type="double" value="0.07" />
-          <Parameter name="emissivity of canopy [-]" type="double" value="0.95" />
-          <Parameter name="Beer's law extinction coefficient, shortwave [-]" type="double" value="0.6" />
-          <Parameter name="Beer's law extinction coefficient, longwave [-]" type="double" value=" 5" />
-          <Parameter name="snow transition depth [m]" type="double" value="0.02" />
+      </ParameterList>
+
+    </ParameterList>
+    <ParameterList name="model parameters" type="ParameterList">
+      <ParameterList name="WRM parameters" type="ParameterList">
+        <ParameterList name="computation domain" type="ParameterList">
+          <Parameter name="region" type="string" value="computational domain" />
+          <Parameter name="wrm type" type="string" value="van Genuchten" />
+          <Parameter name="van Genuchten alpha [Pa^-1]" type="double" value="2e-05" />
+          <Parameter name="van Genuchten n [-]" type="double" value="1.58" />
+          <Parameter name="residual saturation [-]" type="double" value="0.2" />
+          <Parameter name="smoothing interval width [saturation]" type="double" value="0.05" />
           <Parameter name="dessicated zone thickness [m]" type="double" value="0.1" />
-          <Parameter name="Clapp and Hornberger b [-]" type="double" value=" 1" />
-        </ParameterList>
-        <ParameterList name="Shrub/Scrub" type="ParameterList">
-          <Parameter name="rooting depth max [m]" type="double" value="0.5" />
-          <Parameter name="rooting profile alpha [-]" type="double" value=" 7" />
-          <Parameter name="rooting profile beta [-]" type="double" value="1.5" />
-          <Parameter name="mafic potential at fully closed stomata [Pa]" type="double" value="4197396" />
-          <Parameter name="mafic potential at fully open stomata [Pa]" type="double" value="813981" />
-          <Parameter name="leaf on time [doy]" type="double" value="-1" />
-          <Parameter name="leaf off time [doy]" type="double" value="-1" />
-          <Parameter name="Priestley-Taylor alpha of snow [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of bare ground [-]" type="double" value=" 1" />
-          <Parameter name="Priestley-Taylor alpha of canopy [-]" type="double" value="1.2" />
-          <Parameter name="Priestley-Taylor alpha of transpiration [-]" type="double" value="1.2" />
-          <Parameter name="albedo of bare ground [-]" type="double" value="0.4" />
-          <Parameter name="emissivity of bare ground [-]" type="double" value="0.98" />
-          <Parameter name="albedo of canopy [-]" type="double" value="0.11" />
-          <Parameter name="emissivity of canopy [-]" type="double" value="0.95" />
-          <Parameter name="Beer's law extinction coefficient, shortwave [-]" type="double" value="0.6" />
-          <Parameter name="Beer's law extinction coefficient, longwave [-]" type="double" value=" 5" />
-          <Parameter name="snow transition depth [m]" type="double" value="0.02" />
-          <Parameter name="dessicated zone thickness [m]" type="double" value="0.1" />
-          <Parameter name="Clapp and Hornberger b [-]" type="double" value=" 1" />
         </ParameterList>
       </ParameterList>
 
@@ -897,192 +874,5 @@
   </ParameterList>
 
   <ParameterList name="observations" type="ParameterList">
-    <ParameterList name="fluxes" type="ParameterList">
-      <Parameter name="observation output filename" type="string" value="water_balance-daily.dat" />
-      <Parameter name="write interval" type="int" value="10" />
-      <Parameter name="delimiter" type="string" value="," />
-      <Parameter name="time units" type="string" value="d" />
-      <Parameter name="times start period stop" type="Array(double)" value="{ 0, 1,-1}" />
-      <Parameter name="times start period stop units" type="string" value="d" />
-      <ParameterList name="observed quantities" type="ParameterList">
-        <ParameterList name="watershed boundary discharge [mol d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-water_flux" />
-          <Parameter name="direction normalized flux" type="bool" value="true" />
-          <Parameter name="region" type="string" value="surface boundary" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="location name" type="string" value="face" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-	<ParameterList name="net runoff [mol d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-water_flux" />
-          <Parameter name="direction normalized flux" type="bool" value="true" />
-          <Parameter name="region" type="string" value="surface domain boundary" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="location name" type="string" value="face" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="net groundwater flux [mol d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="water_flux" />
-          <Parameter name="region" type="string" value="external_sides" />
-          <Parameter name="location name" type="string" value="face" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="direction normalized flux" type="bool" value="true" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="total evapotranspiration [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-total_evapotranspiration" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="snow precipitation [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="snow-precipitation" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="rain precipitation [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-precipitation_rain" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="surface air temperature [K]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-air_temperature" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="surface relative humidity [-]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-relative_humidity" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="incoming shortwave radiation [W m^-2]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-incoming_shortwave_radiation" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="incident shortwave radiation [W m^-2]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-incident_shortwave_radiation" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="surface water content [mol]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-water_content" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="subsurface water content [mol]" type="ParameterList">
-          <Parameter name="variable" type="string" value="water_content" />
-          <Parameter name="region" type="string" value="computational domain" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="snow water content [mol]" type="ParameterList">
-          <Parameter name="variable" type="string" value="snow-water_content" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="canopy water content [mol]" type="ParameterList">
-          <Parameter name="variable" type="string" value="canopy-water_content" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="location name" type="string" value="cell" />
-        </ParameterList>
-        <ParameterList name="snow evaporation [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="snow-evaporation" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="surface evaporation [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-evaporation" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="transpiration [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-transpiration" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-	<ParameterList name="exfiltration [mol d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-surface_subsurface_flux" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="functional" type="string" value="extensive integral" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="canopy evaporation [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="canopy-evaporation" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="canopy drainage [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="canopy-drainage" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="water to surface [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="canopy-throughfall_drainage_rain" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="snow to surface [m SWE d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="canopy-throughfall_drainage_snow" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="snowmelt [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="snow-melt" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>
-        <ParameterList name="max ponded depth [m]" type="ParameterList">
-          <Parameter name="variable" type="string" value="surface-ponded_depth" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="maximum" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="false" />
-        </ParameterList>
-        <ParameterList name="SWE [m]" type="ParameterList">
-          <Parameter name="variable" type="string" value="snow-water_equivalent" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="false" />
-        </ParameterList>
-	 <ParameterList name="canopy interception [m d^-1]" type="ParameterList">
-          <Parameter name="variable" type="string" value="canopy-interception" />
-          <Parameter name="region" type="string" value="surface domain" />
-          <Parameter name="functional" type="string" value="average" />
-          <Parameter name="location name" type="string" value="cell" />
-          <Parameter name="time integrated" type="bool" value="true" />
-        </ParameterList>       
-      </ParameterList>
-    </ParameterList>
   </ParameterList>
 </ParameterList>
