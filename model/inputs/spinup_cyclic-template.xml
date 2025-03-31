@@ -380,7 +380,6 @@
       </ParameterList>
       <ParameterList name="snow-melt" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="snow melt rate" />
-        <Parameter name="air-snow temperature difference [C]" type="double" value=" 3" />
         <Parameter name="snow melt rate [mm day^-1 C^-1]" type="double" value="2.74" />
         <Parameter name="units" type="string" value="m s^-1" />
       </ParameterList>
@@ -486,51 +485,7 @@
         <Parameter name="dependencies" type="Array(string)" value="{canopy-evaporation, snow-evaporation, surface-evaporation, surface-transpiration}" />
       </ParameterList>
       <ParameterList name="canopy-leaf_area_index" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="Other" type="ParameterList">
-            <Parameter name="region" type="string" value="Other" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-constant" type="ParameterList">
-                <Parameter name="value" type="double" value=" 0" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-          <ParameterList name="Evergreen Forest" type="ParameterList">
-            <Parameter name="region" type="string" value="Evergreen Forest" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-tabular" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_MODIS_LAI-072002_122019.h5" />
-                <Parameter name="x header" type="string" value="time [s]" />
-                <Parameter name="y header" type="string" value="NLCD Evergreen Forest LAI [-]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-          <ParameterList name="Shrub/Scrub" type="ParameterList">
-            <Parameter name="region" type="string" value="Shrub/Scrub" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-tabular" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_MODIS_LAI-072002_122019.h5" />
-                <Parameter name="x header" type="string" value="time [s]" />
-                <Parameter name="y header" type="string" value="NLCD Shrub LAI [-]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-          <ParameterList name="Deciduous Forest" type="ParameterList">
-            <Parameter name="region" type="string" value="Deciduous Forest" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-tabular" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_MODIS_LAI-072002_122019.h5" />
-                <Parameter name="x header" type="string" value="time [s]" />
-                <Parameter name="y header" type="string" value="NLCD Deciduous Forest LAI [-]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="surface-incident_shortwave_radiation" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="incident shortwave radiation" />
@@ -540,138 +495,25 @@
         </ParameterList>
       </ParameterList>
       <ParameterList name="surface-incoming_shortwave_radiation" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="domain" type="ParameterList">
-            <Parameter name="region" type="string" value="surface domain" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-bilinear-and-time" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="y [m]" />
-                <Parameter name="column header" type="string" value="x [m]" />
-                <Parameter name="row coordinate" type="string" value="y" />
-                <Parameter name="column coordinate" type="string" value="x" />
-                <Parameter name="time header" type="string" value="time [s]" />
-                <Parameter name="value header" type="string" value="incoming shortwave radiation [W m^-2]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="surface-incoming_longwave_radiation" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="incoming longwave radiation" />
       </ParameterList>
       <ParameterList name="surface-precipitation_rain" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="domain" type="ParameterList">
-            <Parameter name="region" type="string" value="surface domain" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-bilinear-and-time" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="y [m]" />
-                <Parameter name="column header" type="string" value="x [m]" />
-                <Parameter name="row coordinate" type="string" value="y" />
-                <Parameter name="column coordinate" type="string" value="x" />
-                <Parameter name="time header" type="string" value="time [s]" />
-                <Parameter name="value header" type="string" value="precipitation rain [m s^-1]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="snow-precipitation" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="domain" type="ParameterList">
-            <Parameter name="region" type="string" value="surface domain" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-bilinear-and-time" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="y [m]" />
-                <Parameter name="column header" type="string" value="x [m]" />
-                <Parameter name="row coordinate" type="string" value="y" />
-                <Parameter name="column coordinate" type="string" value="x" />
-                <Parameter name="time header" type="string" value="time [s]" />
-                <Parameter name="value header" type="string" value="precipitation snow [m SWE s^-1]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="surface-vapor_pressure_air" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="domain" type="ParameterList">
-            <Parameter name="region" type="string" value="surface domain" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-bilinear-and-time" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="y [m]" />
-                <Parameter name="column header" type="string" value="x [m]" />
-                <Parameter name="row coordinate" type="string" value="y" />
-                <Parameter name="column coordinate" type="string" value="x" />
-                <Parameter name="time header" type="string" value="time [s]" />
-                <Parameter name="value header" type="string" value="vapor pressure air [Pa]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="surface-air_temperature" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="domain" type="ParameterList">
-            <Parameter name="region" type="string" value="surface domain" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-bilinear-and-time" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                <Parameter name="row header" type="string" value="y [m]" />
-                <Parameter name="column header" type="string" value="x [m]" />
-                <Parameter name="row coordinate" type="string" value="y" />
-                <Parameter name="column coordinate" type="string" value="x" />
-                <Parameter name="time header" type="string" value="time [s]" />
-                <Parameter name="value header" type="string" value="air temperature [K]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="surface-temperature" type="ParameterList">
-        <Parameter name="evaluator type" type="string" value="independent variable" />
-        <ParameterList name="function" type="ParameterList">
-          <ParameterList name="domain" type="ParameterList">
-            <Parameter name="region" type="string" value="surface domain" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-composition" type="ParameterList">
-                <ParameterList name="function1" type="ParameterList">
-                  <ParameterList name="function-linear" type="ParameterList">
-                    <Parameter name="x0" type="Array(double)" value="{-1, 0, 0}" />
-                    <Parameter name="y0" type="double" value=" 0" />
-                    <Parameter name="gradient" type="Array(double)" value="{ 1, 0, 0}" />
-                  </ParameterList>
-                </ParameterList>
-                <ParameterList name="function2" type="ParameterList">
-                  <ParameterList name="function-bilinear-and-time" type="ParameterList">
-                    <Parameter name="file" type="string" value="../data-processesed/NAME_DayMet_2010_2011.h5" />
-                    <Parameter name="row header" type="string" value="y [m]" />
-                    <Parameter name="column header" type="string" value="x [m]" />
-                    <Parameter name="row coordinate" type="string" value="y" />
-                    <Parameter name="column coordinate" type="string" value="x" />
-                    <Parameter name="time header" type="string" value="time [s]" />
-                    <Parameter name="value header" type="string" value="air temperature [K]" />
-                  </ParameterList>
-                </ParameterList>
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-        </ParameterList>
+        <!-- to be filled -->
       </ParameterList>
       <ParameterList name="depth" type="ParameterList">
         <Parameter name="constant in time" type="bool" value="true" />
@@ -855,13 +697,13 @@
   <ParameterList name="visualization">
     <ParameterList name="domain" type="ParameterList">
       <Parameter name="file name base" type="string" value="ats_vis" />
-      <Parameter name="times start period stop" type="Array(double)" value="{0, 1,-1}" />
+      <Parameter name="times start period stop" type="Array(double)" value="{274, 10,-1}" />
       <Parameter name="times start period stop units" type="string" value="d" />
       <Parameter name="time units" type="string" value="d" />
     </ParameterList>
     <ParameterList name="surface" type="ParameterList">
       <Parameter name="file name base" type="string" value="ats_vis_surface" />
-      <Parameter name="times start period stop" type="Array(double)" value="{0, 1,-1}" />
+      <Parameter name="times start period stop" type="Array(double)" value="{274, 10,-1}" />
       <Parameter name="times start period stop units" type="string" value="d" />
       <Parameter name="time units" type="string" value="d" />
       <Parameter name="aliased domains" type="Array(string)" value="{canopy, snow}" />
@@ -869,7 +711,7 @@
   </ParameterList>
 
   <ParameterList name="checkpoint">
-    <Parameter name="times start period stop" type="Array(double)" value="{0,30,-1}" />
+    <Parameter name="times start period stop" type="Array(double)" value="{274,365,-1}" />
     <Parameter name="times start period stop units" type="string" value="d" />
   </ParameterList>
 

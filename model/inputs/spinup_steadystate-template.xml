@@ -64,7 +64,7 @@
   <ParameterList name="cycle driver">
     <Parameter name="start time" type="double" value=" 0" />
     <Parameter name="start time units" type="string" value="s" />
-    <Parameter name="end time" type="double" value="20000" />
+    <Parameter name="end time" type="double" value="3650" />
     <Parameter name="end time units" type="string" value="d" />
     <Parameter name="end cycle" type="int" value="100000" />
     <Parameter name="wallclock duration [hrs]" type="double" value="23.9" />

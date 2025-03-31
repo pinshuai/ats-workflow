@@ -380,7 +380,6 @@
       </ParameterList>
       <ParameterList name="snow-melt" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="snow melt rate" />
-        <Parameter name="air-snow temperature difference [C]" type="double" value=" 3" />
         <Parameter name="snow melt rate [mm day^-1 C^-1]" type="double" value="2.74" />
         <Parameter name="units" type="string" value="m s^-1" />
       </ParameterList>
@@ -488,45 +487,23 @@
       <ParameterList name="canopy-leaf_area_index" type="ParameterList">
         <Parameter name="evaluator type" type="string" value="independent variable" />
         <ParameterList name="function" type="ParameterList">
-          <ParameterList name="Other" type="ParameterList">
-            <Parameter name="region" type="string" value="Other" />
+          <ParameterList name="surface domain" type="ParameterList">
+            <Parameter name="region" type="string" value="surface domain" />
             <Parameter name="component" type="string" value="cell" />
             <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-constant" type="ParameterList">
-                <Parameter name="value" type="double" value=" 0" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-          <ParameterList name="Evergreen Forest" type="ParameterList">
-            <Parameter name="region" type="string" value="Evergreen Forest" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-tabular" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_MODIS_LAI-072002_122019.h5" />
-                <Parameter name="x header" type="string" value="time [s]" />
-                <Parameter name="y header" type="string" value="NLCD Evergreen Forest LAI [-]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-          <ParameterList name="Shrub/Scrub" type="ParameterList">
-            <Parameter name="region" type="string" value="Shrub/Scrub" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-tabular" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_MODIS_LAI-072002_122019.h5" />
-                <Parameter name="x header" type="string" value="time [s]" />
-                <Parameter name="y header" type="string" value="NLCD Shrub LAI [-]" />
-              </ParameterList>
-            </ParameterList>
-          </ParameterList>
-          <ParameterList name="Deciduous Forest" type="ParameterList">
-            <Parameter name="region" type="string" value="Deciduous Forest" />
-            <Parameter name="component" type="string" value="cell" />
-            <ParameterList name="function" type="ParameterList">
-              <ParameterList name="function-tabular" type="ParameterList">
-                <Parameter name="file" type="string" value="../data-processesed/NAME_MODIS_LAI-072002_122019.h5" />
-                <Parameter name="x header" type="string" value="time [s]" />
-                <Parameter name="y header" type="string" value="NLCD Deciduous Forest LAI [-]" />
+              <ParameterList name="function-composition" type="ParameterList">
+                <ParameterList name="function1" type="ParameterList">
+                  <ParameterList name="function-tabular" type="ParameterList">
+                    <Parameter name="x values" type="Array(double)" value="{ 0,1314000,3942000,6570000,9198000,11826000,14454000,17082000,19710000,22338000,24966000,27594000,30222000,31536000}" />
+                    <Parameter name="y values" type="Array(double)" value="{10.25, 9, 8, 7, 7, 9,11,14,15,13,12,12.5,11.5,10.25}" />
+                  </ParameterList>
+                </ParameterList>
+                <ParameterList name="function2" type="ParameterList">
+                  <ParameterList name="function-standard-math" type="ParameterList">
+                    <Parameter name="operator" type="string" value="mod" />
+                    <Parameter name="parameter" type="double" value="31536000" />
+                  </ParameterList>
+                </ParameterList>
               </ParameterList>
             </ParameterList>
           </ParameterList>
