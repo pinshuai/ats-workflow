@@ -180,6 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="plot_subsurface.html">Plot subsurface variables</a></li>
 
 
@@ -440,32 +441,41 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span> <span class="k">as</span> <span class="n">pcm</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span> <span class="k">as</span> <span class="n">pcm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
 <span class="c1"># from matplotlib_scalebar.scalebar import ScaleBar</span>
-<span class="kn">import</span> <span class="nn">shapely</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shapely</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">fiona</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cftime</span>
 <span class="n">pandas</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_columns</span> <span class="o">=</span> <span class="kc">None</span>
 
 
-<span class="kn">import</span> <span class="nn">watershed_workflow</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.source_list</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.ui</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.colors</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.condition</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.mesh</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.split_hucs</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.land_cover_properties</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.source_list</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.ui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.colors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.condition</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.mesh</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.split_hucs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.land_cover_properties</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.regions</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.timeseries</span>
 
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setup_logging</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
 <span class="n">figsize_3d</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR 1: PROJ: proj_create_from_database: Open of /opt/conda/envs/watershed_workflow/share/proj failed
 </pre></div>
 </div>
 </div>
@@ -479,8 +489,8 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
-<span class="kn">from</span> <span class="nn">modvis</span> <span class="kn">import</span> <span class="n">ATSutils</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modvis</span><span class="w"> </span><span class="kn">import</span> <span class="n">ATSutils</span>
 </pre></div>
 </div>
 </div>
@@ -511,15 +521,34 @@ document.write(`
                <span class="c1"># This is necessary to avoid downloading all HUCs to search for this shape</span>
 <span class="n">huc</span> <span class="o">=</span> <span class="s2">&quot;140200010204&quot;</span> <span class="c1"># provide the huc code for that watershed. If `None`, the script will automatically search for the HUC code.</span>
 <span class="n">simplify</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># length scale to target average edge, same unit as the watershed CRS</span>
+<span class="n">prune_by_area_fraction</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># ignore reaches whose accumulated catchment area is less than this fraction of the</span>
+                              <span class="c1"># full domain&#39;s area</span>
+<span class="n">ignore_small_rivers</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># ignore rivers which have this or fewer reaches.  likely they are irrigation ditches</span>
+                        <span class="c1"># or other small features which make things complicated but likely don&#39;t add much value</span>
 
-<span class="c1"># start and end of simulation -- one year of simulation that is in both the MODIS and DayMet dataset ranges</span>
+<span class="c1"># start and end of simulation </span>
+<span class="c1"># try two year of transient simulation since the first year results will be discarded</span>
 <span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2015-10-1&quot;</span>
-<span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2016-10-1&quot;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2017-10-1&quot;</span>
 <span class="c1"># origin of simulation. By default, use the first available date of Daymet forcing. </span>
 <span class="c1"># This is necessary to ensure that all datesets use the same origin date.</span>
 <span class="n">origin_date</span> <span class="o">=</span> <span class="s2">&quot;1980-1-1&quot;</span>
+<span class="n">nyears_cyclic_steadystate</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1">#total years of cyclic spinup </span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="c1"># huc boundary refinement control</span>
+<span class="n">refine_d0</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># distance from river in meter</span>
+<span class="n">refine_d1</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">refine_L0</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># triangle cell length in meter</span>
+<span class="n">refine_L1</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">refine_A0</span> <span class="o">=</span> <span class="n">refine_L0</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">refine_A1</span> <span class="o">=</span> <span class="n">refine_L1</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># logging.info(&quot;&quot;)</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Meshing shape: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">watershed_shapefile</span><span class="p">))</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
 
@@ -529,15 +558,32 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,201 - root - INFO: 
-2024-04-17 05:10:34,204 - root - INFO: Meshing shape: ../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp
-2024-04-17 05:10:34,208 - root - INFO: ==============================
-2024-04-17 05:10:34,211 - root - INFO: 
-2024-04-17 05:10:34,214 - root - INFO: Loading shapes
-2024-04-17 05:10:34,216 - root - INFO: ------------------------------
-2024-04-17 05:10:34,218 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
-2024-04-17 05:10:34,354 - root - INFO: ... found 1 shapes
-2024-04-17 05:10:34,357 - root - INFO: Converting to shapely
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:34:48,570 - root - INFO: Meshing shape: ../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp
+2025-07-12 18:34:48,574 - root - INFO: ==============================
+2025-07-12 18:34:48,577 - root - INFO: 
+2025-07-12 18:34:48,578 - root - INFO: Loading shapes
+2025-07-12 18:34:48,581 - root - INFO: ------------------------------
+2025-07-12 18:34:48,584 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
+2025-07-12 18:34:48,730 - root - INFO: ... found 1 shapes
+2025-07-12 18:34:48,733 - root - INFO: Converting to shapely
+2025-07-12 18:34:48,744 - root - INFO:  ... done
+2025-07-12 18:34:48,759 - root - INFO: Removing holes on 1 polygons
+2025-07-12 18:34:48,774 - root - INFO:   -- removed interior
+2025-07-12 18:34:48,797 - root - INFO:   -- union
+2025-07-12 18:34:48,801 - root - INFO: Parsing 1 components for holes
+2025-07-12 18:34:48,806 - root - INFO:   -- complete
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Open the shapefile</span>
+<span class="c1"># with fiona.open(watershed_shapefile) as shapefile:</span>
+<span class="c1">#     # Iterate over the records</span>
+<span class="c1">#     for record in shapefile:</span>
+<span class="c1">#         # Get the geometry from the record</span>
+<span class="c1">#         watershed_shp = shapely.geometry.shape(record[&#39;geometry&#39;])</span>
 </pre></div>
 </div>
 </div>
@@ -678,18 +724,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,479 - root - INFO: Using sources:
-2024-04-17 05:10:34,482 - root - INFO: --------------
-2024-04-17 05:10:34,485 - root - INFO: HUC: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
-2024-04-17 05:10:34,487 - root - INFO: hydrography: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
-2024-04-17 05:10:34,492 - root - INFO: DEM: National Elevation Dataset (NED)
-2024-04-17 05:10:34,494 - root - INFO: soil structure: National Resources Conservation Service Soil Survey (NRCS Soils)
-2024-04-17 05:10:34,497 - root - INFO: geologic structure: ../../data/examples/CoalCreek/sources/GLHYMPS/CoalCreek_glhymps_v2.shp
-2024-04-17 05:10:34,500 - root - INFO: land cover: raster
-2024-04-17 05:10:34,503 - root - INFO: lai: MODIS
-2024-04-17 05:10:34,506 - root - INFO: soil thickness: None
-2024-04-17 05:10:34,509 - root - INFO: meteorology: DayMet 1km
-2024-04-17 05:10:34,515 - root - INFO: depth to bedrock: raster
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:34:48,987 - root - INFO: Using sources:
+2025-07-12 18:34:48,991 - root - INFO: --------------
+2025-07-12 18:34:48,994 - root - INFO: HUC: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
+2025-07-12 18:34:48,996 - root - INFO: hydrography: National Hydrography Dataset Plus High Resolution (NHDPlus HR)
+2025-07-12 18:34:48,999 - root - INFO: DEM: National Elevation Dataset (NED)
+2025-07-12 18:34:49,001 - root - INFO: soil structure: National Resources Conservation Service Soil Survey (NRCS Soils)
+2025-07-12 18:34:49,004 - root - INFO: geologic structure: ../../data/examples/CoalCreek/sources/GLHYMPS/CoalCreek_glhymps_v2.shp
+2025-07-12 18:34:49,006 - root - INFO: land cover: raster
+2025-07-12 18:34:49,008 - root - INFO: lai: MODIS
+2025-07-12 18:34:49,010 - root - INFO: depth to bedrock: raster
+2025-07-12 18:34:49,012 - root - INFO: meteorology: DayMet 1km
 </pre></div>
 </div>
 </div>
@@ -707,6 +752,11 @@ document.write(`
 <section id="generate-the-surface-mesh">
 <h2>Generate the surface mesh<a class="headerlink" href="#generate-the-surface-mesh" title="Permalink to this heading">#</a></h2>
 <p>First we’ll generate the flattened, 2D triangulation, which builds on hydrography data.  Then we download a digital elevation map from the National Elevation Dataset, and extrude that 2D triangulation to a 3D surface mesh based on interpolation between pixels of the DEM.</p>
+<p><span style="color:blue;">Key parameters: </span></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prune_by_area</span></code> – prune based on drainage area. This will affect the density of the river network.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">simplify</span></code> – length scale to target average edge, same unit as the watershed CRS. This will affect the smoothness of watershed boundary and river network</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find what HUC our shape is in</span>
@@ -717,7 +767,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,697 - root - INFO: Found watershed in HUC: 140200010204
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:34:49,190 - root - INFO: Found watershed in HUC: 140200010204
 </pre></div>
 </div>
 </div>
@@ -727,14 +777,18 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rivers</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">if</span> <span class="n">rivers</span><span class="p">:</span>
     <span class="c1"># download/collect the river network within that shape&#39;s bounds</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">reaches</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">get_reaches</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;hydrography&#39;</span><span class="p">],</span> <span class="n">huc</span><span class="p">,</span> 
-                                      <span class="n">watershed</span><span class="o">.</span><span class="n">exterior</span><span class="p">(),</span> <span class="n">crs</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">reaches</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">get_reaches</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="s1">&#39;hydrography&#39;</span><span class="p">],</span> <span class="n">hint</span><span class="p">,</span> 
+                                      <span class="n">watershed</span><span class="o">.</span><span class="n">exterior</span><span class="p">(),</span> <span class="n">crs</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> 
+                                        <span class="n">in_network</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># simplify and prune rivers not IN the shape, constructing a tree-like data structure</span>
     <span class="c1"># for the river network</span>
-    <span class="n">rivers</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">construct_rivers</span><span class="p">(</span><span class="n">watershed</span><span class="p">,</span> <span class="n">reaches</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hydroseq&#39;</span><span class="p">,</span> 
-                                                <span class="n">prune_by_area_fraction</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">rivers</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">construct_rivers</span><span class="p">(</span><span class="n">reaches</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hydroseq&#39;</span><span class="p">,</span> 
+                                                 <span class="n">ignore_small_rivers</span><span class="o">=</span><span class="n">ignore_small_rivers</span><span class="p">,</span>
+                                                <span class="n">prune_by_area</span><span class="o">=</span><span class="n">prune_by_area_fraction</span> <span class="o">*</span> <span class="n">watershed</span><span class="o">.</span><span class="n">exterior</span><span class="p">()</span><span class="o">.</span><span class="n">area</span> <span class="o">*</span> <span class="mf">1.e-6</span><span class="p">,</span>
+                                                <span class="n">remove_diversions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                             <span class="n">remove_braided_divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">rivers</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">watershed</span><span class="p">,</span> <span class="n">rivers</span><span class="p">,</span> <span class="n">simplify_hucs</span><span class="o">=</span><span class="n">simplify</span><span class="p">,</span> <span class="n">simplify_rivers</span><span class="o">=</span><span class="n">simplify</span><span class="p">,</span>
-                               <span class="n">snap_rivers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cut_intersections</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                               <span class="n">snap_tol</span> <span class="o">=</span> <span class="mf">0.75</span><span class="o">*</span><span class="n">simplify</span><span class="p">,</span> <span class="n">cut_intersections</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">else</span><span class="p">:</span>
     <span class="n">rivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
@@ -743,117 +797,84 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:34,806 - root - INFO: 
-2024-04-17 05:10:34,808 - root - INFO: Loading Hydrography
-2024-04-17 05:10:34,810 - root - INFO: ------------------------------
-2024-04-17 05:10:34,812 - root - INFO: Loading streams in HUC 140200010204
-2024-04-17 05:10:34,817 - root - INFO:          and/or bounds (317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)
-2024-04-17 05:10:34,823 - root - INFO:   Using Hydrography file &quot;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&quot;
-2024-04-17 05:10:34,826 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDFlowline&#39; for streams in &#39;(317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)&#39;
-2024-04-17 05:10:35,842 - root - INFO:   Found total of 205 in bounds.
-2024-04-17 05:10:35,846 - root - INFO:   Filtering reaches not in-network
-2024-04-17 05:10:35,850 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDPlusFlowlineVAA&#39; for river network properties in &#39;(-107.10720481215337, 38.82724324194855, -106.97604331554375, 38.89570604410164)&#39;
-2024-04-17 05:10:46,849 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDPlusEROMMA&#39; for river network properties in &#39;(-107.10720481215337, 38.82724324194855, -106.97604331554375, 38.89570604410164)&#39;
-2024-04-17 05:10:54,957 - root - INFO: ... found 201 reaches
-2024-04-17 05:10:54,960 - root - INFO: Converting to shapely
-2024-04-17 05:10:55,083 - root - INFO: Converting to out_crs
-2024-04-17 05:10:55,343 - root - INFO: Removed 83 of 201 reaches not in shape
-2024-04-17 05:10:55,346 - root - INFO: 
-2024-04-17 05:10:55,347 - root - INFO: Constructing river network
-2024-04-17 05:10:55,349 - root - INFO: ------------------------------
-2024-04-17 05:10:55,351 - root - INFO: Generating the river tree
-2024-04-17 05:10:55,355 - root - INFO:  ... generated 2 rivers
-2024-04-17 05:10:55,360 - root - INFO: Pruning by fractional contributing area &lt; 0.01
-2024-04-17 05:10:55,363 - root - INFO: ... total contributing area = 193.58910018
-2024-04-17 05:10:55,367 - root - INFO: ... removing: 0.48949999 of 193.58910018
-2024-04-17 05:10:55,371 - root - INFO: ... removing: 0.36239995 of 193.58910018
-2024-04-17 05:10:55,375 - root - INFO: ... removing: 1.92720001 of 193.58910018
-2024-04-17 05:10:55,378 - root - INFO: ... removing: 0.8301999800000001 of 193.58910018
-2024-04-17 05:10:55,381 - root - INFO: ... removing: 0.18070001 of 193.58910018
-2024-04-17 05:10:55,383 - root - INFO: ... removing: 0.38759999 of 193.58910018
-2024-04-17 05:10:55,386 - root - INFO: ... removing: 0.83940003 of 193.58910018
-2024-04-17 05:10:55,390 - root - INFO: ... removing: 0.5789000000000001 of 193.58910018
-2024-04-17 05:10:55,395 - root - INFO: ... removing: 0.95399999 of 193.58910018
-2024-04-17 05:10:55,404 - root - INFO: ... removing: 0.97809997 of 193.58910018
-2024-04-17 05:10:55,408 - root - INFO: ... removing: 0.7281000200000001 of 193.58910018
-2024-04-17 05:10:55,411 - root - INFO: ... removing: 0.53450003 of 193.58910018
-2024-04-17 05:10:55,414 - root - INFO: ... removing: 0.33420002 of 193.58910018
-2024-04-17 05:10:55,417 - root - INFO: ... removing: 1.7706000000000002 of 193.58910018
-2024-04-17 05:10:55,420 - root - INFO: ... removing: 0.40239999 of 193.58910018
-2024-04-17 05:10:55,426 - root - INFO: ... removing: 0.3447 of 193.58910018
-2024-04-17 05:10:55,429 - root - INFO: ... removing: 1.79579997 of 193.58910018
-2024-04-17 05:10:55,431 - root - INFO: ... removing: 0.9384999700000001 of 193.58910018
-2024-04-17 05:10:55,434 - root - INFO: ... removing: 1.10790005 of 193.58910018
-2024-04-17 05:10:55,437 - root - INFO: ... removing: 1.42430003 of 193.58910018
-2024-04-17 05:10:55,440 - root - INFO: ... removing: 1.48390002 of 193.58910018
-2024-04-17 05:10:55,442 - root - INFO: ... removing: 0.87100001 of 193.58910018
-2024-04-17 05:10:55,445 - root - INFO: ... removing: 0.19800001 of 193.58910018
-2024-04-17 05:10:55,452 - root - INFO: ... removing: 0.4647 of 193.58910018
-2024-04-17 05:10:55,455 - root - INFO: ... removing: 0.50140003 of 193.58910018
-2024-04-17 05:10:55,459 - root - INFO: ... removing: 0.7591999700000001 of 193.58910018
-2024-04-17 05:10:55,461 - root - INFO: ... removing: 0.5633 of 193.58910018
-2024-04-17 05:10:55,464 - root - INFO: ... removing: 0.63440005 of 193.58910018
-2024-04-17 05:10:55,469 - root - INFO: ... removing: 0.62940001 of 193.58910018
-2024-04-17 05:10:55,472 - root - INFO: ... removing: 1.87300002 of 193.58910018
-2024-04-17 05:10:55,474 - root - INFO: ... removing: 1.8664 of 193.58910018
-2024-04-17 05:10:55,478 - root - INFO: ... removing: 0.33550002 of 193.58910018
-2024-04-17 05:10:55,481 - root - INFO: ... removing: 1.05729998 of 193.58910018
-2024-04-17 05:10:55,484 - root - INFO: ... total contributing area = 193.58910018
-2024-04-17 05:10:55,487 - root - INFO: ... pruned 33
-2024-04-17 05:10:55,489 - root - INFO: 
-2024-04-17 05:10:55,492 - root - INFO: Simplifying
-2024-04-17 05:10:55,495 - root - INFO: ------------------------------
-2024-04-17 05:10:55,502 - root - INFO: Simplifying rivers
-2024-04-17 05:10:55,546 - root - INFO:   ...cleaned inner segment of length 21.0141 at centroid (325697.73040492646, 4304206.45329683)
-2024-04-17 05:10:55,553 - root - INFO: Simplifying HUCs
-2024-04-17 05:10:55,562 - root - INFO: Snapping river and HUC (nearly) coincident nodes
-2024-04-17 05:10:55,577 - root - INFO:   snapping polygon segment boundaries to river endpoints
-2024-04-17 05:10:55,605 - root - INFO:   snapping river endpoints to the polygon
-2024-04-17 05:10:55,613 - root - INFO:     snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
-2024-04-17 05:10:55,629 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
-2024-04-17 05:10:55,640 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
-2024-04-17 05:10:55,906 - root - INFO:   cutting at crossings
-2024-04-17 05:10:55,911 - root - INFO: intersection found
-2024-04-17 05:10:55,956 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:55,960 - root - INFO:       split HUC boundary seg into 2 pieces
-2024-04-17 05:10:55,962 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:55,970 - root - INFO: intersection found
-2024-04-17 05:10:55,976 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:55,980 - root - INFO:       split HUC boundary seg into 1 pieces
-2024-04-17 05:10:55,983 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:56,019 - root - INFO: intersection found
-2024-04-17 05:10:56,028 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:56,033 - root - INFO:       split HUC boundary seg into 1 pieces
-2024-04-17 05:10:56,036 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:56,059 - root - INFO: intersection found
-2024-04-17 05:10:56,101 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:56,104 - root - INFO:       split HUC boundary seg into 2 pieces
-2024-04-17 05:10:56,107 - root - INFO:       split reach seg into 2 pieces
-2024-04-17 05:10:56,124 - root - INFO: Cutting crossings and removing external segments
-2024-04-17 05:10:56,127 - root - INFO:   cutting at crossings
-2024-04-17 05:10:56,130 - root - INFO: intersection found
-2024-04-17 05:10:56,138 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:56,141 - root - INFO:       split HUC boundary seg into 1 pieces
-2024-04-17 05:10:56,143 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:56,154 - root - INFO: intersection found
-2024-04-17 05:10:56,162 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:56,165 - root - INFO:       split HUC boundary seg into 1 pieces
-2024-04-17 05:10:56,167 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:56,177 - root - INFO: intersection found
-2024-04-17 05:10:56,187 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:56,190 - root - INFO:       split HUC boundary seg into 1 pieces
-2024-04-17 05:10:56,192 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:56,214 - root - INFO: intersection found
-2024-04-17 05:10:56,225 - root - INFO:   - cutting reach at external boundary of HUCs:
-2024-04-17 05:10:56,228 - root - INFO:       split HUC boundary seg into 1 pieces
-2024-04-17 05:10:56,230 - root - INFO:       split reach seg into 1 pieces
-2024-04-17 05:10:56,247 - root - INFO: 
-2024-04-17 05:10:56,251 - root - INFO: Simplification Diagnostics
-2024-04-17 05:10:56,254 - root - INFO: ------------------------------
-2024-04-17 05:10:56,270 - root - INFO:   river min seg length: 63.505778633192975
-2024-04-17 05:10:56,277 - root - INFO:   river median seg length: 165.69096496550588
-2024-04-17 05:10:56,286 - root - INFO:   HUC min seg length: 0.0
-2024-04-17 05:10:56,292 - root - INFO:   HUC median seg length: 63.75381709415594
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:34:49,299 - root - INFO: 
+2025-07-12 18:34:49,302 - root - INFO: Loading Hydrography
+2025-07-12 18:34:49,305 - root - INFO: ------------------------------
+2025-07-12 18:34:49,307 - root - INFO: Loading streams in HUC 1402
+2025-07-12 18:34:49,312 - root - INFO:          and/or bounds (317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)
+2025-07-12 18:34:49,345 - root - INFO:   Using Hydrography file &quot;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&quot;
+2025-07-12 18:34:49,349 - root - INFO:   National Hydrography Dataset Plus High Resolution (NHDPlus HR): opening &#39;../../data/hydrography/NHDPlus_H_1402_GDB/NHDPlus_H_1402.gdb&#39; layer &#39;NHDFlowline&#39; for streams in &#39;(317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)&#39;
+2025-07-12 18:34:50,324 - root - INFO:   Found total of 205 in bounds.
+2025-07-12 18:34:50,329 - root - INFO: Filtering reaches not in-network
+2025-07-12 18:35:09,496 - root - INFO: ... found 201 reaches
+2025-07-12 18:35:09,498 - root - INFO: Converting to shapely
+2025-07-12 18:35:09,613 - root - INFO:  ... done
+2025-07-12 18:35:09,620 - root - INFO: Converting to out_crs
+2025-07-12 18:35:09,623 - root - INFO:   epsg:4269
+2025-07-12 18:35:09,626 - root - INFO:   epsg:26913
+2025-07-12 18:35:09,741 - root - INFO: (316698.1900592111, 4298530.931267006, 330217.03258385847, 4308760.991477145)
+2025-07-12 18:35:09,744 - root - INFO:  ... done
+2025-07-12 18:35:09,893 - root - INFO: Removed 83 of 201 reaches not in shape
+2025-07-12 18:35:09,899 - root - INFO: 
+2025-07-12 18:35:09,902 - root - INFO: Constructing river network
+2025-07-12 18:35:09,905 - root - INFO: ------------------------------
+2025-07-12 18:35:09,907 - root - INFO: Generating the river tree
+2025-07-12 18:35:09,911 - root - INFO:  ... generated 2 rivers
+2025-07-12 18:35:09,914 - root - INFO: Removing rivers with fewer than 2 reaches.
+2025-07-12 18:35:09,945 - root - INFO: ... removed 1 rivers
+2025-07-12 18:35:09,950 - root - INFO: Removing rivers with area &lt; 2.660094416801729
+2025-07-12 18:35:09,954 - root - INFO: Removing divergent sections...
+2025-07-12 18:35:09,963 - root - INFO:   ... removed 0 divergence tributaries with 0 total reaches.
+2025-07-12 18:35:09,966 - root - INFO: Pruning by total contributing area &lt; 2.660094416801729
+2025-07-12 18:35:09,977 - root - INFO: ... pruned 83
+2025-07-12 18:35:09,980 - root - INFO: Removing rivers with fewer than 2 reaches.
+2025-07-12 18:35:09,984 - root - INFO: ... removed 0 rivers
+2025-07-12 18:35:09,986 - root - INFO: 
+2025-07-12 18:35:09,988 - root - INFO: Simplifying
+2025-07-12 18:35:09,991 - root - INFO: ------------------------------
+2025-07-12 18:35:09,993 - root - INFO: Simplifying rivers
+2025-07-12 18:35:10,039 - root - INFO:   ...cleaned inner segment of length 21.0141 at centroid (325697.73040492646, 4304206.45329683) with id &#39;41000700024213&#39;
+2025-07-12 18:35:10,050 - root - INFO: Simplifying HUCs
+2025-07-12 18:35:10,058 - root - INFO: Snapping river and HUC (nearly) coincident nodes
+2025-07-12 18:35:10,070 - root - INFO:   snapping polygon segment boundaries to river endpoints
+2025-07-12 18:35:10,097 - root - INFO:   snapping river endpoints to the polygon
+2025-07-12 18:35:10,104 - root - INFO:     snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
+2025-07-12 18:35:10,116 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
+2025-07-12 18:35:10,125 - root - INFO:   - snapped river: (328465.26966356474, 4305018.937609363) to (328464.3780581458, 4305011.855525184)
+2025-07-12 18:35:10,297 - root - INFO:   cutting at crossings
+2025-07-12 18:35:10,301 - root - INFO: intersection found
+2025-07-12 18:35:10,347 - root - INFO:   - cutting reach at external boundary of HUCs:
+2025-07-12 18:35:10,349 - root - INFO:       split HUC boundary seg into 2 pieces
+2025-07-12 18:35:10,352 - root - INFO:       split reach seg into 1 pieces
+2025-07-12 18:35:10,359 - root - INFO: intersection found
+2025-07-12 18:35:10,365 - root - INFO:   - cutting reach at external boundary of HUCs:
+2025-07-12 18:35:10,367 - root - INFO:       split HUC boundary seg into 1 pieces
+2025-07-12 18:35:10,369 - root - INFO:       split reach seg into 1 pieces
+2025-07-12 18:35:10,378 - root - INFO: intersection found
+2025-07-12 18:35:10,388 - root - INFO:   - cutting reach at external boundary of HUCs:
+2025-07-12 18:35:10,390 - root - INFO:       split HUC boundary seg into 1 pieces
+2025-07-12 18:35:10,393 - root - INFO:       split reach seg into 1 pieces
+2025-07-12 18:35:10,477 - root - INFO: Cutting crossings and removing external segments
+2025-07-12 18:35:10,479 - root - INFO:   cutting at crossings
+2025-07-12 18:35:10,483 - root - INFO: intersection found
+2025-07-12 18:35:10,490 - root - INFO:   - cutting reach at external boundary of HUCs:
+2025-07-12 18:35:10,493 - root - INFO:       split HUC boundary seg into 1 pieces
+2025-07-12 18:35:10,496 - root - INFO:       split reach seg into 1 pieces
+2025-07-12 18:35:10,504 - root - INFO: intersection found
+2025-07-12 18:35:10,510 - root - INFO:   - cutting reach at external boundary of HUCs:
+2025-07-12 18:35:10,514 - root - INFO:       split HUC boundary seg into 1 pieces
+2025-07-12 18:35:10,517 - root - INFO:       split reach seg into 1 pieces
+2025-07-12 18:35:10,524 - root - INFO: intersection found
+2025-07-12 18:35:10,532 - root - INFO:   - cutting reach at external boundary of HUCs:
+2025-07-12 18:35:10,535 - root - INFO:       split HUC boundary seg into 1 pieces
+2025-07-12 18:35:10,537 - root - INFO:       split reach seg into 1 pieces
+2025-07-12 18:35:10,574 - root - INFO: 
+2025-07-12 18:35:10,577 - root - INFO: Simplification Diagnostics
+2025-07-12 18:35:10,578 - root - INFO: ------------------------------
+2025-07-12 18:35:10,593 - root - INFO:   river min seg length: 64.40649250650686
+2025-07-12 18:35:10,601 - root - INFO:   river median seg length: 166.20180218111673
+2025-07-12 18:35:10,608 - root - INFO:   HUC min seg length: 0.0
+2025-07-12 18:35:10,612 - root - INFO:   HUC median seg length: 31.87690854707797
 </pre></div>
 </div>
 </div>
@@ -876,14 +897,14 @@ document.write(`
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<img alt="../_images/a78d8029062d9436f69e14131d8b5248bfb65c2a4343c6f1b3df3ce744508847.png" src="../_images/a78d8029062d9436f69e14131d8b5248bfb65c2a4343c6f1b3df3ce744508847.png" />
+<img alt="../_images/34f88bed72b6838085bfde89370453bf8a27438c86ecf798277951ebea9feffb.png" src="../_images/34f88bed72b6838085bfde89370453bf8a27438c86ecf798277951ebea9feffb.png" />
 </div>
 </div>
 <section id="meshing">
 <h3>Meshing<a class="headerlink" href="#meshing" title="Permalink to this heading">#</a></h3>
 <p>Triangulation refinement: refine triangles if their area (in m^2) is greater than A(d), where d is the distance from the triangle centroid to the nearest stream. A(d) is a piecewise linear function – A = A0 if d &lt;= d0, A = A1 if d &gt;= d1, and linearly interpolates between the two endpoints.</p>
 <p>Adjust distance and area parameters to refine triangles.</p>
-<p><span style="color:blue;"> Be careful with the min triangular area (e.g., &lt;1 m^2) in the meshes. It will likely cause the model to run extremely slowly. You may also receive an error saying the tolerance value (i.e., the minimum node distance) is too small.</span> You can increase the smoothing parameter such as <code class="docutils literal notranslate"><span class="pre">simplify_hucs</span></code> or <code class="docutils literal notranslate"><span class="pre">simplify_rivers</span></code> to make the boundaries smoother and meshes coarser.</p>
+<p><span style="color:blue;"> Be careful with the min triangular area (e.g., &lt;1 m^2) in the meshes. It will likely cause the model to run extremely slowly. You may also receive an error saying the tolerance value (i.e., the minimum node distance) is too small.</span> You can increase the smoothing parameter such as <code class="docutils literal notranslate"><span class="pre">simplify_hucs</span></code> or <code class="docutils literal notranslate"><span class="pre">simplify_rivers</span></code> in the above step to make the boundaries smoother and meshes coarser.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># form a triangulation on the shape + river network</span>
@@ -893,8 +914,9 @@ document.write(`
 <span class="c1"># distance from the triangle centroid to the nearest stream.</span>
 <span class="c1"># A(d) is a piecewise linear function -- A = A0 if d &lt;= d0, A = A1 if d &gt;= d1, and</span>
 <span class="c1"># linearly interpolates between the two endpoints.</span>
-<span class="n">d0</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">d1</span> <span class="o">=</span> <span class="mi">500</span> <span class="c1"># distance in meters</span>
-<span class="n">A0</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">;</span> <span class="n">A1</span> <span class="o">=</span> <span class="mi">50000</span> <span class="c1"># triangular area in m^2</span>
+<span class="n">d0</span> <span class="o">=</span> <span class="n">refine_d0</span><span class="p">;</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">refine_d1</span> <span class="c1"># distance in meters</span>
+<span class="n">A0</span> <span class="o">=</span> <span class="n">refine_A0</span><span class="p">;</span> <span class="n">A1</span> <span class="o">=</span> <span class="n">refine_A1</span> <span class="c1"># triangular area in m^2</span>
+<span class="c1"># A0 = 5000; A1 = 50000 # triangular area in m^2</span>
 <span class="c1">#A0 = 500; A1 = 2500</span>
 <span class="c1">#A0 = 100; A1 = 500</span>
 
@@ -910,22 +932,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:10:57,811 - root - INFO: 
-2024-04-17 05:10:57,815 - root - INFO: Meshing
-2024-04-17 05:10:57,817 - root - INFO: ------------------------------
-2024-04-17 05:10:57,846 - root - INFO: Triangulating...
-2024-04-17 05:10:57,852 - root - INFO:    98 points and 98 facets
-2024-04-17 05:10:57,856 - root - INFO:  checking graph consistency
-2024-04-17 05:10:57,860 - root - INFO:  tolerance is set to 1
-2024-04-17 05:10:57,870 - root - INFO:  building graph data structures
-2024-04-17 05:10:57,882 - root - INFO:  triangle.build...
-2024-04-17 05:11:07,826 - root - INFO:   ...built: 2897 mesh points and 5610 triangles
-2024-04-17 05:11:07,830 - root - INFO: Plotting triangulation diagnostics
-2024-04-17 05:11:10,903 - root - INFO:   min area = 1569.3751220703125
-2024-04-17 05:11:10,907 - root - INFO:   max area = 49649.99279785156
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:35:12,266 - root - INFO: 
+2025-07-12 18:35:12,270 - root - INFO: Triangulation
+2025-07-12 18:35:12,274 - root - INFO: ------------------------------
+2025-07-12 18:35:12,320 - root - INFO: Triangulating...
+2025-07-12 18:35:12,328 - root - INFO:    97 points and 97 facets
+2025-07-12 18:35:12,331 - root - INFO:  checking graph consistency
+2025-07-12 18:35:12,333 - root - INFO:  tolerance is set to 1
+2025-07-12 18:35:12,350 - root - INFO:  building graph data structures
+2025-07-12 18:35:12,362 - root - INFO:  triangle.build...
+2025-07-12 18:35:19,857 - root - INFO:   ...built: 2486 mesh points and 4793 triangles
+2025-07-12 18:35:19,860 - root - INFO: Plotting triangulation diagnostics
+2025-07-12 18:35:22,406 - root - INFO:   min area = 1493.2255859375
+2025-07-12 18:35:22,409 - root - INFO:   max area = 44960.84326171875
 </pre></div>
 </div>
-<img alt="../_images/e8df127b8089639c13a6c406c17a89ceb5aab0fcd0e2656975b6adaabc8efa84.png" src="../_images/e8df127b8089639c13a6c406c17a89ceb5aab0fcd0e2656975b6adaabc8efa84.png" />
+<img alt="../_images/a72f12f7bbfb253917c03c55297e55669e3b152a35fdca732f8f927ac4167276.png" src="../_images/a72f12f7bbfb253917c03c55297e55669e3b152a35fdca732f8f927ac4167276.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -939,17 +961,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:12,694 - root - INFO: 
-2024-04-17 05:11:12,697 - root - INFO: Loading Raster
-2024-04-17 05:11:12,703 - root - INFO: ------------------------------
-2024-04-17 05:11:12,709 - root - INFO: Collecting raster
-2024-04-17 05:11:12,725 - root - INFO: Collecting DEMs to tile bounds: [-107.11634327399999, 38.817702882000034, -106.96736783099998, 38.90466788700003]
-2024-04-17 05:11:12,732 - root - INFO:   Need:
-2024-04-17 05:11:12,735 - root - INFO:     ../../data/dem/USGS_NED_1as_n39_w108.tif
-2024-04-17 05:11:12,738 - root - INFO:     ../../data/dem/USGS_NED_1as_n39_w107.tif
-2024-04-17 05:11:12,742 - root - INFO: source files already exist!
-2024-04-17 05:11:12,993 - root - INFO: ... got raster of shape: (313, 536)
-2024-04-17 05:11:13,000 - root - INFO: ... got raster bounds: (-107.11634327399999, 38.90466788700003, -106.96745438510615, 38.81772344247477)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:35:24,067 - root - INFO: 
+2025-07-12 18:35:24,070 - root - INFO: Loading Raster
+2025-07-12 18:35:24,072 - root - INFO: ------------------------------
+2025-07-12 18:35:24,084 - root - INFO: Collecting raster
+2025-07-12 18:35:24,156 - root - INFO: Collecting DEMs to tile bounds: [-107.11634327399999, 38.817702882000034, -106.96736783099998, 38.90466788700003]
+2025-07-12 18:35:24,163 - root - INFO:   Need:
+2025-07-12 18:35:24,166 - root - INFO:     ../../data/dem/USGS_NED_1as_n39_w108.tif
+2025-07-12 18:35:24,176 - root - INFO:     ../../data/dem/USGS_NED_1as_n39_w107.tif
+2025-07-12 18:35:24,198 - root - INFO: source files already exist!
+2025-07-12 18:35:24,445 - root - INFO: ... got raster of shape: (313, 536)
+2025-07-12 18:35:24,456 - root - INFO: ... got raster bounds: (-107.11634327399999, 38.90466788700003, -106.96745438510615, 38.81772344247477)
 </pre></div>
 </div>
 </div>
@@ -987,7 +1009,7 @@ document.write(`
  Text(4308000.0, 0, &#39;&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/046df052da5db682f7b4d67e1b037716a6a7b70abe83b6f0e55db5191e657c6a.png" src="../_images/046df052da5db682f7b4d67e1b037716a6a7b70abe83b6f0e55db5191e657c6a.png" />
+<img alt="../_images/28ec7a377f273ca9395e9680cd52f14b1144b283ba61729d891d4f2f7555c89a.png" src="../_images/28ec7a377f273ca9395e9680cd52f14b1144b283ba61729d891d4f2f7555c89a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1039,7 +1061,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Elevation [m]&#39;)
 </pre></div>
 </div>
-<img alt="../_images/5122b35670861e62fa18e082b6be0a170f87450fe7265fba38f2c6fea5955e12.png" src="../_images/5122b35670861e62fa18e082b6be0a170f87450fe7265fba38f2c6fea5955e12.png" />
+<img alt="../_images/e12e58e5d64792db125608141da3fbf3dd276e2bd4fc03cd3dd6c969f2ec4835.png" src="../_images/e12e58e5d64792db125608141da3fbf3dd276e2bd4fc03cd3dd6c969f2ec4835.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1072,7 +1094,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>max diff =  93.59001668278142
 </pre></div>
 </div>
-<img alt="../_images/d817f10b00e75c973780e6d7efffbc317a8c21806d4f05229e6225188ddff52e.png" src="../_images/d817f10b00e75c973780e6d7efffbc317a8c21806d4f05229e6225188ddff52e.png" />
+<img alt="../_images/cf8824f8f270b07fc38f8db93f7d3b5a9a5f630737f1d92bf5d2142609bb96f4.png" src="../_images/cf8824f8f270b07fc38f8db93f7d3b5a9a5f630737f1d92bf5d2142609bb96f4.png" />
 </div>
 </div>
 </section>
@@ -1132,7 +1154,7 @@ document.write(`
 <span class="n">watershed_polygons</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">watershed</span><span class="o">.</span><span class="n">polygons</span><span class="p">())</span>
 <span class="n">catchment_labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s1">&#39;HUC12&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">watershed_polygons</span><span class="p">]</span>
 
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">add_watershed_regions_and_outlets</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">watershed</span><span class="p">,</span> 
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">add_watershed_regions_and_outlets</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">watershed</span><span class="p">,</span> 
                                                 <span class="n">outlet_width</span><span class="o">=</span><span class="n">outlet_width</span><span class="p">,</span> 
                                                <span class="n">labels</span><span class="o">=</span><span class="n">catchment_labels</span><span class="p">)</span>
 </pre></div>
@@ -1150,7 +1172,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8f637fea7e5c679e36f2aba5cfa747fba5e5eb9d35f64ad0368ac6b0bbb76332.png" src="../_images/8f637fea7e5c679e36f2aba5cfa747fba5e5eb9d35f64ad0368ac6b0bbb76332.png" />
+<img alt="../_images/a1c6a3c9a9336b6d8dcc91f0e79c32561f0356f4d721ca620dd9fcfa5fe006ec.png" src="../_images/a1c6a3c9a9336b6d8dcc91f0e79c32561f0356f4d721ca620dd9fcfa5fe006ec.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1201,15 +1223,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:27,534 - root - INFO: 
-2024-04-17 05:11:27,537 - root - INFO: Loading Raster
-2024-04-17 05:11:27,539 - root - INFO: ------------------------------
-2024-04-17 05:11:27,543 - root - INFO: Collecting raster
-2024-04-17 05:11:28,365 - root - INFO: bounds in my_crs: (-952551.1064432578, 1811083.3381282836, -941371.5911290408, 1818385.78533155)
-2024-04-17 05:11:28,412 - root - INFO: ... got raster of shape: (245, 374)
-2024-04-17 05:11:28,984 - root - INFO: ... got raster bounds: (-952575.0, 1818405.0, -941355.0, 1811055.0)
-2024-04-17 05:11:30,422 - root - INFO: Found land cover dtypes: uint8
-2024-04-17 05:11:30,432 - root - INFO: Found land cover types: {71, 41, 42, 43, 11, 81, 52, 21, 22, 23, 24, 90, 31, 95}
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:35:36,701 - root - INFO: 
+2025-07-12 18:35:36,704 - root - INFO: Loading Raster
+2025-07-12 18:35:36,707 - root - INFO: ------------------------------
+2025-07-12 18:35:36,711 - root - INFO: Collecting raster
+2025-07-12 18:35:37,396 - root - INFO: bounds in my_crs: (-952551.1064432578, 1811083.3381282836, -941371.5911290408, 1818385.78533155)
+2025-07-12 18:35:37,408 - root - INFO: ... got raster of shape: (245, 374)
+2025-07-12 18:35:37,977 - root - INFO: ... got raster bounds: (-952575.0, 1818405.0, -941355.0, 1811055.0)
+2025-07-12 18:35:38,673 - root - INFO: Found land cover dtypes: uint8
+2025-07-12 18:35:38,680 - root - INFO: Found land cover types: {71, 41, 42, 43, 11, 81, 52, 21, 22, 23, 24, 90, 31, 95}
 </pre></div>
 </div>
 </div>
@@ -1237,14 +1259,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095232fe0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095233c40&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
-setting face color =  [95 21 42 ... 52 42 42]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409569ffd0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x40956c9060&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
+setting face color =  [42 42 95 ... 52 52 52]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/9e84d06bcd69782f148e9d224d22f41f42d8386d7a0e95c6f08d1e34fcd5a4cb.png" src="../_images/9e84d06bcd69782f148e9d224d22f41f42d8386d7a0e95c6f08d1e34fcd5a4cb.png" />
+<img alt="../_images/ad81b0b85fcffcdc46fc293843ded294b1c9b7cb36cc746ebcd14803af1091be.png" src="../_images/ad81b0b85fcffcdc46fc293843ded294b1c9b7cb36cc746ebcd14803af1091be.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1314,29 +1336,46 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:39,104 - root - INFO: ... reading LULC from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD12Q1.006_500m_aid0001.nc
-2024-04-17 05:11:39,218 - root - INFO: ... reading LAI from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD15A3H.006_500m_aid0001.nc
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:35:45,502 - root - INFO: ... reading LULC from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD12Q1.006_500m_aid0001.nc
+2025-07-12 18:35:45,631 - root - INFO: ... reading LAI from ../../data/examples/CoalCreek/sources/land_cover/MODIS/MCD15A3H.006_500m_aid0001.nc
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>731
+915
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">times</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># drop data on leap day -- MODIS is real data, but we work with data on a noleap calendar.  This drops Dec 31</span>
+<span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">modis</span><span class="o">.</span><span class="n">collections</span><span class="p">:</span>
+    <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">removeLeapDay</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([datetime.date(2002, 1, 1), datetime.date(2003, 1, 1),
-       datetime.date(2004, 1, 1), datetime.date(2005, 1, 1),
-       datetime.date(2006, 1, 1), datetime.date(2007, 1, 1),
-       datetime.date(2008, 1, 1), datetime.date(2009, 1, 1),
-       datetime.date(2010, 1, 1), datetime.date(2011, 1, 1),
-       datetime.date(2012, 1, 1), datetime.date(2013, 1, 1),
-       datetime.date(2014, 1, 1), datetime.date(2015, 1, 1),
-       datetime.date(2016, 1, 1), datetime.date(2017, 1, 1),
-       datetime.date(2018, 1, 1), datetime.date(2019, 1, 1),
-       datetime.date(2020, 1, 1)], dtype=object)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;watershed_workflow.datasets.Dataset&#39;&gt; &lt;class &#39;str&#39;&gt; LULC
+&lt;class &#39;watershed_workflow.datasets.Dataset&#39;&gt; &lt;class &#39;str&#39;&gt; LAI
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert Gregorian time to datetime64</span>
+<span class="n">modis_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">times</span><span class="p">])</span>
+
+<span class="n">modis_times</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;2002-01-01&#39;, &#39;2003-01-01&#39;, &#39;2004-01-01&#39;, &#39;2005-01-01&#39;,
+       &#39;2006-01-01&#39;, &#39;2007-01-01&#39;, &#39;2008-01-01&#39;, &#39;2009-01-01&#39;,
+       &#39;2010-01-01&#39;, &#39;2011-01-01&#39;, &#39;2012-01-01&#39;, &#39;2013-01-01&#39;,
+       &#39;2014-01-01&#39;, &#39;2015-01-01&#39;, &#39;2016-01-01&#39;, &#39;2017-01-01&#39;,
+       &#39;2018-01-01&#39;, &#39;2019-01-01&#39;, &#39;2020-01-01&#39;], dtype=&#39;datetime64[D]&#39;)
 </pre></div>
 </div>
 </div>
@@ -1344,7 +1383,7 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select the year of 2016 for MODIS landcover to match 2016 NLCD land cover</span>
-<span class="n">lc_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">times</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">lc_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">modis_times</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">lc_idx</span>
 </pre></div>
 </div>
@@ -1368,8 +1407,8 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:39,807 - root - INFO: Found land cover dtypes: int16
-2024-04-17 05:11:39,813 - root - INFO: Found land cover types: {8, 9, 10, 1}
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:35:46,383 - root - INFO: Found land cover dtypes: int16
+2025-07-12 18:35:46,389 - root - INFO: Found land cover types: {8, 9, 10, 1}
 </pre></div>
 </div>
 </div>
@@ -1404,30 +1443,75 @@ NOTE: if you get an error here about MODIS AppEEARs username and password, reali
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095b96e90&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095b97880&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
-setting face color =  [ 9 10  9 ...  8  9  8]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095e6bf40&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095e694b0&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
+setting face color =  [ 8  8 10 ...  9 10 10]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/519405b65fb9976d06f4b8054c1c30218d6dca2a059fa8dabe6f8bb4e1981f37.png" src="../_images/519405b65fb9976d06f4b8054c1c30218d6dca2a059fa8dabe6f8bb4e1981f37.png" />
+<img alt="../_images/55a1c2c433f2dc9a3d0305ec1675e8ee7899e7d16fa5554f4adaaaa569ab1026.png" src="../_images/55a1c2c433f2dc9a3d0305ec1675e8ee7899e7d16fa5554f4adaaaa569ab1026.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot both NLCD and MODIS to form the image cross-correlation</span>
+<span class="c1"># if generate_plots:</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">a0</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">get_ax</span><span class="p">(</span><span class="n">lc_profile</span><span class="p">[</span><span class="s1">&#39;crs&#39;</span><span class="p">],</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a0</span><span class="p">)</span> 
+
+<span class="c1"># plot the image</span>
+<span class="c1"># -- get the NLCD colormap which uses official NLCD colors and labels</span>
+<span class="n">nlcd_indices</span><span class="p">,</span> <span class="n">nlcd_cmap</span><span class="p">,</span> <span class="n">nlcd_norm</span><span class="p">,</span> <span class="n">nlcd_ticks</span><span class="p">,</span> <span class="n">nlcd_labels</span> <span class="o">=</span> \
+            <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">generate_nlcd_colormap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">lc_raster</span><span class="p">))</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">lc_profile</span><span class="p">,</span> <span class="n">lc_raster</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">nlcd_cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">nlcd_norm</span><span class="p">)</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">shply</span><span class="p">(</span><span class="n">watershed_workflow</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">shply</span><span class="p">(</span><span class="n">watershed</span><span class="o">.</span><span class="n">exterior</span><span class="p">(),</span> <span class="n">crs</span><span class="p">,</span> <span class="n">lc_profile</span><span class="p">[</span><span class="s1">&#39;crs&#39;</span><span class="p">]),</span> <span class="n">lc_profile</span><span class="p">[</span><span class="s1">&#39;crs&#39;</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorbar_index</span><span class="p">(</span><span class="n">ncolors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">lc_raster</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">nlcd_cmap</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">nlcd_labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;NLCD Index&quot;</span><span class="p">)</span>
+
+
+<span class="n">modis_raster</span> <span class="o">=</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">modis_profile</span> <span class="o">=</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">get_ax</span><span class="p">(</span><span class="n">modis_profile</span><span class="p">[</span><span class="s1">&#39;crs&#39;</span><span class="p">],</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+
+<span class="n">modis_indices</span><span class="p">,</span> <span class="n">modis_cmap</span><span class="p">,</span> <span class="n">modis_norm</span><span class="p">,</span> <span class="n">modis_ticks</span><span class="p">,</span> <span class="n">modis_labels</span> <span class="o">=</span> \
+            <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">generate_modis_colormap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">modis_raster</span><span class="p">))</span>
+<span class="c1"># print(modis_indices, modis_labels)</span>
+<span class="c1"># print(modis_cmap(8))</span>
+<span class="c1"># print(modis_cmap(4))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">modis_profile</span><span class="p">,</span> <span class="n">modis_raster</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">modis_cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">modis_norm</span><span class="p">)</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">shply</span><span class="p">(</span><span class="n">watershed_workflow</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">shply</span><span class="p">(</span><span class="n">watershed</span><span class="o">.</span><span class="n">exterior</span><span class="p">(),</span> <span class="n">crs</span><span class="p">,</span> <span class="n">modis_profile</span><span class="p">[</span><span class="s1">&#39;crs&#39;</span><span class="p">]),</span> <span class="n">modis_profile</span><span class="p">[</span><span class="s1">&#39;crs&#39;</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorbar_index</span><span class="p">(</span><span class="n">ncolors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">modis_raster</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">modis_cmap</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">modis_labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> 
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;MODIS LULC Index&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:35:53,597 - root - INFO: BOUNDS: (-952575.0, 1811055.0, -941355.0, 1818405.0)
+2025-07-12 18:35:55,069 - root - INFO: BOUNDS: (-107.13124999040262, 38.81041666318983, -106.952083323752, 38.91458332984716)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;MODIS LULC Index&#39;)
+</pre></div>
+</div>
+<img alt="../_images/ebc456e999294a1caeed5fd20d7567466a47cb713e2a2a7ea610cf071f2d5d1c.png" src="../_images/ebc456e999294a1caeed5fd20d7567466a47cb713e2a2a7ea610cf071f2d5d1c.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># determine a crosswalk between NLCD and MODIS -- for each NLCD index, </span>
-<span class="c1"># what MODIS index correlates best.  </span>
-<span class="n">unique_nlcd</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">lc</span><span class="p">))</span>
-<span class="n">unique_modis</span> <span class="o">=</span> <span class="n">modis_indices</span>
-
-<span class="n">crosswalk</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">land_cover_properties</span><span class="o">.</span><span class="n">compute_crosswalk_correlation</span><span class="p">(</span>
-    <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">lc_idx</span><span class="p">,:,:],</span> <span class="n">lc_profile</span><span class="p">,</span> <span class="n">lc_raster</span><span class="p">,</span> <span class="n">unique_nlcd</span> <span class="o">=</span> <span class="n">unique_nlcd</span><span class="p">,</span> <span class="n">unique_modis</span><span class="o">=</span><span class="n">unique_modis</span><span class="p">)</span>
+<span class="c1"># what MODIS index correlates best. </span>
+<span class="n">crosswalk</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">land_cover_properties</span><span class="o">.</span><span class="n">computeMaximalCrosswalkCorrelation</span><span class="p">(</span>
+    <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">lc_idx</span><span class="p">,:,:],</span> <span class="n">lc_profile</span><span class="p">,</span> <span class="n">lc_raster</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8e71f19dffe4fabc4806c83a6439024a8349469652f101957c126e29cbecbf47.png" src="../_images/8e71f19dffe4fabc4806c83a6439024a8349469652f101957c126e29cbecbf47.png" />
+<img alt="../_images/b3001390a6602790132fb47c386bdd0facda2627dc47efa8973eeb8e9d5d62fa.png" src="../_images/b3001390a6602790132fb47c386bdd0facda2627dc47efa8973eeb8e9d5d62fa.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1507,14 +1591,14 @@ setting face color =  [ 9 10  9 ...  8  9  8]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095d19f60&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095d1a1a0&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
-setting face color =  [10  8  8 ... 10  8  8]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x40961991b0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x40961998a0&gt;, &#39;edgecolor&#39;: &#39;none&#39;, &#39;linewidth&#39;: 0.5}
+setting face color =  [ 8  8 10 ... 10 10 10]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/f406207dd5a3ebd193b4d0be9fc982b566e0c0dabbb1898cd516c0b6a0fc59fb.png" src="../_images/f406207dd5a3ebd193b4d0be9fc982b566e0c0dabbb1898cd516c0b6a0fc59fb.png" />
+<img alt="../_images/12fbae3d25c6fef6ae78028ed909c285b55df694a3ea8b29283736c4423964db.png" src="../_images/12fbae3d25c6fef6ae78028ed909c285b55df694a3ea8b29283736c4423964db.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1532,9 +1616,12 @@ setting face color =  [10  8  8 ... 10  8  8]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add labeled sets to the mesh for new NLCD</span>
-<span class="n">nlcd_labels_new</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MODIS &#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nlcd_labels_new</span><span class="p">]</span>
+<span class="c1"># nlcd_labels_new = [&#39;MODIS &#39; + i for i in nlcd_labels_new] # comment this to be consistent with the column labels in pandas</span>
 <span class="n">nlcd_labels_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">nlcd_indices_new</span><span class="p">,</span> <span class="n">nlcd_labels_new</span><span class="p">))</span>
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">add_nlcd_labeled_sets</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">nlcd_color_new</span><span class="p">,</span> <span class="n">nlcd_labels_dict</span><span class="p">)</span>
+
+<span class="c1"># Assert that the list does NOT contain 1, 2, or 3</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlcd_indices_new</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="s2">&quot;MODIS indices contain 1, 2, or 3, which are reserved labels for surface, bottom and sidesets!&quot;</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">add_nlcd_labeled_sets</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">nlcd_color_new</span><span class="p">,</span> <span class="n">nlcd_labels_dict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1560,9 +1647,9 @@ setting face color =  [10  8  8 ... 10  8  8]
 10002 : FACE : &quot;140200010204 boundary&quot;
 10003 : FACE : &quot;140200010204 outlet&quot;
 10004 : FACE : &quot;surface domain outlet&quot;
-8 : CELL : &quot;MODIS Woody Savannas&quot;
-9 : CELL : &quot;MODIS Savannas&quot;
-10 : CELL : &quot;MODIS Grasslands&quot;
+8 : CELL : &quot;Woody Savannas&quot;
+9 : CELL : &quot;Savannas&quot;
+10 : CELL : &quot;Grasslands&quot;
 </pre></div>
 </div>
 </div>
@@ -1570,8 +1657,12 @@ setting face color =  [10  8  8 ... 10  8  8]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute area averaged LAI for each modis land cover</span>
-<span class="n">lai_time_series</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">land_cover_properties</span><span class="o">.</span><span class="n">compute_time_series</span><span class="p">(</span>
-<span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LAI&#39;</span><span class="p">],</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">],</span> <span class="n">unique_lc</span> <span class="o">=</span> <span class="n">unique_modis</span><span class="p">,</span> <span class="n">lc_idx</span> <span class="o">=</span> <span class="n">lc_idx</span><span class="p">)</span>
+<span class="n">lai_time_series</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">land_cover_properties</span><span class="o">.</span><span class="n">computeTimeSeries</span><span class="p">(</span>
+<span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LAI&#39;</span><span class="p">],</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">],</span> <span class="n">polygon</span><span class="o">=</span><span class="n">watershed</span><span class="o">.</span><span class="n">exterior</span><span class="p">(),</span> <span class="n">polygon_crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+
+<span class="c1"># # convert Gregorian time to datetime64</span>
+<span class="c1"># lai_time_series[&#39;time [datetime]&#39;] = np.array([np.datetime64(t.strftime(&#39;%Y-%m-%d&#39;)) for t in lai_time_series[&#39;time [datetime]&#39;]])</span>
+
 <span class="n">lai_time_series</span>
 </pre></div>
 </div>
@@ -1596,52 +1687,52 @@ setting face color =  [10  8  8 ... 10  8  8]
     <tr style="text-align: right;">
       <th></th>
       <th>time [datetime]</th>
-      <th>MODIS Evergreen Needleleaf Forests LAI [-]</th>
-      <th>MODIS Woody Savannas LAI [-]</th>
-      <th>MODIS Savannas LAI [-]</th>
-      <th>MODIS Grasslands LAI [-]</th>
+      <th>Evergreen Needleleaf Forests LAI [-]</th>
+      <th>Woody Savannas LAI [-]</th>
+      <th>Savannas LAI [-]</th>
+      <th>Grasslands LAI [-]</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2002-07-04</td>
-      <td>1.589855</td>
-      <td>1.616497</td>
-      <td>1.184228</td>
-      <td>1.017632</td>
+      <td>2002-07-04 00:00:00</td>
+      <td>1.582051</td>
+      <td>1.531618</td>
+      <td>1.082292</td>
+      <td>0.900000</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2002-07-08</td>
-      <td>1.847826</td>
-      <td>1.639086</td>
-      <td>1.178188</td>
-      <td>0.983158</td>
+      <td>2002-07-08 00:00:00</td>
+      <td>1.864103</td>
+      <td>1.727206</td>
+      <td>1.188542</td>
+      <td>1.007576</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2002-07-12</td>
-      <td>2.168116</td>
-      <td>1.817005</td>
-      <td>1.337584</td>
-      <td>1.112895</td>
+      <td>2002-07-12 00:00:00</td>
+      <td>2.125641</td>
+      <td>1.954412</td>
+      <td>1.343750</td>
+      <td>0.986364</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2002-07-16</td>
-      <td>2.186957</td>
-      <td>2.015482</td>
-      <td>1.410403</td>
-      <td>1.103158</td>
+      <td>2002-07-16 00:00:00</td>
+      <td>2.115385</td>
+      <td>2.102206</td>
+      <td>1.352083</td>
+      <td>1.037879</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2002-07-20</td>
-      <td>1.518841</td>
-      <td>1.466751</td>
-      <td>0.984228</td>
-      <td>0.865000</td>
+      <td>2002-07-20 00:00:00</td>
+      <td>1.505128</td>
+      <td>1.398529</td>
+      <td>0.842708</td>
+      <td>0.748485</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1653,43 +1744,43 @@ setting face color =  [10  8  8 ... 10  8  8]
     </tr>
     <tr>
       <th>1694</th>
-      <td>2020-12-18</td>
-      <td>0.957971</td>
-      <td>0.845431</td>
-      <td>0.350671</td>
-      <td>0.200789</td>
+      <td>2020-12-18 00:00:00</td>
+      <td>1.030769</td>
+      <td>1.208824</td>
+      <td>0.483333</td>
+      <td>0.180303</td>
     </tr>
     <tr>
       <th>1695</th>
-      <td>2020-12-22</td>
-      <td>0.563768</td>
-      <td>0.481980</td>
-      <td>0.199664</td>
-      <td>0.102895</td>
+      <td>2020-12-22 00:00:00</td>
+      <td>0.589744</td>
+      <td>0.420588</td>
+      <td>0.154167</td>
+      <td>0.178788</td>
     </tr>
     <tr>
       <th>1696</th>
-      <td>2020-12-26</td>
-      <td>0.556522</td>
-      <td>0.356853</td>
-      <td>0.145302</td>
-      <td>0.073158</td>
+      <td>2020-12-26 00:00:00</td>
+      <td>0.582051</td>
+      <td>0.550000</td>
+      <td>0.167708</td>
+      <td>0.110606</td>
     </tr>
     <tr>
       <th>1697</th>
-      <td>2020-12-30</td>
-      <td>0.602899</td>
-      <td>0.407107</td>
-      <td>0.200671</td>
-      <td>0.087632</td>
+      <td>2020-12-30 00:00:00</td>
+      <td>0.828205</td>
+      <td>0.327941</td>
+      <td>0.188542</td>
+      <td>0.150000</td>
     </tr>
     <tr>
       <th>1698</th>
-      <td>2021-01-01</td>
-      <td>0.947826</td>
-      <td>0.579695</td>
-      <td>0.160738</td>
-      <td>0.090000</td>
+      <td>2021-01-01 00:00:00</td>
+      <td>1.082051</td>
+      <td>0.815441</td>
+      <td>0.253125</td>
+      <td>0.136364</td>
     </tr>
   </tbody>
 </table>
@@ -1698,9 +1789,21 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # compute area averaged LAI for each modis land cover</span>
+<span class="c1"># lai_time_series = watershed_workflow.land_cover_properties.computeTimeSeries(</span>
+<span class="c1"># modis[&#39;LAI&#39;], modis[&#39;LULC&#39;], unique_lc = unique_modis, lc_idx = lc_idx)</span>
+<span class="c1"># lai_time_series</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot LAI</span>
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">lai_time_series</span><span class="p">[</span><span class="s1">&#39;time [datetime]&#39;</span><span class="p">])</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">lai_time_series</span><span class="p">[</span><span class="s1">&#39;time [datetime]&#39;</span><span class="p">]])</span>
+
+<span class="c1"># times = pandas.to_datetime(lai_time_series[&#39;time [datetime]&#39;])</span>
 <span class="k">for</span> <span class="n">icol</span> <span class="ow">in</span> <span class="n">lai_time_series</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lai_time_series</span><span class="p">[</span><span class="n">icol</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="n">icol</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;LAI [-]&quot;</span><span class="p">)</span>
@@ -1709,24 +1812,28 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x409523cd30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x40962661a0&gt;
 </pre></div>
 </div>
-<img alt="../_images/546452b8f7782c5e009927750ee5164e2b1b60912a81bab61e288674d865821d.png" src="../_images/546452b8f7782c5e009927750ee5164e2b1b60912a81bab61e288674d865821d.png" />
+<img alt="../_images/1c9774eaf6ebb0cc4853dae6667d2b1462fc50137c48c8a3442f2fbd9ed8c544.png" src="../_images/1c9774eaf6ebb0cc4853dae6667d2b1462fc50137c48c8a3442f2fbd9ed8c544.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write raw LAI to disk</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time0_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">origin_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">time0_cftime</span> <span class="o">=</span> <span class="n">cftime</span><span class="o">.</span><span class="n">DatetimeNoLeap</span><span class="p">(</span><span class="n">time0_dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">time0_dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">time0_dt</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+
+<span class="c1"># write raw LAI to disk</span>
 <span class="n">config</span><span class="p">[</span><span class="s1">&#39;LAI_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">watershed_name</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span> <span class="s1">&#39;watershed_lai_raw.h5&#39;</span><span class="p">)</span>
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_timeseries_to_hdf5</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;LAI_filename&#39;</span><span class="p">],</span> <span class="n">lai_time_series</span><span class="p">,</span> 
                                               <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIS LAI based on MODIS LULC&#39;</span><span class="p">,</span>
-                                                         <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">},</span> <span class="n">time0</span><span class="o">=</span><span class="n">origin_date</span><span class="p">)</span>                                            
+                                                         <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">},</span> 
+                                               <span class="n">time0</span><span class="o">=</span><span class="n">time0_cftime</span><span class="p">)</span>                                            
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:11:59,783 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_lai_raw.h5
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:36:09,282 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_lai_raw.h5
 </pre></div>
 </div>
 </div>
@@ -1734,9 +1841,10 @@ setting face color =  [10  8  8 ... 10  8  8]
 <p>Generate smoothed MODIS LAI data for spinup runs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute area averaged LAI for each modis land cover</span>
-<span class="n">lai_time_series_smoothed</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">land_cover_properties</span><span class="o">.</span><span class="n">compute_time_series</span><span class="p">(</span>
-<span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LAI&#39;</span><span class="p">],</span> <span class="n">modis</span><span class="p">[</span><span class="s1">&#39;LULC&#39;</span><span class="p">],</span> <span class="n">unique_lc</span> <span class="o">=</span> <span class="n">unique_modis</span><span class="p">,</span> <span class="n">lc_idx</span> <span class="o">=</span> <span class="n">lc_idx</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># also compute a typical year of LAI</span>
+<span class="c1"># the start year 2000 can be arbitary since all time are relative in cyclic runs</span>
+<span class="n">lai_time_series_smoothed</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">timeseries</span><span class="o">.</span><span class="n">computeAverageYear</span><span class="p">(</span><span class="n">lai_time_series</span><span class="p">,</span> <span class="n">output_nyears</span><span class="o">=</span><span class="n">nyears_cyclic_steadystate</span><span class="p">,</span> 
+                                                                            <span class="n">start_year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lai_time_series_smoothed</span>
 </pre></div>
 </div>
@@ -1761,52 +1869,52 @@ setting face color =  [10  8  8 ... 10  8  8]
     <tr style="text-align: right;">
       <th></th>
       <th>time [datetime]</th>
-      <th>MODIS Evergreen Needleleaf Forests LAI [-]</th>
-      <th>MODIS Woody Savannas LAI [-]</th>
-      <th>MODIS Savannas LAI [-]</th>
-      <th>MODIS Grasslands LAI [-]</th>
+      <th>Evergreen Needleleaf Forests LAI [-]</th>
+      <th>Woody Savannas LAI [-]</th>
+      <th>Savannas LAI [-]</th>
+      <th>Grasslands LAI [-]</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2002-07-04</td>
-      <td>1.626218</td>
-      <td>1.615882</td>
-      <td>1.185884</td>
-      <td>0.996145</td>
+      <td>2000-01-01 00:00:00</td>
+      <td>0.665138</td>
+      <td>0.503850</td>
+      <td>0.185003</td>
+      <td>0.114609</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2002-07-05</td>
-      <td>1.678844</td>
-      <td>1.633757</td>
-      <td>1.196320</td>
-      <td>1.002076</td>
+      <td>2000-01-02 00:00:00</td>
+      <td>0.669486</td>
+      <td>0.504710</td>
+      <td>0.184404</td>
+      <td>0.114643</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2002-07-06</td>
-      <td>1.728293</td>
-      <td>1.650247</td>
-      <td>1.205861</td>
-      <td>1.007377</td>
+      <td>2000-01-03 00:00:00</td>
+      <td>0.675696</td>
+      <td>0.506218</td>
+      <td>0.184019</td>
+      <td>0.114689</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2002-07-07</td>
-      <td>1.774630</td>
-      <td>1.665379</td>
-      <td>1.214525</td>
-      <td>1.012063</td>
+      <td>2000-01-04 00:00:00</td>
+      <td>0.681729</td>
+      <td>0.507545</td>
+      <td>0.183845</td>
+      <td>0.114719</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2002-07-08</td>
-      <td>1.817918</td>
-      <td>1.679181</td>
-      <td>1.222327</td>
-      <td>1.016144</td>
+      <td>2000-01-05 00:00:00</td>
+      <td>0.687301</td>
+      <td>0.508614</td>
+      <td>0.183870</td>
+      <td>0.114705</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1817,57 +1925,90 @@ setting face color =  [10  8  8 ... 10  8  8]
       <td>...</td>
     </tr>
     <tr>
-      <th>6752</th>
-      <td>2020-12-28</td>
-      <td>0.675724</td>
-      <td>0.490863</td>
-      <td>0.192045</td>
-      <td>0.093669</td>
+      <th>1455</th>
+      <td>2003-12-27 00:00:00</td>
+      <td>0.662146</td>
+      <td>0.505514</td>
+      <td>0.189364</td>
+      <td>0.115856</td>
     </tr>
     <tr>
-      <th>6753</th>
-      <td>2020-12-29</td>
-      <td>0.671858</td>
-      <td>0.495014</td>
-      <td>0.192953</td>
-      <td>0.093393</td>
+      <th>1456</th>
+      <td>2003-12-28 00:00:00</td>
+      <td>0.664010</td>
+      <td>0.505158</td>
+      <td>0.188589</td>
+      <td>0.115406</td>
     </tr>
     <tr>
-      <th>6754</th>
-      <td>2020-12-30</td>
-      <td>0.667734</td>
-      <td>0.499303</td>
-      <td>0.193928</td>
-      <td>0.093184</td>
+      <th>1457</th>
+      <td>2003-12-29 00:00:00</td>
+      <td>0.664069</td>
+      <td>0.504498</td>
+      <td>0.187668</td>
+      <td>0.115088</td>
     </tr>
     <tr>
-      <th>6755</th>
-      <td>2020-12-31</td>
-      <td>0.663339</td>
-      <td>0.503729</td>
-      <td>0.194968</td>
-      <td>0.093040</td>
+      <th>1458</th>
+      <td>2003-12-30 00:00:00</td>
+      <td>0.662339</td>
+      <td>0.503702</td>
+      <td>0.186626</td>
+      <td>0.114795</td>
     </tr>
     <tr>
-      <th>6756</th>
-      <td>2021-01-01</td>
-      <td>0.658664</td>
-      <td>0.508288</td>
-      <td>0.196070</td>
-      <td>0.092960</td>
+      <th>1459</th>
+      <td>2003-12-31 00:00:00</td>
+      <td>0.662727</td>
+      <td>0.503500</td>
+      <td>0.185741</td>
+      <td>0.114648</td>
     </tr>
   </tbody>
 </table>
-<p>6757 rows × 5 columns</p>
+<p>1460 rows × 5 columns</p>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # compute area averaged LAI for each modis land cover</span>
+<span class="c1"># # unique_nlcd = list(np.unique(lc))</span>
+<span class="c1"># unique_modis = modis_indices</span>
+
+<span class="c1"># lai_time_series_smoothed = watershed_workflow.land_cover_properties.computeTimeSeries(</span>
+<span class="c1"># modis[&#39;LAI&#39;], modis[&#39;LULC&#39;], polygon=watershed_shp, polygon_crs=crs, </span>
+<span class="c1">#     unique_lc = unique_modis, lc_idx = lc_idx)</span>
+
+
+
+<span class="c1"># # convert Gregorian time to datetime64</span>
+<span class="c1"># lai_time_series_smoothed[&#39;time [datetime]&#39;] = np.array([np.datetime64(t.strftime(&#39;%Y-%m-%d&#39;)) for t in lai_time_series_smoothed[&#39;time [datetime]&#39;]])</span>
+
+
+<span class="c1"># lai_time_series_smoothed</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # compute area averaged LAI for each modis land cover</span>
+<span class="c1"># lai_time_series_smoothed = watershed_workflow.land_cover_properties.compute_time_series(</span>
+<span class="c1"># modis[&#39;LAI&#39;], modis[&#39;LULC&#39;], unique_lc = unique_modis, lc_idx = lc_idx, smooth=True)</span>
+<span class="c1"># lai_time_series_smoothed</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot LAI</span>
 <span class="n">ilc</span> <span class="o">=</span> <span class="n">lai_time_series</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">lai_time_series</span><span class="p">[</span><span class="s1">&#39;time [datetime]&#39;</span><span class="p">])</span>
-<span class="n">new_times</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">lai_time_series_smoothed</span><span class="p">[</span><span class="s1">&#39;time [datetime]&#39;</span><span class="p">])</span>
+<span class="c1"># times = pandas.to_datetime(lai_time_series[&#39;time [datetime]&#39;])</span>
+<span class="n">new_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">lai_time_series_smoothed</span><span class="p">[</span><span class="s1">&#39;time [datetime]&#39;</span><span class="p">]])</span>
+
+<span class="c1"># new_times = pandas.to_datetime(lai_time_series_smoothed[&#39;time [datetime]&#39;])</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">lai_time_series</span><span class="p">[</span><span class="n">ilc</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Raw&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">new_times</span><span class="p">,</span> <span class="n">lai_time_series_smoothed</span><span class="p">[</span><span class="n">ilc</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Smoothed&quot;</span><span class="p">)</span>
@@ -1878,175 +2019,27 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x409523cc10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x4096405180&gt;
 </pre></div>
 </div>
-<img alt="../_images/ea708ce4b036a3a5a3f50f5726b718b62c8e4a106955b7188cbce028c07825d2.png" src="../_images/ea708ce4b036a3a5a3f50f5726b718b62c8e4a106955b7188cbce028c07825d2.png" />
+<img alt="../_images/4474c7ea72aa5e51eea869c79fba2ad7016d2d986e92b937aeda0f6738e0982d.png" src="../_images/4474c7ea72aa5e51eea869c79fba2ad7016d2d986e92b937aeda0f6738e0982d.png" />
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lai_time_series_smoothed</span><span class="p">[</span><span class="s2">&quot;time [datetime]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">lai_time_series_smoothed</span><span class="p">[</span><span class="s2">&quot;time [datetime]&quot;</span><span class="p">])</span>
-<span class="n">lai_time_series_smoothed</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;time [datetime]&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lai_avg</span><span class="o">=</span><span class="n">lai_time_series_smoothed</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">lai_time_series_smoothed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">lai_time_series_smoothed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">lai_avg</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;time [datetime],time [datetime]&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/0e911ce1558485513c9a4e6ceaa5f176e6d7e4239479e9b7e552bb4e4df8e4ea.png" src="../_images/0e911ce1558485513c9a4e6ceaa5f176e6d7e4239479e9b7e552bb4e4df8e4ea.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># repeat for 40 years</span>
-<span class="n">lai_typical</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">lai_avg</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:],</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="n">lai_avg</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">lai_typical</span><span class="p">[</span><span class="s1">&#39;time [s]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSutils</span><span class="o">.</span><span class="n">sec_noleap</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">lai_typical</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">lai_typical</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>MODIS Evergreen Needleleaf Forests LAI [-]</th>
-      <th>MODIS Woody Savannas LAI [-]</th>
-      <th>MODIS Savannas LAI [-]</th>
-      <th>MODIS Grasslands LAI [-]</th>
-      <th>time [s]</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.624212</td>
-      <td>0.380460</td>
-      <td>0.151158</td>
-      <td>0.075328</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.619714</td>
-      <td>0.372474</td>
-      <td>0.148457</td>
-      <td>0.074082</td>
-      <td>86400</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.617371</td>
-      <td>0.371603</td>
-      <td>0.148243</td>
-      <td>0.073763</td>
-      <td>172800</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.615117</td>
-      <td>0.370879</td>
-      <td>0.148019</td>
-      <td>0.073519</td>
-      <td>259200</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.612984</td>
-      <td>0.370297</td>
-      <td>0.147774</td>
-      <td>0.073339</td>
-      <td>345600</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>14595</th>
-      <td>0.644767</td>
-      <td>0.385057</td>
-      <td>0.152636</td>
-      <td>0.076993</td>
-      <td>1261008000</td>
-    </tr>
-    <tr>
-      <th>14596</th>
-      <td>0.641196</td>
-      <td>0.383983</td>
-      <td>0.152196</td>
-      <td>0.076507</td>
-      <td>1261094400</td>
-    </tr>
-    <tr>
-      <th>14597</th>
-      <td>0.637604</td>
-      <td>0.383063</td>
-      <td>0.151849</td>
-      <td>0.076132</td>
-      <td>1261180800</td>
-    </tr>
-    <tr>
-      <th>14598</th>
-      <td>0.633966</td>
-      <td>0.382276</td>
-      <td>0.151593</td>
-      <td>0.075871</td>
-      <td>1261267200</td>
-    </tr>
-    <tr>
-      <th>14599</th>
-      <td>0.630448</td>
-      <td>0.381657</td>
-      <td>0.151440</td>
-      <td>0.075720</td>
-      <td>1261353600</td>
-    </tr>
-  </tbody>
-</table>
-<p>14600 rows × 5 columns</p>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write to disk</span>
 <span class="n">config</span><span class="p">[</span><span class="s1">&#39;LAI_typical_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">watershed_name</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span> <span class="s1">&#39;watershed_lai_typical.h5&#39;</span><span class="p">)</span>
-<span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="sa">f</span><span class="s1">&#39;Typical LAI generated MODIS LAI data from </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">, averaged for all days across each year, then repeated for 40 years&#39;</span><span class="p">,</span>
+<span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="sa">f</span><span class="s1">&#39;Typical LAI generated MODIS LAI data from </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">, averaged for all days across each year, then repeated for 10 years&#39;</span><span class="p">,</span>
            <span class="s1">&#39;origin date&#39;</span><span class="p">:</span><span class="n">origin_date</span><span class="p">}</span>
 
-<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;LAI_typical_filename&#39;</span><span class="p">],</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">lai_typical</span><span class="p">:</span>
-        <span class="n">fid</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">lai_typical</span><span class="p">[</span><span class="n">k</span><span class="p">][:])</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">fid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_timeseries_to_hdf5</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;LAI_typical_filename&#39;</span><span class="p">],</span> 
+                                               <span class="n">lai_time_series_smoothed</span><span class="p">,</span> 
+                                               <span class="n">time0</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># use the first date as the time0, relative time to be consistent with start time in xml file</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:36:12,317 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_lai_typical.h5
 </pre></div>
 </div>
 </div>
@@ -2089,25 +2082,27 @@ setting face color =  [10  8  8 ... 10  8  8]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:12:04,934 - root - INFO: 
-2024-04-17 05:12:04,937 - root - INFO: Loading shapes
-2024-04-17 05:12:04,939 - root - INFO: ------------------------------
-2024-04-17 05:12:05,022 - root - INFO: Attempting to download source for target &#39;../../data/soil_structure/SSURGO/SSURGO_-107.1073_38.8271_-106.9759_38.8957.shp&#39;
-2024-04-17 05:12:05,213 - root - INFO:   Found 109 shapes.
-2024-04-17 05:12:05,225 - root - INFO:   and crs: epsg:4326
-2024-04-17 05:12:05,228 - root - INFO:   Downloaded 109 total shapes
-2024-04-17 05:12:05,230 - root - INFO:   Downloaded 32 unique mukeys
-2024-04-17 05:12:05,468 - root - INFO: found 32 unique MUKEYs.
-2024-04-17 05:12:12,425 - root - INFO: Running Rosetta for van Genutchen parameters
-2024-04-17 05:12:13,254 - root - INFO:   ... done
-2024-04-17 05:12:13,266 - root - INFO:   requested 28 values
-2024-04-17 05:12:13,268 - root - INFO:   got 28 responses
-2024-04-17 05:12:13,321 - root - INFO: ... found 32 shapes
-2024-04-17 05:12:13,325 - root - INFO: Converting to shapely
-2024-04-17 05:12:13,333 - root - INFO: Converting to requested CRS
-2024-04-17 05:12:13,538 - root - INFO: Coloring shapes onto raster:
-2024-04-17 05:12:13,548 - root - INFO:   of shape: (735, 1124)
-2024-04-17 05:12:13,551 - root - INFO:   and 32 independent colors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:36:12,449 - root - INFO: 
+2025-07-12 18:36:12,452 - root - INFO: Loading shapes
+2025-07-12 18:36:12,455 - root - INFO: ------------------------------
+2025-07-12 18:36:12,538 - root - INFO: Attempting to download source for target &#39;../../data/soil_structure/SSURGO/SSURGO_-107.1073_38.8271_-106.9759_38.8957.shp&#39;
+2025-07-12 18:36:12,614 - root - INFO:   Found 109 shapes.
+2025-07-12 18:36:12,622 - root - INFO:   and crs: epsg:4326
+2025-07-12 18:36:12,625 - root - INFO:   Downloaded 109 total shapes
+2025-07-12 18:36:12,628 - root - INFO:   Downloaded 32 unique mukeys
+2025-07-12 18:36:12,865 - root - INFO: found 32 unique MUKEYs.
+2025-07-12 18:36:17,740 - root - INFO: Running Rosetta for van Genutchen parameters
+2025-07-12 18:36:18,600 - root - INFO:   ... done
+2025-07-12 18:36:18,611 - root - INFO:   requested 28 values
+2025-07-12 18:36:18,614 - root - INFO:   got 28 responses
+2025-07-12 18:36:18,699 - root - INFO: ... found 32 shapes
+2025-07-12 18:36:18,701 - root - INFO: Converting to shapely
+2025-07-12 18:36:18,704 - root - INFO:  ... done
+2025-07-12 18:36:18,714 - root - INFO: Converting to requested CRS
+2025-07-12 18:36:18,916 - root - INFO:  ... done
+2025-07-12 18:36:18,925 - root - INFO: Coloring shapes onto raster:
+2025-07-12 18:36:18,932 - root - INFO:   of shape: (735, 1124)
+2025-07-12 18:36:18,934 - root - INFO:   and 32 independent colors
 </pre></div>
 </div>
 </div>
@@ -2139,14 +2134,14 @@ setting face color =  [10  8  8 ... 10  8  8]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x4095c1d3c0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4095c1d300&gt;}
-setting face color =  [509733 509794 509532 ... 509481 509547 509481]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409575f910&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409575eaa0&gt;}
+setting face color =  [509548 509514 509733 ... 509482 509482 509529]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/887cb2563ab1a8d0cf2506ceb51ba27eb535fca2b0d992a9ebd428b70bd729a0.png" src="../_images/887cb2563ab1a8d0cf2506ceb51ba27eb535fca2b0d992a9ebd428b70bd729a0.png" />
+<img alt="../_images/1f892faf40341f8b5365719b5f2b35f174acea73a27569b8ffdd42671cf29a98.png" src="../_images/1f892faf40341f8b5365719b5f2b35f174acea73a27569b8ffdd42671cf29a98.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2595,7 +2590,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/9579ed42c68f1671aa72224b81f7b2b5f31e1111386b252e1c4f15de078cb6d0.png" src="../_images/9579ed42c68f1671aa72224b81f7b2b5f31e1111386b252e1c4f15de078cb6d0.png" />
+<img alt="../_images/299e0f62a14542bfb1e74cb575908c6a745c15d4849eb73ef4b4ebe9e2a160c1.png" src="../_images/299e0f62a14542bfb1e74cb575908c6a745c15d4849eb73ef4b4ebe9e2a160c1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2633,9 +2628,9 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_10039/45597466.py:11: RuntimeWarning: All-NaN axis encountered
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_555/45597466.py:11: RuntimeWarning: All-NaN axis encountered
   pmin = min(np.nanmin(np.log10(soil_perm_nrcs)), np.nanmin(np.log10(soil_perm_rosetta).min()))
-/tmp/ipykernel_10039/45597466.py:12: RuntimeWarning: All-NaN axis encountered
+/tmp/ipykernel_555/45597466.py:12: RuntimeWarning: All-NaN axis encountered
   pmax = max(np.nanmax(np.log10(soil_perm_nrcs)), np.nanmax(np.log10(soil_perm_rosetta).max()))
 </pre></div>
 </div>
@@ -2645,7 +2640,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;log permeability (Rosetta) [m^2]&#39;)
 </pre></div>
 </div>
-<img alt="../_images/888d4e3dd564c15ca6c9ee6359b338d76aa46bea1e2f250e10ccfc9550d0eae0.png" src="../_images/888d4e3dd564c15ca6c9ee6359b338d76aa46bea1e2f250e10ccfc9550d0eae0.png" />
+<img alt="../_images/6edaf3fb896607b1c97ee8afd6b28d26ff19753982ed50eb1db5f6eec2255cea.png" src="../_images/6edaf3fb896607b1c97ee8afd6b28d26ff19753982ed50eb1db5f6eec2255cea.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2672,12 +2667,12 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Median soil thickness = 1.52 [m]
 </pre></div>
 </div>
-<img alt="../_images/b9c5d73e2de3b4ee7cb175176466e46a59a0c6235eaf09e666ea59be7ba35828.png" src="../_images/b9c5d73e2de3b4ee7cb175176466e46a59a0c6235eaf09e666ea59be7ba35828.png" />
+<img alt="../_images/0282dce4e541e586e7e8ac08cade866c999b1cf63440e34964d40fba83963769.png" src="../_images/0282dce4e541e586e7e8ac08cade866c999b1cf63440e34964d40fba83963769.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reindex_remove_duplicates</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">reindex_remove_duplicates</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes duplicates, creating a new index and saving the old index as tuples of duplicate values. In place!&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
@@ -2699,7 +2694,7 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replace_column_nans</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_nan</span><span class="p">,</span> <span class="n">col_replacement</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">replace_column_nans</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_nan</span><span class="p">,</span> <span class="n">col_replacement</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;In a df, replace col_nan entries by col_replacement if is nan.  In Place!&quot;&quot;&quot;</span>
     <span class="n">row_indexer</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_nan</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_indexer</span><span class="p">,</span> <span class="n">col_nan</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_indexer</span><span class="p">,</span> <span class="n">col_replacement</span><span class="p">]</span>
@@ -3019,6 +3014,10 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_555/2530005601.py:10: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  duplicates = list(df.groupby(list(df)).apply(lambda x: tuple(x.index)))
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3259,14 +3258,14 @@ setting face color =  [509733 509794 509532 ... 509481 509547 509481]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409c8cbe80&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409c8cbe20&gt;}
-setting face color =  [1000 1011 1005 ... 1012   -1 1012]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409c0bc400&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409c0bc340&gt;}
+setting face color =  [1003 1014 1000 ... 1006 1006 1004]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/5beb387b9d9e2f7fa3f5d32f088815029e05bb268706b65b5a5aec9e9d6950f7.png" src="../_images/5beb387b9d9e2f7fa3f5d32f088815029e05bb268706b65b5a5aec9e9d6950f7.png" />
+<img alt="../_images/f6ea4d12b25f58b2bae5dcc5e6bd75e0b30fb1ca615a40ffe0cacbddc4ce2a33.png" src="../_images/f6ea4d12b25f58b2bae5dcc5e6bd75e0b30fb1ca615a40ffe0cacbddc4ce2a33.png" />
 </div>
 </div>
 </section>
@@ -3305,18 +3304,20 @@ setting face color =  [1000 1011 1005 ... 1012   -1 1012]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:12:41,640 - root - INFO: target bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
-2024-04-17 05:12:41,644 - root - INFO: 
-2024-04-17 05:12:41,647 - root - INFO: Loading shapes
-2024-04-17 05:12:41,649 - root - INFO: ------------------------------
-2024-04-17 05:12:41,652 - root - INFO: Getting shapes of GLHYMPS on bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
-2024-04-17 05:12:41,940 - root - INFO: ... found 17 shapes
-2024-04-17 05:12:41,943 - root - INFO: Converting to shapely
-2024-04-17 05:12:42,001 - root - INFO: Converting to requested CRS
-2024-04-17 05:12:42,200 - root - INFO: shape union bounds: (309452.03384970897, 4277422.824854818, 338890.05886956863, 4329709.205645651)
-2024-04-17 05:12:42,205 - root - INFO: Coloring shapes onto raster:
-2024-04-17 05:12:42,213 - root - INFO:   of shape: (735, 1124)
-2024-04-17 05:12:42,216 - root - INFO:   and 17 independent colors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:36:43,335 - root - INFO: target bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
+2025-07-12 18:36:43,339 - root - INFO: 
+2025-07-12 18:36:43,342 - root - INFO: Loading shapes
+2025-07-12 18:36:43,344 - root - INFO: ------------------------------
+2025-07-12 18:36:43,346 - root - INFO: Getting shapes of GLHYMPS on bounds: (317251.2640131897, 4299711.408984916, 328473.4449929282, 4307052.970983125)
+2025-07-12 18:36:43,624 - root - INFO: ... found 17 shapes
+2025-07-12 18:36:43,626 - root - INFO: Converting to shapely
+2025-07-12 18:36:43,678 - root - INFO:  ... done
+2025-07-12 18:36:43,684 - root - INFO: Converting to requested CRS
+2025-07-12 18:36:43,841 - root - INFO:  ... done
+2025-07-12 18:36:43,910 - root - INFO: shape union bounds: (309452.03384970897, 4277422.824854818, 338890.05886956863, 4329709.205645651)
+2025-07-12 18:36:43,914 - root - INFO: Coloring shapes onto raster:
+2025-07-12 18:36:43,921 - root - INFO:   of shape: (735, 1124)
+2025-07-12 18:36:43,924 - root - INFO:   and 17 independent colors
 </pre></div>
 </div>
 </div>
@@ -3376,16 +3377,6 @@ setting face color =  [1000 1011 1005 ... 1012   -1 1012]
       <td>2.50</td>
       <td>0.19</td>
       <td>0.000025</td>
-      <td>2.0</td>
-      <td>0.01</td>
-    </tr>
-    <tr>
-      <th>715707</th>
-      <td>GLHYMPS</td>
-      <td>1.000000e-13</td>
-      <td>2.00</td>
-      <td>0.22</td>
-      <td>0.000294</td>
       <td>2.0</td>
       <td>0.01</td>
     </tr>
@@ -3517,14 +3508,14 @@ setting face color =  [1000 1011 1005 ... 1012   -1 1012]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409cada170&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409cada110&gt;}
-setting face color =  [730801 730801 726639 ... 726639 726639 726639]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409607de70&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409607da20&gt;}
+setting face color =  [726639 726667 730801 ... 726604 726604 726608]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/60ab8685761ad43ea324d2f3044b419c24c64f5e580adc6a31c2500a070d97e9.png" src="../_images/60ab8685761ad43ea324d2f3044b419c24c64f5e580adc6a31c2500a070d97e9.png" />
+<img alt="../_images/77efbd21d83c5d59af32845904038fe141355a0b9c7fcf7272a65995da849ff1.png" src="../_images/77efbd21d83c5d59af32845904038fe141355a0b9c7fcf7272a65995da849ff1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3563,7 +3554,7 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1800x900 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/4b3de61eba150f2df6813927fb162eba2fda94ecd925f077910fe75e6fd8956d.png" src="../_images/4b3de61eba150f2df6813927fb162eba2fda94ecd925f077910fe75e6fd8956d.png" />
+<img alt="../_images/2aac06fb98ee2f7efda7aab542956039f68b65c1ad78822882a96f967cfa0f2c.png" src="../_images/2aac06fb98ee2f7efda7aab542956039f68b65c1ad78822882a96f967cfa0f2c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3585,6 +3576,10 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_555/2530005601.py:10: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  duplicates = list(df.groupby(list(df)).apply(lambda x: tuple(x.index)))
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3625,11 +3620,11 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
     </tr>
     <tr>
       <th>1</th>
-      <td>(715707, 715779, 726642, 726664)</td>
+      <td>(715779, 726642, 726664)</td>
       <td>GLHYMPS</td>
-      <td>1.000000e-13</td>
-      <td>0.22</td>
-      <td>0.000294</td>
+      <td>3.162278e-13</td>
+      <td>0.09</td>
+      <td>0.000817</td>
       <td>2.0</td>
       <td>0.01</td>
     </tr>
@@ -3637,9 +3632,9 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
       <th>2</th>
       <td>(715766, 726639, 726667)</td>
       <td>GLHYMPS</td>
-      <td>3.162278e-13</td>
-      <td>0.09</td>
-      <td>0.000817</td>
+      <td>1.000000e-13</td>
+      <td>0.22</td>
+      <td>0.000294</td>
       <td>2.0</td>
       <td>0.01</td>
     </tr>
@@ -3685,14 +3680,14 @@ setting face color =  [730801 730801 726639 ... 726639 726639 726639]
   proj = self._crs.to_proj4(version=version)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x40963736a0&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x4096373640&gt;}
-setting face color =  [103 103 102 ... 102 102 102]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kwargs =  {&#39;linewidth&#39;: 0, &#39;cmap&#39;: &lt;matplotlib.colors.ListedColormap object at 0x409da20640&gt;, &#39;norm&#39;: &lt;matplotlib.colors.BoundaryNorm object at 0x409da205e0&gt;}
+setting face color =  [102 102 103 ... 100 100 100]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/8cbc053f7308da15aff01be9840c08af96ea19642989187d556d7cd762d8efe0.png" src="../_images/8cbc053f7308da15aff01be9840c08af96ea19642989187d556d7cd762d8efe0.png" />
+<img alt="../_images/75e52e7c57be4768173a816ac39da7bae035a8612ab4b3cac15310df21fb1064.png" src="../_images/75e52e7c57be4768173a816ac39da7bae035a8612ab4b3cac15310df21fb1064.png" />
 </div>
 </div>
 </section>
@@ -3716,13 +3711,13 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:00,885 - root - INFO: 
-2024-04-17 05:13:00,889 - root - INFO: Loading Raster
-2024-04-17 05:13:00,892 - root - INFO: ------------------------------
-2024-04-17 05:13:00,901 - root - INFO: Collecting raster
-2024-04-17 05:13:00,972 - root - INFO: bounds in my_crs: (-107.10634327399998, 38.82770288200003, -106.97736783099998, 38.89466788700003)
-2024-04-17 05:13:00,978 - root - INFO: ... got raster of shape: (33, 63)
-2024-04-17 05:13:00,987 - root - INFO: ... got raster bounds: (-107.10834499599999, 38.895007756000005, -106.97709501699998, 38.82625776700001)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:36:59,241 - root - INFO: 
+2025-07-12 18:36:59,244 - root - INFO: Loading Raster
+2025-07-12 18:36:59,246 - root - INFO: ------------------------------
+2025-07-12 18:36:59,250 - root - INFO: Collecting raster
+2025-07-12 18:36:59,308 - root - INFO: bounds in my_crs: (-107.10634327399998, 38.82770288200003, -106.97736783099998, 38.89466788700003)
+2025-07-12 18:36:59,314 - root - INFO: ... got raster of shape: (33, 63)
+2025-07-12 18:36:59,324 - root - INFO: ... got raster bounds: (-107.10834499599999, 38.895007756000005, -106.97709501699998, 38.82625776700001)
 </pre></div>
 </div>
 </div>
@@ -3744,7 +3739,7 @@ setting face color =  [103 103 102 ... 102 102 102]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(316690.15495, 329034.55405000004, 4299344.3309, 4307420.0490999995)
 </pre></div>
 </div>
-<img alt="../_images/08590e1b9c5ee47ccd87513cf19593efc99330832b775462afba4ef590a4be68.png" src="../_images/08590e1b9c5ee47ccd87513cf19593efc99330832b775462afba4ef590a4be68.png" />
+<img alt="../_images/acf191235b5661da8b6adc144045ae195b734f4dae928bab7e20a3f0fe526bfe.png" src="../_images/acf191235b5661da8b6adc144045ae195b734f4dae928bab7e20a3f0fe526bfe.png" />
 </div>
 </div>
 </section>
@@ -3844,11 +3839,11 @@ setting face color =  [103 103 102 ... 102 102 102]
     </tr>
     <tr>
       <th>101</th>
-      <td>(715707, 715779, 726642, 726664)</td>
+      <td>(715779, 726642, 726664)</td>
       <td>GLHYMPS</td>
-      <td>1.000000e-13</td>
-      <td>0.220000</td>
-      <td>0.000294</td>
+      <td>3.162278e-13</td>
+      <td>0.090000</td>
+      <td>0.000817</td>
       <td>2.000000</td>
       <td>0.010000</td>
       <td>NaN</td>
@@ -3857,9 +3852,9 @@ setting face color =  [103 103 102 ... 102 102 102]
       <th>102</th>
       <td>(715766, 726639, 726667)</td>
       <td>GLHYMPS</td>
-      <td>3.162278e-13</td>
-      <td>0.090000</td>
-      <td>0.000817</td>
+      <td>1.000000e-13</td>
+      <td>0.220000</td>
+      <td>0.000294</td>
       <td>2.000000</td>
       <td>0.010000</td>
       <td>NaN</td>
@@ -4093,7 +4088,7 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:04,074 - root - INFO: max DTB: 27.0 m
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:37:02,031 - root - INFO: max DTB: 27.0 m
 </pre></div>
 </div>
 </div>
@@ -4180,31 +4175,31 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:05,722 - root - INFO: Cell summary:
-2024-04-17 05:13:05,724 - root - INFO: ------------------------------------------------------------
-2024-04-17 05:13:05,726 - root - INFO: l_id	| c_id	|mat_id	| dz		| z_top
-2024-04-17 05:13:05,728 - root - INFO: ------------------------------------------------------------
-2024-04-17 05:13:05,730 - root - INFO:  00 	| 00 	| 1000 	|   0.050000 	|   0.000000
-2024-04-17 05:13:05,732 - root - INFO:  01 	| 01 	| 1000 	|   0.050000 	|   0.050000
-2024-04-17 05:13:05,736 - root - INFO:  02 	| 02 	| 1000 	|   0.050000 	|   0.100000
-2024-04-17 05:13:05,738 - root - INFO:  03 	| 03 	| 1000 	|   0.120000 	|   0.150000
-2024-04-17 05:13:05,745 - root - INFO:  04 	| 04 	| 1000 	|   0.230000 	|   0.270000
-2024-04-17 05:13:05,748 - root - INFO:  05 	| 05 	| 1000 	|   0.500000 	|   0.500000
-2024-04-17 05:13:05,751 - root - INFO:  06 	| 06 	|  103 	|   0.500000 	|   1.000000
-2024-04-17 05:13:05,754 - root - INFO:  07 	| 07 	|  103 	|   0.500000 	|   1.500000
-2024-04-17 05:13:05,757 - root - INFO:  08 	| 08 	|  103 	|   2.000000 	|   2.000000
-2024-04-17 05:13:05,760 - root - INFO:  09 	| 09 	|  103 	|   2.000000 	|   4.000000
-2024-04-17 05:13:05,763 - root - INFO:  10 	| 10 	|  103 	|   2.000000 	|   6.000000
-2024-04-17 05:13:05,766 - root - INFO:  11 	| 11 	|  103 	|   2.000000 	|   8.000000
-2024-04-17 05:13:05,769 - root - INFO:  12 	| 12 	|  103 	|   2.000000 	|  10.000000
-2024-04-17 05:13:05,771 - root - INFO:  13 	| 13 	|  103 	|   2.000000 	|  12.000000
-2024-04-17 05:13:05,774 - root - INFO:  14 	| 14 	|  103 	|   2.000000 	|  14.000000
-2024-04-17 05:13:05,776 - root - INFO:  15 	| 15 	|  103 	|   2.000000 	|  16.000000
-2024-04-17 05:13:05,778 - root - INFO:  16 	| 16 	|  103 	|   2.000000 	|  18.000000
-2024-04-17 05:13:05,781 - root - INFO:  17 	| 17 	|  103 	|   2.000000 	|  20.000000
-2024-04-17 05:13:05,783 - root - INFO:  18 	| 18 	|  999 	|   2.000000 	|  22.000000
-2024-04-17 05:13:05,785 - root - INFO:  19 	| 19 	|  999 	|   2.000000 	|  24.000000
-2024-04-17 05:13:05,787 - root - INFO:  20 	| 20 	|  999 	|   2.000000 	|  26.000000
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:37:03,613 - root - INFO: Cell summary:
+2025-07-12 18:37:03,615 - root - INFO: ------------------------------------------------------------
+2025-07-12 18:37:03,618 - root - INFO: l_id	| c_id	|mat_id	| dz		| z_top
+2025-07-12 18:37:03,621 - root - INFO: ------------------------------------------------------------
+2025-07-12 18:37:03,625 - root - INFO:  00 	| 00 	| 1003 	|   0.050000 	|   0.000000
+2025-07-12 18:37:03,629 - root - INFO:  01 	| 01 	| 1003 	|   0.050000 	|   0.050000
+2025-07-12 18:37:03,631 - root - INFO:  02 	| 02 	| 1003 	|   0.050000 	|   0.100000
+2025-07-12 18:37:03,633 - root - INFO:  03 	| 03 	| 1003 	|   0.120000 	|   0.150000
+2025-07-12 18:37:03,635 - root - INFO:  04 	| 04 	| 1003 	|   0.230000 	|   0.270000
+2025-07-12 18:37:03,637 - root - INFO:  05 	| 05 	| 1003 	|   0.500000 	|   0.500000
+2025-07-12 18:37:03,639 - root - INFO:  06 	| 06 	| 1003 	|   0.500000 	|   1.000000
+2025-07-12 18:37:03,641 - root - INFO:  07 	| 07 	|  102 	|   0.500000 	|   1.500000
+2025-07-12 18:37:03,642 - root - INFO:  08 	| 08 	|  102 	|   2.000000 	|   2.000000
+2025-07-12 18:37:03,645 - root - INFO:  09 	| 09 	|  102 	|   2.000000 	|   4.000000
+2025-07-12 18:37:03,647 - root - INFO:  10 	| 10 	|  102 	|   2.000000 	|   6.000000
+2025-07-12 18:37:03,653 - root - INFO:  11 	| 11 	|  102 	|   2.000000 	|   8.000000
+2025-07-12 18:37:03,655 - root - INFO:  12 	| 12 	|  102 	|   2.000000 	|  10.000000
+2025-07-12 18:37:03,657 - root - INFO:  13 	| 13 	|  102 	|   2.000000 	|  12.000000
+2025-07-12 18:37:03,658 - root - INFO:  14 	| 14 	|  102 	|   2.000000 	|  14.000000
+2025-07-12 18:37:03,661 - root - INFO:  15 	| 15 	|  999 	|   2.000000 	|  16.000000
+2025-07-12 18:37:03,663 - root - INFO:  16 	| 16 	|  999 	|   2.000000 	|  18.000000
+2025-07-12 18:37:03,665 - root - INFO:  17 	| 17 	|  999 	|   2.000000 	|  20.000000
+2025-07-12 18:37:03,667 - root - INFO:  18 	| 18 	|  999 	|   2.000000 	|  22.000000
+2025-07-12 18:37:03,673 - root - INFO:  19 	| 19 	|  999 	|   2.000000 	|  24.000000
+2025-07-12 18:37:03,674 - root - INFO:  20 	| 20 	|  999 	|   2.000000 	|  26.000000
 </pre></div>
 </div>
 </div>
@@ -4261,35 +4256,35 @@ setting face color =  [103 103 102 ... 102 102 102]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total number of cells: 117810
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>total number of cells: 100653
 ---------------
 2D labeled sets
 ---------------
-10000 : CELL : 5610 : &quot;140200010204&quot;
-10001 : CELL : 5610 : &quot;140200010204 surface&quot;
-10002 : FACE : 182 : &quot;140200010204 boundary&quot;
+10000 : CELL : 4793 : &quot;140200010204&quot;
+10001 : CELL : 4793 : &quot;140200010204 surface&quot;
+10002 : FACE : 177 : &quot;140200010204 boundary&quot;
 10003 : FACE : 12 : &quot;140200010204 outlet&quot;
 10004 : FACE : 12 : &quot;surface domain outlet&quot;
-8 : CELL : 3449 : &quot;MODIS Woody Savannas&quot;
-9 : CELL : 148 : &quot;MODIS Savannas&quot;
-10 : CELL : 2013 : &quot;MODIS Grasslands&quot;
+8 : CELL : 3057 : &quot;Woody Savannas&quot;
+9 : CELL : 156 : &quot;Savannas&quot;
+10 : CELL : 1580 : &quot;Grasslands&quot;
 
 Extruded 3D labeled sets
 ------------------------
-10000 : CELL : 117810 : &quot;140200010204&quot;
+10000 : CELL : 100653 : &quot;140200010204&quot;
 
 Extruded 3D side sets
 ---------------------
-1 : FACE : 5610 : &quot;bottom&quot;
-2 : FACE : 5610 : &quot;surface&quot;
-3 : FACE : 3822 : &quot;external_sides&quot;
-10001 : FACE : 5610 : &quot;140200010204 surface&quot;
-10002 : FACE : 3822 : &quot;140200010204 boundary&quot;
+1 : FACE : 4793 : &quot;bottom&quot;
+2 : FACE : 4793 : &quot;surface&quot;
+3 : FACE : 3717 : &quot;external_sides&quot;
+10001 : FACE : 4793 : &quot;140200010204 surface&quot;
+10002 : FACE : 3717 : &quot;140200010204 boundary&quot;
 10003 : FACE : 252 : &quot;140200010204 outlet&quot;
 10004 : FACE : 252 : &quot;surface domain outlet&quot;
-8 : FACE : 3449 : &quot;MODIS Woody Savannas&quot;
-9 : FACE : 148 : &quot;MODIS Savannas&quot;
-10 : FACE : 2013 : &quot;MODIS Grasslands&quot;
+8 : FACE : 3057 : &quot;Woody Savannas&quot;
+9 : FACE : 156 : &quot;Savannas&quot;
+10 : FACE : 1580 : &quot;Grasslands&quot;
 </pre></div>
 </div>
 </div>
@@ -4328,17 +4323,17 @@ rights in this software.
 Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:13:43,847 - root - INFO: adding side set: 1
-2024-04-17 05:13:45,108 - root - INFO: adding side set: 2
-2024-04-17 05:13:46,305 - root - INFO: adding side set: 3
-2024-04-17 05:13:47,457 - root - INFO: adding side set: 10001
-2024-04-17 05:13:48,622 - root - INFO: adding side set: 10002
-2024-04-17 05:13:49,750 - root - INFO: adding side set: 10003
-2024-04-17 05:13:50,858 - root - INFO: adding side set: 10004
-2024-04-17 05:13:52,071 - root - INFO: adding side set: 8
-2024-04-17 05:13:53,388 - root - INFO: adding side set: 9
-2024-04-17 05:13:54,575 - root - INFO: adding side set: 10
-2024-04-17 05:13:55,926 - root - INFO: adding elem set: 10000
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:37:38,495 - root - INFO: adding side set: 1
+2025-07-12 18:37:39,595 - root - INFO: adding side set: 2
+2025-07-12 18:37:40,736 - root - INFO: adding side set: 3
+2025-07-12 18:37:41,853 - root - INFO: adding side set: 10001
+2025-07-12 18:37:42,974 - root - INFO: adding side set: 10002
+2025-07-12 18:37:44,129 - root - INFO: adding side set: 10003
+2025-07-12 18:37:45,277 - root - INFO: adding side set: 10004
+2025-07-12 18:37:46,392 - root - INFO: adding side set: 8
+2025-07-12 18:37:47,521 - root - INFO: adding side set: 9
+2025-07-12 18:37:48,621 - root - INFO: adding side set: 10
+2025-07-12 18:37:50,056 - root - INFO: adding elem set: 10000
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Closing exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
@@ -4351,6 +4346,7 @@ Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;start_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_date</span>
 <span class="n">config</span><span class="p">[</span><span class="s1">&#39;end_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_date</span>
 <span class="n">config</span><span class="p">[</span><span class="s1">&#39;origin_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">origin_date</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;nyears_cyclic_steadystate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nyears_cyclic_steadystate</span> 
 </pre></div>
 </div>
 </div>
@@ -4364,7 +4360,7 @@ Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;catchment_labels&#39;: [&#39;140200010204&#39;],
  &#39;nlcd_indices&#39;: [8, 9, 10],
- &#39;nlcd_labels&#39;: [&#39;MODIS Woody Savannas&#39;, &#39;MODIS Savannas&#39;, &#39;MODIS Grasslands&#39;],
+ &#39;nlcd_labels&#39;: [&#39;Woody Savannas&#39;, &#39;Savannas&#39;, &#39;Grasslands&#39;],
  &#39;LAI_filename&#39;: &#39;../../data/examples/CoalCreek/processed/watershed_lai_raw.h5&#39;,
  &#39;LAI_typical_filename&#39;: &#39;../../data/examples/CoalCreek/processed/watershed_lai_typical.h5&#39;,
  &#39;subsurface_properties_filename&#39;: &#39;../../data/examples/CoalCreek/processed/watershed_subsurface_properties.csv&#39;,
@@ -4376,13 +4372,14 @@ Opening exodus file: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
   &#39;140200010204 boundary&#39;: {&#39;setid&#39;: 10002},
   &#39;140200010204 outlet&#39;: {&#39;setid&#39;: 10003},
   &#39;surface domain outlet&#39;: {&#39;setid&#39;: 10004},
-  &#39;MODIS Woody Savannas&#39;: {&#39;setid&#39;: 8},
-  &#39;MODIS Savannas&#39;: {&#39;setid&#39;: 9},
-  &#39;MODIS Grasslands&#39;: {&#39;setid&#39;: 10}},
+  &#39;Woody Savannas&#39;: {&#39;setid&#39;: 8},
+  &#39;Savannas&#39;: {&#39;setid&#39;: 9},
+  &#39;Grasslands&#39;: {&#39;setid&#39;: 10}},
  &#39;mesh_filename&#39;: &#39;../../data/examples/CoalCreek/processed/watershed_mesh.exo&#39;,
  &#39;start_date&#39;: &#39;2015-10-1&#39;,
- &#39;end_date&#39;: &#39;2016-10-1&#39;,
- &#39;origin_date&#39;: &#39;1980-1-1&#39;}
+ &#39;end_date&#39;: &#39;2017-10-1&#39;,
+ &#39;origin_date&#39;: &#39;1980-1-1&#39;,
+ &#39;nyears_cyclic_steadystate&#39;: 4}
 </pre></div>
 </div>
 </div>

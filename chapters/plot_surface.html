@@ -180,6 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="plot_subsurface.html">Plot subsurface variables</a></li>
 
 
@@ -396,6 +397,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-surface-ponded-depth">plot surface ponded depth</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-et">plot ET</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-snow-cover">plot snow cover</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-swe">plot SWE</a></li>
 </ul>
 
             </nav>
@@ -414,17 +416,29 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># skip this if package has already been installed</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>modvis
+<span class="c1"># !pip install modvis</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">modvis.ats_xdmf</span> <span class="k">as</span> <span class="nn">xdmf</span>
-<span class="kn">import</span> <span class="nn">modvis.plot_vis_file</span> <span class="k">as</span> <span class="nn">pv</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modvis.ats_xdmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xdmf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modvis.plot_vis_file</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="n">model_dir</span> <span class="o">=</span> <span class="s2">&quot;../data/coalcreek&quot;</span>
+<span class="n">work_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;../../model2/&quot;</span>
+<span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;3-transient&quot;</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># model_dir = &quot;../data/coalcreek&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-07 15:02:11,744 - root - INFO: Loading data from ../../model2/3-transient
 </pre></div>
 </div>
 </div>
@@ -432,10 +446,10 @@ document.write(`
 <p>Download the sample data when running on <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Colab</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_dir</span><span class="p">):</span>
-  <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pinshuai/modvis.git
-  <span class="o">%</span><span class="k">cd</span> ./modvis/examples/notebooks
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import os</span>
+<span class="c1"># if not os.path.exists(model_dir):</span>
+<span class="c1">#   !git clone https://github.com/pinshuai/modvis.git</span>
+<span class="c1">#   %cd ./modvis/examples/notebooks</span>
 </pre></div>
 </div>
 </div>
@@ -445,7 +459,91 @@ document.write(`
 <h1>import vis data<a class="headerlink" href="#import-vis-data" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visfile</span> <span class="o">=</span> <span class="n">xdmf</span><span class="o">.</span><span class="n">VisFile</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="n">load_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visfile</span> <span class="o">=</span> <span class="n">xdmf</span><span class="o">.</span><span class="n">VisFile</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="n">model_time_unit</span><span class="o">=</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span>
+                       <span class="n">load_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># all available variable names</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">visfile</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;canopy-cell_volume&#39;,
+ &#39;canopy-drainage&#39;,
+ &#39;canopy-evaporation&#39;,
+ &#39;canopy-fracwet&#39;,
+ &#39;canopy-interception&#39;,
+ &#39;canopy-leaf_area_index&#39;,
+ &#39;canopy-potential_transpiration&#39;,
+ &#39;canopy-potential_transpiration_mols&#39;,
+ &#39;canopy-radiation_balance&#39;,
+ &#39;canopy-temperature&#39;,
+ &#39;canopy-throughfall_drainage_rain&#39;,
+ &#39;canopy-throughfall_drainage_snow&#39;,
+ &#39;canopy-water_content&#39;,
+ &#39;canopy-water_equivalent&#39;,
+ &#39;canopy-water_source&#39;,
+ &#39;canopy-water_source_meters&#39;,
+ &#39;snow-cell_volume&#39;,
+ &#39;snow-density&#39;,
+ &#39;snow-depth&#39;,
+ &#39;snow-evaporation&#39;,
+ &#39;snow-expected_temperature&#39;,
+ &#39;snow-melt&#39;,
+ &#39;snow-precipitation&#39;,
+ &#39;snow-radiation_balance&#39;,
+ &#39;snow-temperature&#39;,
+ &#39;snow-water_content&#39;,
+ &#39;snow-water_equivalent&#39;,
+ &#39;snow-water_source&#39;,
+ &#39;snow-water_source_meters&#39;,
+ &#39;surface-air_temperature&#39;,
+ &#39;surface-albedos.bare_or_water&#39;,
+ &#39;surface-albedos.snow&#39;,
+ &#39;surface-area_fractions.bare_or_water&#39;,
+ &#39;surface-area_fractions.snow&#39;,
+ &#39;surface-aspect&#39;,
+ &#39;surface-cell_volume&#39;,
+ &#39;surface-elevation&#39;,
+ &#39;surface-emissivities.bare_or_water&#39;,
+ &#39;surface-emissivities.snow&#39;,
+ &#39;surface-evaporation&#39;,
+ &#39;surface-incident_shortwave_radiation&#39;,
+ &#39;surface-incoming_longwave_radiation&#39;,
+ &#39;surface-incoming_shortwave_radiation&#39;,
+ &#39;surface-manning_coefficient&#39;,
+ &#39;surface-mass_density_liquid&#39;,
+ &#39;surface-molar_density_liquid&#39;,
+ &#39;surface-overland_conductivity&#39;,
+ &#39;surface-ponded_depth&#39;,
+ &#39;surface-ponded_depth_bar&#39;,
+ &#39;surface-potential_evaporation&#39;,
+ &#39;surface-precipitation_rain&#39;,
+ &#39;surface-pres_elev&#39;,
+ &#39;surface-pressure&#39;,
+ &#39;surface-radiation_balance&#39;,
+ &#39;surface-relative_permeability&#39;,
+ &#39;surface-slope_magnitude&#39;,
+ &#39;surface-soil_resistance&#39;,
+ &#39;surface-source_molar_density&#39;,
+ &#39;surface-surface_subsurface_flux&#39;,
+ &#39;surface-temperature&#39;,
+ &#39;surface-total_evapotranspiration&#39;,
+ &#39;surface-transpiration&#39;,
+ &#39;surface-unfrozen_fraction&#39;,
+ &#39;surface-vapor_pressure_air&#39;,
+ &#39;surface-velocity.0&#39;,
+ &#39;surface-velocity.1&#39;,
+ &#39;surface-velocity.2&#39;,
+ &#39;surface-water_content&#39;,
+ &#39;surface-water_content_bar&#39;,
+ &#39;surface-water_source&#39;,
+ &#39;surface-water_source_mols&#39;]
 </pre></div>
 </div>
 </div>
@@ -455,17 +553,39 @@ document.write(`
 <h1>plot surface ponded depth<a class="headerlink" href="#plot-surface-ponded-depth" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;surface-ponded_depth&quot;</span><span class="p">,</span> 
-                                    <span class="n">log</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-                                    <span class="n">time_slice</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_slice</span> <span class="o">=</span> <span class="s1">&#39;2016-1-10&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;canopy-leaf_area_index&quot;</span><span class="p">,</span> 
+                                    <span class="n">log</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+                                    <span class="n">time_slice</span><span class="o">=</span> <span class="n">time_slice</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-05-18 16:06:57,549 - root - INFO: No unit convertion.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-08 03:50:12,875 - root - INFO: No unit convertion.
 </pre></div>
 </div>
-<img alt="../_images/4ca01df06398519ad43f6a9f4cbff4ecb8495a6310a3c1ee33570711a75107e5.png" src="../_images/4ca01df06398519ad43f6a9f4cbff4ecb8495a6310a3c1ee33570711a75107e5.png" />
+<img alt="../_images/36204bfe583e9bf095521ca4c516120741c560eaa9c8ac13f2f2e39704401560.png" src="../_images/36204bfe583e9bf095521ca4c516120741c560eaa9c8ac13f2f2e39704401560.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;canopy-leaf_area_index&quot;</span><span class="p">,</span> 
+                                    <span class="n">log</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+                                    <span class="n">time_slice</span><span class="o">=</span> <span class="n">time_slice</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-08 03:49:58,186 - root - INFO: No unit convertion.
+</pre></div>
+</div>
+<img alt="../_images/be203ae44bbd9149444e2bc3c3cff012c2ca4f5d35277cb6ab02213f0994ac72.png" src="../_images/be203ae44bbd9149444e2bc3c3cff012c2ca4f5d35277cb6ab02213f0994ac72.png" />
 </div>
 </div>
 </section>
@@ -475,12 +595,12 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;surface-total_evapotranspiration&quot;</span><span class="p">,</span> 
                                     <span class="n">log</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
-                                    <span class="n">time_slice</span><span class="o">=</span> <span class="s2">&quot;2015-10-01&quot;</span><span class="p">)</span>
+                                    <span class="n">time_slice</span><span class="o">=</span> <span class="n">time_slice</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/280c4d923c88dafd9b5549273c33ab3ebae12967bedf4acc909929ef1e72ff7c.png" src="../_images/280c4d923c88dafd9b5549273c33ab3ebae12967bedf4acc909929ef1e72ff7c.png" />
+<img alt="../_images/35b6c4f101ee2708ae416dee9850821320dd031a35b01891905804ceb903c80f.png" src="../_images/35b6c4f101ee2708ae416dee9850821320dd031a35b01891905804ceb903c80f.png" />
 </div>
 </div>
 </section>
@@ -488,16 +608,32 @@ document.write(`
 <h1>plot snow cover<a class="headerlink" href="#plot-snow-cover" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;surface-area_fractions.cell.1&quot;</span><span class="p">,</span> 
-                                    <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_slice</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;surface-area_fractions.snow&quot;</span><span class="p">,</span> 
+                                    <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                    <span class="n">time_slice</span><span class="o">=</span><span class="n">time_slice</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-05-18 16:06:58,433 - root - INFO: No unit convertion.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-07 15:02:27,212 - root - INFO: No unit convertion.
 </pre></div>
 </div>
-<img alt="../_images/c85c3fba99f6cbe61a2bc91f9312242bafbcad4bfcbf964afb6699642f9a9437.png" src="../_images/c85c3fba99f6cbe61a2bc91f9312242bafbcad4bfcbf964afb6699642f9a9437.png" />
+<img alt="../_images/d35514c4b3b565622444017eae6c4a9332f90deb363730d87edf15de095ab747.png" src="../_images/d35514c4b3b565622444017eae6c4a9332f90deb363730d87edf15de095ab747.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-swe">
+<h1>plot SWE<a class="headerlink" href="#plot-swe" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_surface_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;snow-water_equivalent&quot;</span><span class="p">,</span> 
+                                    <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                    <span class="n">time_slice</span><span class="o">=</span><span class="n">time_slice</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e8f6f2b60e163d9db6e8f1321c0b878e12990b62f4c4132d3480aea02a0e52cd.png" src="../_images/e8f6f2b60e163d9db6e8f1321c0b878e12990b62f4c4132d3480aea02a0e52cd.png" />
 </div>
 </div>
 </section>
@@ -511,16 +647,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "modvis"
+            mode: "watershed_workflow"
         },
         kernelOptions: {
-            name: "modvis",
+            name: "watershed_workflow",
             path: "./chapters"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'modvis'</script>
+    <script>kernelName = 'watershed_workflow'</script>
 
                 </article>
               
@@ -570,6 +706,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-surface-ponded-depth">plot surface ponded depth</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-et">plot ET</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-snow-cover">plot snow cover</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-swe">plot SWE</a></li>
 </ul>
 
   </nav></div>

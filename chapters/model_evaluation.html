@@ -180,6 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="plot_subsurface.html">Plot subsurface variables</a></li>
 
 
@@ -394,7 +395,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-model-data">Load model data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-observation-data">Load observation data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streamflow-comparison">Streamflow comparison</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fdc-comparison">FDC comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-duration-curve-fdc-comparison">Flow Duration Curve (FDC) comparison</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-to-one-plot">One-to-one plot</a></li>
 </ul>
             </nav>
@@ -413,21 +414,45 @@ document.write(`
 <p>This example shows how to load model and observation data and evalute model performance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># skip this if package has already been installed</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>modvis
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # skip this if package has already been installed</span>
+<span class="c1"># !pip install modvis</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modvis</span> <span class="kn">import</span> <span class="n">ATSutils</span>
-<span class="kn">from</span> <span class="nn">modvis</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">modvis</span> <span class="kn">import</span> <span class="n">general_plots</span> <span class="k">as</span> <span class="n">gp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="n">model_dir</span> <span class="o">=</span> <span class="s2">&quot;../data/coalcreek&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modvis</span><span class="w"> </span><span class="kn">import</span> <span class="n">ATSutils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modvis</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modvis</span><span class="w"> </span><span class="kn">import</span> <span class="n">general_plots</span> <span class="k">as</span> <span class="n">gp</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run_steadystate = &quot;1-spinup_steadystate&quot;</span>
+<span class="n">work_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;../../model2/&quot;</span>
+
+<span class="n">rho_m</span> <span class="o">=</span> <span class="mi">55500</span> <span class="c1"># moles/m^3, water molar density. Check this in the xml input file.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># model_dir = &quot;../data/coalcreek&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -448,24 +473,123 @@ document.write(`
 <p>This will load the <code class="docutils literal notranslate"><span class="pre">water_balance-daily.dat</span></code> file generated from ATS model. The data file includes watershed variables including outlet discharge, ET, and etc.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simu_df</span> <span class="o">=</span> <span class="n">ATSutils</span><span class="o">.</span><span class="n">load_waterBalance</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">WB_filename</span><span class="o">=</span><span class="s2">&quot;water_balance-daily.dat&quot;</span><span class="p">,</span>
-                                <span class="n">plot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;3-transient&quot;</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e13fa18aa9870a1b617fc933ca2f90c715a59497ad08cfed9a322775f1cf404f.png" src="../_images/e13fa18aa9870a1b617fc933ca2f90c715a59497ad08cfed9a322775f1cf404f.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-16 15:49:36,230 - root - INFO: Loading data from ../../model2/3-transient
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simu_df</span> <span class="o">=</span> <span class="n">ATSutils</span><span class="o">.</span><span class="n">load_waterBalance</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">WB_filename</span><span class="o">=</span><span class="s2">&quot;water_balance_computational_domain.csv&quot;</span><span class="p">,</span>
+                             <span class="n">domain_names</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                <span class="n">canopy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">False</span>
+                               <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simu_df</span><span class="p">[</span><span class="s1">&#39;river discharge [mol d^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;datetime&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/80a11766714d2378a90418734b98a0307ac8a1088a8a50853aa9861276b2b94e.png" src="../_images/80a11766714d2378a90418734b98a0307ac8a1088a8a50853aa9861276b2b94e.png" />
 </div>
 </div>
 </section>
 <section id="load-observation-data">
 <h2>Load observation data<a class="headerlink" href="#load-observation-data" title="Permalink to this heading">#</a></h2>
+<p>Provide USGS gage number (i.e., <code class="docutils literal notranslate"><span class="pre">sites</span></code>) to download the streamflow.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_df</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_nwis</span><span class="p">(</span><span class="n">sites</span><span class="o">=</span> <span class="s2">&quot;09111250&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s1">&#39;2014-10-01&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_df</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_nwis</span><span class="p">(</span><span class="n">sites</span><span class="o">=</span> <span class="s2">&quot;09111250&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s1">&#39;2015-10-01&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;2017-10-1&#39;</span><span class="p">)</span>
+<span class="n">obs_df</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Discharge [m^3/d]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015-10-01</th>
+      <td>11645.7208</td>
+    </tr>
+    <tr>
+      <th>2015-10-02</th>
+      <td>11572.3234</td>
+    </tr>
+    <tr>
+      <th>2015-10-03</th>
+      <td>11449.9944</td>
+    </tr>
+    <tr>
+      <th>2015-10-04</th>
+      <td>11694.6524</td>
+    </tr>
+    <tr>
+      <th>2015-10-05</th>
+      <td>13921.0402</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2017-09-27</th>
+      <td>5798.3946</td>
+    </tr>
+    <tr>
+      <th>2017-09-28</th>
+      <td>10593.6914</td>
+    </tr>
+    <tr>
+      <th>2017-09-29</th>
+      <td>10349.0334</td>
+    </tr>
+    <tr>
+      <th>2017-09-30</th>
+      <td>14679.4800</td>
+    </tr>
+    <tr>
+      <th>2017-10-01</th>
+      <td>16245.2912</td>
+    </tr>
+  </tbody>
+</table>
+<p>732 rows × 1 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -477,7 +601,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/6fedcb8efccdb7486a7df434909b8a13187a7742e8d7f85778e148a68d33d807.png" src="../_images/6fedcb8efccdb7486a7df434909b8a13187a7742e8d7f85778e148a68d33d807.png" />
+<img alt="../_images/0b7f6bea4733a98c8a2e68882dbca8e835f3b6a32f926bcab8aa3280b5bf1d23.png" src="../_images/0b7f6bea4733a98c8a2e68882dbca8e835f3b6a32f926bcab8aa3280b5bf1d23.png" />
 </div>
 </div>
 </section>
@@ -495,16 +619,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd7c97556f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x40824a4610&gt;
 </pre></div>
 </div>
-<img alt="../_images/935fe461316ed9f4896c16e7aed6e33c03bc9198f5cd51935b0a25f1b8c8dc71.png" src="../_images/935fe461316ed9f4896c16e7aed6e33c03bc9198f5cd51935b0a25f1b8c8dc71.png" />
+<img alt="../_images/89541f5af8593db92719c508ddde2d57a0803fd31aeae692389b85e5ae083de3.png" src="../_images/89541f5af8593db92719c508ddde2d57a0803fd31aeae692389b85e5ae083de3.png" />
 </div>
 </div>
 </section>
-<section id="fdc-comparison">
-<h2>FDC comparison<a class="headerlink" href="#fdc-comparison" title="Permalink to this heading">#</a></h2>
-<p>Compare the simulated vs. observed flow duration curve.</p>
+<section id="flow-duration-curve-fdc-comparison">
+<h2>Flow Duration Curve (FDC) comparison<a class="headerlink" href="#flow-duration-curve-fdc-comparison" title="Permalink to this heading">#</a></h2>
+<p>The flow duration curve is a plot that shows the percentage of time that flow in a stream is likely to equal or exceed some specified value of interest (also called “exceedance probability). For example, it can be used to show the percentage of time river flow can be expected to exceed a design flow of some specified value (e.g., 20 cfs), or to show the discharge of the stream that occurs or is exceeded some percent of the time (e.g., 80% of the time). See <a class="reference external" href="https://streamflow.engr.oregonstate.edu/analysis/flow/index.htm">reference</a> on how it’s calculated.</p>
+<p>In model validation, comparing observed and simulated FDCs shows how well a hydrological model reproduces the full range of flows (low, median, and high).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">plot_FDC</span><span class="p">(</span><span class="n">dfs</span><span class="o">=</span><span class="p">[</span><span class="n">obs_df</span><span class="p">[</span><span class="s1">&#39;Discharge [m^3/d]&#39;</span><span class="p">],</span> <span class="n">simu_df</span><span class="p">[</span><span class="s1">&#39;watershed boundary discharge [m^3/d]&#39;</span><span class="p">]],</span>
@@ -516,7 +641,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dfff1da7c610a4c937c4334858023c2008a7f09fbaf3e9f69ab9a721f15ac8cd.png" src="../_images/dfff1da7c610a4c937c4334858023c2008a7f09fbaf3e9f69ab9a721f15ac8cd.png" />
+<img alt="../_images/c1dab7273848e66a8b8e1a3a0fe96dd1e24ce9eda571279f61e63fa704a607ea.png" src="../_images/c1dab7273848e66a8b8e1a3a0fe96dd1e24ce9eda571279f61e63fa704a607ea.png" />
 </div>
 </div>
 </section>
@@ -525,9 +650,11 @@ document.write(`
 <p>One to one scatter plot with metrics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gp</span><span class="o">.</span><span class="n">one2one_plot</span><span class="p">(</span><span class="n">obs_df</span><span class="p">[</span><span class="s1">&#39;Discharge [m^3/d]&#39;</span><span class="p">],</span> <span class="n">simu_df</span><span class="p">[</span><span class="s1">&#39;watershed boundary discharge [m^3/d]&#39;</span><span class="p">],</span>
-               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;R^2&#39;</span><span class="p">,</span> <span class="s1">&#39;NSE&#39;</span><span class="p">,</span> <span class="s1">&#39;mKGE&#39;</span><span class="p">],</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">one2one_plot</span><span class="p">(</span><span class="n">obs_df</span><span class="p">[</span><span class="s1">&#39;Discharge [m^3/d]&#39;</span><span class="p">],</span> <span class="n">simu_df</span><span class="p">[</span><span class="s1">&#39;watershed boundary discharge [m^3/d]&#39;</span><span class="p">],</span>
+               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;logNSE&#39;</span><span class="p">,</span> <span class="s1">&#39;NSE&#39;</span><span class="p">,</span> <span class="s1">&#39;mKGE&#39;</span><span class="p">],</span>
                 <span class="c1"># metrics=&#39;all&#39;,</span>
+                <span class="n">decompose_KGE</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">show_metrics</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                <span class="n">show_density</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2016-10-01&quot;</span>
                <span class="p">)</span>
@@ -535,12 +662,32 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;R^2&#39;: 0.8721059035985849,
- &#39;NSE&#39;: 0.8386136492066862,
- &#39;mKGE&#39;: 0.7947371500678737}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mKGE: 0.8541672906250747, cc:  0.9389278483467483, alpha:  1.131220526451959, beta:  1.0178478249023342
 </pre></div>
 </div>
-<img alt="../_images/204fb4fbb86f2cb64bbe6d4e7bfc68cc1fedc7025c65f95e8494ac22c6218064.png" src="../_images/204fb4fbb86f2cb64bbe6d4e7bfc68cc1fedc7025c65f95e8494ac22c6218064.png" />
+<img alt="../_images/b000e327951962b498f823fde528c697f8f12be8115e85d6770d4f3c3a6b90a6.png" src="../_images/b000e327951962b498f823fde528c697f8f12be8115e85d6770d4f3c3a6b90a6.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;pearsonr&#39;: 0.9389278483467479,
+ &#39;R^2&#39;: 0.8815855044010537,
+ &#39;RMSE&#39;: 74282.28758848661,
+ &#39;rRMSE&#39;: 0.5769357988711631,
+ &#39;NSE&#39;: 0.8362800085409323,
+ &#39;logNSE&#39;: 0.7721731425289238,
+ &#39;bias&#39;: -2297.963247935326,
+ &#39;pbias&#39;: 1.784782490233417,
+ &#39;KGE&#39;: 0.8357640497479065,
+ &#39;npKGE&#39;: 0.8540500499788206,
+ &#39;mKGE&#39;: 0.8541672906250747}
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -555,16 +702,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "modvis"
+            mode: "watershed_workflow"
         },
         kernelOptions: {
-            name: "modvis",
+            name: "watershed_workflow",
             path: "./chapters"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'modvis'</script>
+    <script>kernelName = 'watershed_workflow'</script>
 
                 </article>
               
@@ -612,7 +759,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-model-data">Load model data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-observation-data">Load observation data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streamflow-comparison">Streamflow comparison</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fdc-comparison">FDC comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-duration-curve-fdc-comparison">Flow Duration Curve (FDC) comparison</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-to-one-plot">One-to-one plot</a></li>
 </ul>
   </nav></div>

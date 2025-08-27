@@ -180,6 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot subsurface variables</a></li>
 
 
@@ -421,19 +422,46 @@ document.write(`
 <h1>Plot subsurface variables<a class="headerlink" href="#plot-subsurface-variables" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># skip this if package has already been installed</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>modvis
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # skip this if package has already been installed</span>
+<span class="c1"># !pip install modvis</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">modvis.ats_xdmf</span> <span class="k">as</span> <span class="nn">xdmf</span>
-<span class="kn">import</span> <span class="nn">modvis.plot_vis_file</span> <span class="k">as</span> <span class="nn">pv</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
 
-<span class="n">model_dir</span> <span class="o">=</span> <span class="s2">&quot;../data/coalcreek&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modvis.ats_xdmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xdmf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modvis.plot_vis_file</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">work_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;../../model2/&quot;</span>
+<span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;3-transient&quot;</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># model_dir = &quot;../data/coalcreek&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-07 15:02:18,146 - root - INFO: Loading data from ../../model2/3-transient
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import numpy as np</span>
+<span class="c1"># import modvis.ats_xdmf as xdmf</span>
+<span class="c1"># import modvis.plot_vis_file as pv</span>
+
+<span class="c1"># model_dir = &quot;../data/coalcreek&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -441,10 +469,10 @@ document.write(`
 <p>Download the sample data when running on <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Colab</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_dir</span><span class="p">):</span>
-  <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pinshuai/modvis.git
-  <span class="o">%</span><span class="k">cd</span> ./modvis/examples/notebooks
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import os</span>
+<span class="c1"># if not os.path.exists(model_dir):</span>
+<span class="c1">#   !git clone https://github.com/pinshuai/modvis.git</span>
+<span class="c1">#   %cd ./modvis/examples/notebooks</span>
 </pre></div>
 </div>
 </div>
@@ -454,7 +482,40 @@ document.write(`
 <h1>import vis data<a class="headerlink" href="#import-vis-data" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visfile</span> <span class="o">=</span> <span class="n">xdmf</span><span class="o">.</span><span class="n">VisFile</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">load_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">columnar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visfile</span> <span class="o">=</span> <span class="n">xdmf</span><span class="o">.</span><span class="n">VisFile</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">load_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">columnar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                      <span class="n">model_time_unit</span><span class="o">=</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># all available variable names</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">visfile</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;base_porosity&#39;,
+ &#39;capillary_pressure_gas_liq&#39;,
+ &#39;cell_volume&#39;,
+ &#39;darcy_velocity.0&#39;,
+ &#39;darcy_velocity.1&#39;,
+ &#39;darcy_velocity.2&#39;,
+ &#39;mass_density_liquid&#39;,
+ &#39;molar_density_liquid&#39;,
+ &#39;permeability&#39;,
+ &#39;plant_wilting_factor&#39;,
+ &#39;porosity&#39;,
+ &#39;pressure&#39;,
+ &#39;relative_permeability&#39;,
+ &#39;root_fraction&#39;,
+ &#39;saturation_gas&#39;,
+ &#39;saturation_liquid&#39;,
+ &#39;transpiration&#39;,
+ &#39;viscosity_liquid&#39;,
+ &#39;water_content&#39;,
+ &#39;water_source&#39;]
 </pre></div>
 </div>
 </div>
@@ -464,15 +525,25 @@ document.write(`
 <h1>plot subsurface satuation<a class="headerlink" href="#plot-subsurface-satuation" title="Permalink to this heading">#</a></h1>
 <section id="single-column">
 <h2>single column<a class="headerlink" href="#single-column" title="Permalink to this heading">#</a></h2>
+<p>This will print a variable across a single column over the entire simulation period. The user needs to provide cell ids associated with the column.</p>
+<p>The cell ID can be found using ParaView with the following steps:</p>
+<ol class="arabic simple">
+<li><p>Load data into Paraview. Click <code class="docutils literal notranslate"><span class="pre">apply</span></code></p></li>
+<li><p>Click on <code class="docutils literal notranslate"><span class="pre">SplitView</span></code> icon and choose <code class="docutils literal notranslate"><span class="pre">SpreadSheetView</span></code></p></li>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">SpreadSheetView</span></code>, change Attribute to <code class="docutils literal notranslate"><span class="pre">Cell</span> <span class="pre">Data</span></code>; Toggle on <code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">only</span> <span class="pre">selected</span> <span class="pre">elements</span></code> (next to the Precision)</p></li>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">RenderView</span></code>, turn on <code class="docutils literal notranslate"><span class="pre">Interactively</span> <span class="pre">select</span> <span class="pre">cells</span> <span class="pre">on</span></code></p></li>
+<li><p>Select cells of interests and the spreadsheet will be auto populated the cell attributes with the first column being <code class="docutils literal notranslate"><span class="pre">Cell</span> <span class="pre">ID</span></code></p></li>
+<li><p>Provide the <code class="docutils literal notranslate"><span class="pre">Cell</span> <span class="pre">ID</span></code> in <code class="docutils literal notranslate"><span class="pre">pv.plot_column_data()</span></code>.</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_column_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span> <span class="o">=</span> <span class="s2">&quot;saturation_liquid&quot;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> 
-                              <span class="n">col_ind</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                              <span class="n">cell_id</span> <span class="o">=</span> <span class="mi">23316</span><span class="p">,</span> <span class="n">infer_col_from_cell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/aaee83b303041e497d7770ff0518a6b4a3827b7ce08f760d03fd59a5482e9733.png" src="../_images/aaee83b303041e497d7770ff0518a6b4a3827b7ce08f760d03fd59a5482e9733.png" />
+<img alt="../_images/0e11ea3fa0f5d4db77970a418b1bf09f93ce4665af7b8118837a9425b4df85da.png" src="../_images/0e11ea3fa0f5d4db77970a418b1bf09f93ce4665af7b8118837a9425b4df85da.png" />
 </div>
 </div>
 </section>
@@ -480,14 +551,21 @@ document.write(`
 <h2>single layer<a class="headerlink" href="#single-layer" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_slice</span> <span class="o">=</span> <span class="s1">&#39;2016-6-10&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_layer_data</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">var_name</span> <span class="o">=</span> <span class="s2">&quot;saturation_liquid&quot;</span><span class="p">,</span> 
-                             <span class="n">layer_ind</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">time_slice</span><span class="o">=</span> <span class="s2">&quot;2015-10-01&quot;</span><span class="p">,</span>
+                             <span class="n">layer_ind</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">time_slice</span><span class="o">=</span> <span class="n">time_slice</span><span class="p">,</span>
                           <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;coolwarm&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/74317e61d73469882f99e18f747ac37ba688ac56184b661b156110ab1a8c2821.png" src="../_images/74317e61d73469882f99e18f747ac37ba688ac56184b661b156110ab1a8c2821.png" />
+<img alt="../_images/41177fac18564b4a9912cca91817e6e414c85f088cff7acc41e8f6af3b5279c6.png" src="../_images/41177fac18564b4a9912cca91817e6e414c85f088cff7acc41e8f6af3b5279c6.png" />
 </div>
 </div>
 </section>
@@ -498,12 +576,12 @@ document.write(`
 <h2>single column<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ihead</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_column_head</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">col_ind</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ihead</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_column_head</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">cell_id</span> <span class="o">=</span> <span class="mi">22903</span><span class="p">,</span> <span class="n">infer_col_from_cell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/80496b97efbd5c54c21180b70d68368125dbb85604893bcb37f25ac2e8696e34.png" src="../_images/80496b97efbd5c54c21180b70d68368125dbb85604893bcb37f25ac2e8696e34.png" />
+<img alt="../_images/b582f531d46ce9961ee992b7b11d2983ec2ffe60b09fcd347eaf15f579c12f72.png" src="../_images/b582f531d46ce9961ee992b7b11d2983ec2ffe60b09fcd347eaf15f579c12f72.png" />
 </div>
 </div>
 </section>
@@ -511,15 +589,16 @@ document.write(`
 <h2>GW surface<a class="headerlink" href="#gw-surface" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_gw_surface</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">time_slice</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">contour</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_gw_surface</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">contour</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
                                   <span class="n">contourline</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nlevel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2700</span><span class="p">,</span><span class="mi">3665</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> 
                                   <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                                  <span class="n">time_slice</span> <span class="o">=</span> <span class="n">time_slice</span><span class="p">,</span> 
                                  <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e5c24aaef4edf22fcb5bbc3b44bfe10218cc5d2ef6ec554e3de0c43d9fe60a39.png" src="../_images/e5c24aaef4edf22fcb5bbc3b44bfe10218cc5d2ef6ec554e3de0c43d9fe60a39.png" />
+<img alt="../_images/10ee54cd82997400bf9f38eebe59bfec94ad495e8e8432316621a6356d87e508.png" src="../_images/10ee54cd82997400bf9f38eebe59bfec94ad495e8e8432316621a6356d87e508.png" />
 </div>
 </div>
 </section>
@@ -530,12 +609,12 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">tpc</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">plot_water_content</span><span class="p">(</span><span class="n">visfile</span><span class="p">,</span> <span class="n">layer_ind</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
                                      <span class="n">vmin</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.22</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;turbo&#39;</span><span class="p">,</span>
-                                     <span class="n">time_slice</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                                     <span class="n">time_slice</span><span class="o">=</span><span class="n">time_slice</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/54f25ac5439a968affb804daa0e428b8c65781e87de7da4bedb6feac5ab3711c.png" src="../_images/54f25ac5439a968affb804daa0e428b8c65781e87de7da4bedb6feac5ab3711c.png" />
+<img alt="../_images/903f92cf42b426c6a4d3e43d2e57d7a983a45ac6bbda8b52403fa9206cf0b4f6.png" src="../_images/903f92cf42b426c6a4d3e43d2e57d7a983a45ac6bbda8b52403fa9206cf0b4f6.png" />
 </div>
 </div>
 </section>
@@ -549,16 +628,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "modvis"
+            mode: "watershed_workflow"
         },
         kernelOptions: {
-            name: "modvis",
+            name: "watershed_workflow",
             path: "./chapters"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'modvis'</script>
+    <script>kernelName = 'watershed_workflow'</script>
 
                 </article>
               

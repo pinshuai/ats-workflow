@@ -180,6 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="plot_subsurface.html">Plot subsurface variables</a></li>
 
 
@@ -459,8 +460,8 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
 </pre></div>
 </div>
@@ -468,18 +469,18 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span><span class="o">,</span><span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">rasterio</span>
-<span class="kn">import</span> <span class="nn">fiona</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">datetime</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span><span class="o">,</span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rasterio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">fiona</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span> 
 
-<span class="kn">import</span> <span class="nn">watershed_workflow</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.ui</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.sources.manager_daymet</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.daymet</span>
-<span class="kn">import</span> <span class="nn">watershed_workflow.io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.ui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.sources.manager_daymet</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.daymet</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">watershed_workflow.io</span>
 
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setup_logging</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -495,8 +496,9 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">watershed_shapefile</span> <span class="o">=</span> <span class="s1">&#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;</span>
-<span class="n">config_fname</span> <span class="o">=</span> <span class="s1">&#39;../../data/examples/CoalCreek/processed/config.yaml&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">watershed_name</span> <span class="o">=</span> <span class="s1">&#39;CoalCreek&#39;</span>
+<span class="n">watershed_shapefile</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;../../data/examples/</span><span class="si">{</span><span class="n">watershed_name</span><span class="si">}</span><span class="s1">/sources/shapefile/CoalCreek.shp&#39;</span>
+<span class="n">config_fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;../../data/examples/</span><span class="si">{</span><span class="n">watershed_name</span><span class="si">}</span><span class="s1">/processed/config.yaml&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -517,6 +519,12 @@ document.write(`
 <span class="n">start_date</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;start_date&#39;</span><span class="p">]</span>
 <span class="n">end_date</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;end_date&#39;</span><span class="p">]</span>
 <span class="n">origin_date</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;origin_date&#39;</span><span class="p">]</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Daymet start date:</span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> and end date:</span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">. All times are relative to </span><span class="si">{</span><span class="n">origin_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:31,939 - root - INFO: Daymet start date:2015-10-1 and end date:2017-10-1. All times are relative to 1980-1-1
 </pre></div>
 </div>
 </div>
@@ -535,13 +543,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:44,069 - root - INFO: 
-2024-04-17 05:21:44,072 - root - INFO: Loading shapes
-2024-04-17 05:21:44,075 - root - INFO: ------------------------------
-2024-04-17 05:21:44,077 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
-2024-04-17 05:21:44,213 - root - INFO: ... found 1 shapes
-2024-04-17 05:21:44,216 - root - INFO: Converting to shapely
-2024-04-17 05:21:44,240 - root - INFO: crs: epsg:26913
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:32,023 - root - INFO: 
+2025-07-12 18:38:32,027 - root - INFO: Loading shapes
+2025-07-12 18:38:32,030 - root - INFO: ------------------------------
+2025-07-12 18:38:32,033 - root - INFO: Loading file: &#39;../../data/examples/CoalCreek/sources/shapefile/CoalCreek.shp&#39;
+2025-07-12 18:38:32,194 - root - INFO: ... found 1 shapes
+2025-07-12 18:38:32,197 - root - INFO: Converting to shapely
+2025-07-12 18:38:32,208 - root - INFO:  ... done
+2025-07-12 18:38:32,220 - root - INFO: Removing holes on 1 polygons
+2025-07-12 18:38:32,224 - root - INFO:   -- removed interior
+2025-07-12 18:38:32,230 - root - INFO:   -- union
+2025-07-12 18:38:32,233 - root - INFO: Parsing 1 components for holes
+2025-07-12 18:38:32,236 - root - INFO:   -- complete
+2025-07-12 18:38:32,243 - root - INFO: crs: epsg:26913
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(317251.2640131897, 4299711.408984916, 328473.7039815487, 4307062.45088187)
@@ -572,30 +586,42 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:44,487 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,492 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,494 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,498 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,501 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,506 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,509 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,514 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,517 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,523 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,526 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,532 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,536 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,541 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,544 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,551 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,555 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,561 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,566 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,571 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,573 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,579 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2015_38.9157x-107.1272_38.8072x-106.9560.nc
-2024-04-17 05:21:44,582 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
-2024-04-17 05:21:44,588 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:32,484 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,490 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,493 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,498 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,501 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,507 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmin_2017_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,510 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,521 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,523 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,530 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,533 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,538 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_tmax_2017_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,541 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,547 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,550 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,556 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,559 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,565 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_prcp_2017_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,568 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,572 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,575 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,580 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,582 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,587 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_srad_2017_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,590 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,595 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,598 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,626 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,630 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,641 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_vp_2017_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,644 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,650 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2015_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,653 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,659 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2016_38.9157x-107.1272_38.8072x-106.9560.nc
+2025-07-12 18:38:32,661 - root - INFO: Collecting DayMet file to tile bounds: [-107.1272, 38.8072, -106.956, 38.9157]
+2025-07-12 18:38:32,667 - root - INFO:   Using existing: ../../data/meteorology/daymet/daymet_dayl_2017_38.9157x-107.1272_38.8072x-106.9560.nc
 </pre></div>
 </div>
 </div>
@@ -606,7 +632,15 @@ document.write(`
 <p>Reproject daymet CRS to the same as the watershed. This is necessary if watershed meshes are using watershed CRS.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_new</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this is a workaround, need to update the wrap.py to comment out  &#39;dtype&#39;: src_profile[&#39;dtype&#39;]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;prcp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_warped</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -629,7 +663,7 @@ document.write(`
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax1</span><span class="p">)</span>
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">shply</span><span class="p">(</span><span class="n">watershed_ext_daymet</span><span class="p">,</span> <span class="n">daymet_crs</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">data_new</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">data_new</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax2</span><span class="p">)</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">data_warped</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">data_warped</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax2</span><span class="p">)</span>
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hucs</span><span class="p">(</span><span class="n">watershed</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Raw Daymet&quot;</span><span class="p">)</span>
@@ -640,8 +674,8 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/envs/watershed_workflow/lib/python3.10/site-packages/pyproj/crs/crs.py:1282: UserWarning: You will likely lose important projection information when converting to a PROJ string from another format. See: https://proj.org/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems
   proj = self._crs.to_proj4(version=version)
-2024-04-17 05:21:47,829 - root - INFO: BOUNDS: (-591250.0, -367000.0, -576250.0, -355000.0)
-2024-04-17 05:21:47,889 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
+2025-07-12 18:38:36,244 - root - INFO: BOUNDS: (-591250.0, -367000.0, -576250.0, -355000.0)
+2025-07-12 18:38:36,303 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Reprojected Daymet&#39;)
@@ -656,42 +690,61 @@ document.write(`
 <h1>save daymet<a class="headerlink" href="#save-daymet" title="Permalink to this heading">#</a></h1>
 <section id="write-data-to-hdf5">
 <h2>Write data to HDF5<a class="headerlink" href="#write-data-to-hdf5" title="Permalink to this heading">#</a></h2>
-<p>This will write daymet in a format that ATS can read. E.g., this will calculate mean air temperature, convert units, partition precipitation into rain and snow based on mean temp, and so on.</p>
+<p>This will write daymet in a format that ATS can read. E.g., this will calculate mean air temperature, convert units, partition precipitation into rain and snow based on mean temp (<span style="color:blue;"> T_air=0 degC is used for the partitioning of rain and snow! </span> This can be highly variable based on area. For more information on rain/snow partition, see this <a class="reference external" href="https://www.rainorsnow.org/report-backs/snowabovefreezing">RainOrSnow website</a>), and so on.</p>
 <ul class="simple">
 <li><p>dout has dims of <code class="docutils literal notranslate"><span class="pre">(ntime,</span> <span class="pre">nrow,</span> <span class="pre">ncol)</span></code> or <code class="docutils literal notranslate"><span class="pre">(ntime,</span> <span class="pre">ny,</span> <span class="pre">nx)</span></code></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_new</span><span class="o">.</span><span class="n">collections</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">met_data</span> <span class="o">=</span> <span class="n">data_new</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">met_data</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">convertToATS</span><span class="p">(</span><span class="n">data_warped</span><span class="p">)</span>
+
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">watershed_name</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span><span class="s1">&#39;watershed_daymet_raw.h5&#39;</span><span class="p">)</span>
+<span class="n">attrs</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">getAttributes</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+<span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;Daymet forcing reformatted for ats modeling&quot;</span>
+
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_dataset_to_hdf5</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_filename&#39;</span><span class="p">],</span>
+    <span class="n">attributes</span><span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">met_data</span><span class="p">,</span>
+    <span class="n">time0</span> <span class="o">=</span> <span class="n">origin_date</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:36,953 - root - INFO: Converting to ATS met input
+2025-07-12 18:38:36,996 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_raw.h5
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">met_data_ats</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">daymet_to_daily_averages</span><span class="p">(</span><span class="n">met_data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot one pixel as a function of time</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">met_data</span><span class="o">.</span><span class="n">times</span><span class="p">])</span>
+<span class="n">prain</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="s1">&#39;precipitation rain [m s^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">psnow</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="s1">&#39;precipitation snow [m SWE s^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">365</span><span class="p">],</span> <span class="n">prain</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">365</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">365</span><span class="p">],</span> <span class="n">psnow</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">365</span><span class="p">],</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;snow&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;precip [m s^-1]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">qswin</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="s1">&#39;incoming shortwave radiation [W m^-2]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">365</span><span class="p">],</span> <span class="n">qswin</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">365</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;incoming shortwave radiation [W m^-2]&#39;</span><span class="p">)</span>
 
 
-<span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;examples&#39;</span><span class="p">,</span><span class="s1">&#39;CoalCreek&#39;</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span><span class="s1">&#39;watershed_daymet_raw.h5&#39;</span><span class="p">)</span>
-<span class="n">attrs</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">getAttributes</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
-<span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;Daymet forcing reformatted for ats modeling&quot;</span>
-
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_dataset_to_hdf5</span><span class="p">(</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_filename&#39;</span><span class="p">],</span>
-    <span class="n">dataset</span><span class="o">=</span> <span class="n">met_data_ats</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="n">attributes</span><span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
-    <span class="n">time0</span> <span class="o">=</span> <span class="n">origin_date</span>
-<span class="p">)</span>
-    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:48,664 - root - INFO: Converting to ATS met input
-2024-04-17 05:21:48,693 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_raw.h5
-</pre></div>
-</div>
+<img alt="../_images/f795b135e5fcdaf426800fed9ab7706e4b69d2b08c4f1bb1675134e842fff279.png" src="../_images/f795b135e5fcdaf426800fed9ab7706e4b69d2b08c4f1bb1675134e842fff279.png" />
 </div>
 </div>
 </section>
@@ -700,72 +753,172 @@ document.write(`
 <p>This will average days, smooths the forcing and generate a “typical year” data, then looped 10 years. The dataset will be used during cyclic spinup.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_typical_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;examples&#39;</span><span class="p">,</span><span class="s1">&#39;CoalCreek&#39;</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span><span class="s1">&#39;watershed_daymet_typical.h5&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the typical year of the _raw_ data</span>
+<span class="c1"># note that we set interpolate to False, since met_data is already daily on a noleap calendar</span>
+<span class="n">nyears_cyclic_steadystate</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;nyears_cyclic_steadystate&#39;</span><span class="p">]</span>
 
-<span class="n">met_data_typical</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">State</span><span class="p">()</span>
-<span class="n">ntypical_years</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="c1"># here we make up some new times. </span>
-<span class="c1"># It does not really matter what timeframe you choose as long as the nunmber of days are consistent.</span>
-<span class="n">new_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">365</span><span class="o">*</span><span class="n">ntypical_years</span><span class="p">)])</span>
+<span class="n">data_smooth</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">computeAverageYear</span><span class="p">(</span><span class="n">data_warped</span><span class="p">,</span> <span class="n">output_nyears</span><span class="o">=</span><span class="n">nyears_cyclic_steadystate</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                                                                 <span class="n">smooth_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">window_length</span><span class="o">=</span><span class="mi">181</span><span class="p">,</span> <span class="n">polyorder</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                                                                 <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="n">ds_key</span><span class="p">,</span> <span class="n">ds_val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">met_data_ats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="c1"># average and smooth forcing data. Hint: make filter=False if no smoothing is needed.</span>
-    <span class="n">smooth_dat</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">compute_average_year</span><span class="p">(</span><span class="n">ds_val</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">output_nyears</span><span class="o">=</span><span class="n">ntypical_years</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">met_data_typical</span><span class="p">[</span><span class="n">ds_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ds_val</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">new_times</span><span class="p">,</span> <span class="n">smooth_dat</span><span class="p">)</span>
-
-<span class="n">attrs</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">getAttributes</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">new_times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ntypical_years</span><span class="si">}</span><span class="s2">-yrs typical Daymet forcing generated using data from </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span>
-
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_dataset_to_hdf5</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_typical_filename&#39;</span><span class="p">],</span> <span class="n">met_data_typical</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
-                                            <span class="n">attributes</span><span class="o">=</span><span class="n">attrs</span><span class="p">,</span> <span class="n">time0</span><span class="o">=</span><span class="n">origin_date</span><span class="p">)</span>
+<span class="c1"># convert that to ATS</span>
+<span class="n">met_data_smooth</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">convertToATS</span><span class="p">(</span><span class="n">data_smooth</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:21:54,108 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_typical.h5
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:48,066 - root - INFO: Converting to ATS met input
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># after smoothing, the forcing can look quite different!</span>
-<span class="n">ivar</span> <span class="o">=</span> <span class="s1">&#39;air temperature [K]&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the smoothed precip result</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">met_data_smooth</span><span class="o">.</span><span class="n">times</span><span class="p">])</span>
+<span class="n">prain</span> <span class="o">=</span> <span class="n">met_data_smooth</span><span class="p">[</span><span class="s1">&#39;precipitation rain [m s^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">psnow</span> <span class="o">=</span> <span class="n">met_data_smooth</span><span class="p">[</span><span class="s1">&#39;precipitation snow [m SWE s^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">prain</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">psnow</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;snow&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;precip [m s^-1]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">qswin</span> <span class="o">=</span> <span class="n">met_data_smooth</span><span class="p">[</span><span class="s1">&#39;incoming shortwave radiation [W m^-2]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">qswin</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;incoming shortwave radiation [W m^-2]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/603acb10b5474ef6f1511a3c19c486682dcea7fd41e9e9b4029038ee29ee990d.png" src="../_images/603acb10b5474ef6f1511a3c19c486682dcea7fd41e9e9b4029038ee29ee990d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># often smoothing precip like that is a bad idea -- you now have every day misting with low intensity rain which can result in a ton of interception</span>
+<span class="c1"># and canopy evaporation and no transpiration.  Another approach is to just take the median total rainfall year and repeat that year multiple times.</span>
+<span class="n">precip_raw</span> <span class="o">=</span> <span class="n">data_warped</span><span class="p">[</span><span class="s1">&#39;prcp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">shape_xy</span> <span class="o">=</span> <span class="n">precip_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">precip_raw</span> <span class="o">=</span> <span class="n">precip_raw</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">365</span><span class="p">,)</span><span class="o">+</span><span class="n">shape_xy</span><span class="p">)</span>
+<span class="n">annual_precip_raw</span> <span class="o">=</span> <span class="n">precip_raw</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># note -- don&#39;t use np.median here... for even number of years it will not appear.  Instead, sort and talk the halfway point</span>
+<span class="n">median_i</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(((</span><span class="n">i</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">annual_precip_raw</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="nb">len</span><span class="p">(</span><span class="n">annual_precip_raw</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">typical_precip_raw</span> <span class="o">=</span> <span class="n">precip_raw</span><span class="p">[</span><span class="n">median_i</span><span class="p">]</span>
+<span class="n">data_smooth</span><span class="p">[</span><span class="s1">&#39;prcp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">typical_precip_raw</span><span class="p">,</span> <span class="p">(</span><span class="n">nyears_cyclic_steadystate</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># np.tile(precip_raw[median_i], (2,1,1))</span>
+<span class="c1"># data_smooth[&#39;prcp&#39;] = typical_precip_raw</span>
+
+<span class="c1"># convert that to ATS</span>
+<span class="n">met_data_smooth</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">convertToATS</span><span class="p">(</span><span class="n">data_smooth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:50,226 - root - INFO: Converting to ATS met input
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the smoothed precip result</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">met_data_smooth</span><span class="o">.</span><span class="n">times</span><span class="p">])</span>
+<span class="n">prain</span> <span class="o">=</span> <span class="n">met_data_smooth</span><span class="p">[</span><span class="s1">&#39;precipitation rain [m s^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">psnow</span> <span class="o">=</span> <span class="n">met_data_smooth</span><span class="p">[</span><span class="s1">&#39;precipitation snow [m SWE s^-1]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">prain</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">psnow</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;snow&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;precip [m s^-1]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">qswin</span> <span class="o">=</span> <span class="n">met_data_smooth</span><span class="p">[</span><span class="s1">&#39;incoming shortwave radiation [W m^-2]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">qswin</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;incoming shortwave radiation [W m^-2]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1f2a032fdbfb89f05417d5a9338c79f116e0299c065a56a806ce79b6d445a9cf.png" src="../_images/1f2a032fdbfb89f05417d5a9338c79f116e0299c065a56a806ce79b6d445a9cf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write to disk</span>
+<span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_typical_filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">watershed_name</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span><span class="s1">&#39;watershed_daymet_typical.h5&#39;</span><span class="p">)</span>
+
+<span class="n">attrs</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">daymet</span><span class="o">.</span><span class="n">getAttributes</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+<span class="c1"># attrs[&#39;name&#39;]=&quot;Daymet forcing reformatted for ats modeling&quot;</span>
+<span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nyears_cyclic_steadystate</span><span class="si">}</span><span class="s2">-yrs typical Daymet forcing generated using data from </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_dataset_to_hdf5</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;daymet_typical_filename&#39;</span><span class="p">],</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">met_data_smooth</span><span class="p">,</span>
+    <span class="n">attributes</span><span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
+    <span class="n">time0</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># use the first date as the time0, relative time to be consistent with start time in xml file</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:38:52,351 - root - INFO: Writing HDF5 file: ../../data/examples/CoalCreek/processed/watershed_daymet_typical.h5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ivar</span> <span class="o">=</span> <span class="s1">&#39;tmax&#39;</span>
 <span class="n">islice</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="c1"># daymet_crs = watershed_workflow.crs.daymet_crs()</span>
-<span class="n">profile</span> <span class="o">=</span> <span class="n">met_data_ats</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">get_ax</span><span class="p">(</span><span class="n">crs</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">get_ax</span><span class="p">(</span><span class="n">crs</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">met_data_ats</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">ivar</span><span class="p">][</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax1</span><span class="p">)</span>
+<span class="c1"># watershed_ext_daymet = watershed_workflow.warp.shply(watershed.exterior(),</span>
+<span class="c1">#                                                      crs, daymet_crs)</span>
+<span class="c1"># watershed_workflow.plot.raster(data_warped[ivar].profile, data_warped[ivar].data[islice,:,:], ax1)</span>
+<span class="c1"># watershed_workflow.plot.shply(watershed_ext_daymet, daymet_crs, ax=ax1, color=&#39;r&#39;)</span>
+
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">data_warped</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">data_warped</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax1</span><span class="p">)</span>
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hucs</span><span class="p">(</span><span class="n">watershed</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">met_data_typical</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">ivar</span><span class="p">][</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax2</span><span class="p">)</span>
+<span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">data_smooth</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">data_smooth</span><span class="p">[</span><span class="n">ivar</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">islice</span><span class="p">,:,:],</span> <span class="n">ax2</span><span class="p">)</span>
 <span class="n">watershed_workflow</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hucs</span><span class="p">(</span><span class="n">watershed</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Raw Daymet&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Typical Daymet&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Reprojected Daymet&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Smoothed Daymet&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:22:35,489 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
-2024-04-17 05:22:35,509 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:39:07,386 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
+2025-07-12 18:39:07,413 - root - INFO: BOUNDS: (314692.7009557779, 4296566.393670194, 331256.0668364619, 4310206.812630757)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Typical Daymet&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Smoothed Daymet&#39;)
 </pre></div>
 </div>
-<img alt="../_images/6e36e5b1e2d6f1784ea93ac07325ea245f5573b570eb36432a44775dcc563247.png" src="../_images/6e36e5b1e2d6f1784ea93ac07325ea245f5573b570eb36432a44775dcc563247.png" />
+<img alt="../_images/1811263699eb061549e55b0ca9c73307f9d9a14fa8b1f74d31b99105bb1ddb4f.png" src="../_images/1811263699eb061549e55b0ca9c73307f9d9a14fa8b1f74d31b99105bb1ddb4f.png" />
 </div>
 </div>
 <p>Get mean precipitation for spinup</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the basin-averaged, annual-averaged precip rate</span>
-<span class="n">precip_total</span> <span class="o">=</span> <span class="n">met_data_typical</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;precipitation rain [m s^-1]&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">met_data_typical</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;precipitation snow [m SWE s^-1]&#39;</span><span class="p">]</span>
+<span class="n">precip_total</span> <span class="o">=</span> <span class="n">met_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;precipitation rain [m s^-1]&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">met_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;precipitation snow [m SWE s^-1]&#39;</span><span class="p">]</span>
 <span class="n">mean_precip</span> <span class="o">=</span> <span class="n">precip_total</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">config</span><span class="p">[</span><span class="s1">&#39;mean_precip [m s^-1]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mean_precip</span><span class="p">)</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mean annual precip rate [m s^-1] = </span><span class="si">{</span><span class="n">mean_precip</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -773,7 +926,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-17 05:22:36,101 - root - INFO: Mean annual precip rate [m s^-1] = 2.2158981015347973e-08
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-12 18:39:07,973 - root - INFO: Mean annual precip rate [m s^-1] = 2.4889101869462758e-08
 </pre></div>
 </div>
 </div>

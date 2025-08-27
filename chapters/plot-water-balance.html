@@ -1,0 +1,880 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Water balance plots &#8212; ATS Watershed Workflow</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/plot-water-balance';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ATS Watershed Workflow</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    ATS modeling workflow
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-mesh.html">Generate Watershed Mesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-daymet.html">Download Daymet</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="3-ats_input_file.html">Generate ATS Input File</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Run</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run ATS on Local/HPC Machine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Post-processes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="plot_surface.html">Plot surface variables</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="plot_subsurface.html">Plot subsurface variables</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="model_evaluation.html">Model Evaluation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Sensitivity Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="sensitivity_analysis.html">Sensitivity analysis</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Calibration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model_calibration.html">Model calibration using Machine Learning</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pinshuai/ats-workflow" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pinshuai/ats-workflow/issues/new?title=Issue%20on%20page%20%2Fchapters/plot-water-balance.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/plot-water-balance.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Water balance plots</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-spinup-steadystate">plot spinup-steadystate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-spinup-cyclic">plot spinup-cyclic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-transient">plot transient</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="water-balance-plots">
+<h1>Water balance plots<a class="headerlink" href="#water-balance-plots" title="Permalink to this heading">#</a></h1>
+<p>This sheet checks and documents the water balance for ATS simulations based on models such as “priestly_taylor_canopy_evapotranspiration” that include four water pools – canopy, snow, surface water, and subsurface water.  We can verify each of these independently.</p>
+<p>Note all of these are done in units of [m] or [m/s], which means dividing by surface area or molar density as required to convert to these units.</p>
+<p><strong>Global water balance</strong></p>
+<p>First look at the global balance.  The global balance is given by:</p>
+<div class="math notranslate nohighlight">
+\[dWC/dt = P + S - ET - Q\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p>WC: total global water content across all four pools (surface, canopy, snow, and subsurface; converted from mol –&gt; m)</p></li>
+<li><p>P: precip of rain</p></li>
+<li><p>S: precip of snow</p></li>
+<li><p>ET: total evapotranspiration across all four pools (canopy evaporation, snow sublimation/condensation, surface water evaporation, and transpiration)</p></li>
+<li><p>Q: surface water runoff</p></li>
+</ul>
+<p><strong>Snow water balance</strong></p>
+<p>Next lets verify each individual component.  First we look at snow.</p>
+<p>Snow mass balance is given by:</p>
+<div class="math notranslate nohighlight">
+\[dWC_{snow}/dt = S_{throughfall} + S_{drippage} - E_{snow} - SM\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p>WC_snow: snow water content</p></li>
+<li><p>S_throughfall: portion of snow precip that misses the canopy and lands on the snowpack</p></li>
+<li><p>S_drippage: portion of snow that drops from the canopy</p></li>
+<li><p>E_snow: snow sublimation (positive) or condensation (negative)</p></li>
+<li><p>SM: snow melt</p></li>
+</ul>
+<p><strong>Canopy water balance</strong></p>
+<div class="math notranslate nohighlight">
+\[dWC_{can}/dt = S_{interception} + P_{interception} - D - E_{can}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p>WC_can: canopy water content</p></li>
+<li><p>I: interception of rain and snow</p></li>
+<li><p>D: drainage and dripping from the canopy</p></li>
+<li><p>E_can: leaf canopy water evaporation</p></li>
+</ul>
+<p><strong>Surface water balance</strong></p>
+<div class="math notranslate nohighlight">
+\[dWC_{surf}/dt = P_{throughfall} + D_{rain} + SM - E - Q - I\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p>WC_surf: surface water content</p></li>
+<li><p>P_throughfall: throughfall of rain</p></li>
+<li><p>D_rain: canopy drainage of rain</p></li>
+<li><p>SM: snowmelt</p></li>
+<li><p>E: surface water/bare ground evaporation</p></li>
+<li><p>Q: runoff/discharge (converted to m/s)</p></li>
+<li><p>I: infiltration (water infiltrates into the subsurface, i.e. leaving surface)</p></li>
+</ul>
+<p><strong>Subsurface water balance</strong></p>
+<p>Lastly the subsurface is fairly simple because we closed all the boundaries except the surface:</p>
+<div class="math notranslate nohighlight">
+\[dWC_{sub}/dt = I - T\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>WC_sub: subsurface water content</p></li>
+<li><p>I: infiltration</p></li>
+<li><p>T: transpiration</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">modvis.ATSutils</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">utils</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run_steadystate = &quot;1-spinup_steadystate&quot;</span>
+<span class="n">work_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;../../model2/&quot;</span>
+
+<span class="n">rho_m</span> <span class="o">=</span> <span class="mi">55500</span> <span class="c1"># moles/m^3, water molar density. Check this in the xml input file.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="plot-spinup-steadystate">
+<h2>plot spinup-steadystate<a class="headerlink" href="#plot-spinup-steadystate" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;1-spinup_steadystate&quot;</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-07 14:55:44,791 - root - INFO: Loading data from ../../model2/1-spinup_steadystate
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="s1">&#39;water_balance.dat&#39;</span><span class="p">),</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+
+<span class="c1"># df[&#39;time [d]&#39;] = df[&#39;time [s]&#39;]/86400</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;time [d]&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># df[&#39;outlet flux [m^3/s]&#39;] = df[&#39;surface outlet flux [mol/s]&#39;]/ rho_m</span>
+<span class="c1"># df[&#39;subsurface water content [m^3]&#39;] = df[&#39;total water content [mol]&#39;]/ rho_m</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;outlet flux [m^3/d]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;net runoff [mol d^-1]&#39;</span><span class="p">]</span><span class="o">/</span> <span class="n">rho_m</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;total water content [m^3]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;surface water content [mol]&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;subsurface water content [mol]&#39;</span><span class="p">])</span><span class="o">/</span> <span class="n">rho_m</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>net runoff [mol d^-1]</th>
+      <th>surface water content [mol]</th>
+      <th>subsurface water content [mol]</th>
+      <th>max ponded depth [m]</th>
+      <th>outlet flux [m^3/d]</th>
+      <th>total water content [m^3]</th>
+    </tr>
+    <tr>
+      <th>time [d]</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.000000</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>9.426130e+12</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>1.698402e+08</td>
+    </tr>
+    <tr>
+      <th>0.000058</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>9.426130e+12</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>1.698402e+08</td>
+    </tr>
+    <tr>
+      <th>0.000116</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>9.426131e+12</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>1.698402e+08</td>
+    </tr>
+    <tr>
+      <th>0.000174</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>9.426131e+12</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>1.698402e+08</td>
+    </tr>
+    <tr>
+      <th>0.000246</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>9.426131e+12</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>1.698402e+08</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>18262.500000</th>
+      <td>5.295067e+11</td>
+      <td>4.755486e+11</td>
+      <td>9.228664e+12</td>
+      <td>17.506471</td>
+      <td>9.540661e+06</td>
+      <td>1.748507e+08</td>
+    </tr>
+    <tr>
+      <th>18574.181848</th>
+      <td>1.056328e+12</td>
+      <td>4.755486e+11</td>
+      <td>9.228664e+12</td>
+      <td>17.506471</td>
+      <td>1.903294e+07</td>
+      <td>1.748507e+08</td>
+    </tr>
+    <tr>
+      <th>19335.123859</th>
+      <td>2.578925e+12</td>
+      <td>4.755486e+11</td>
+      <td>9.228664e+12</td>
+      <td>17.506471</td>
+      <td>4.646712e+07</td>
+      <td>1.748507e+08</td>
+    </tr>
+    <tr>
+      <th>19833.780965</th>
+      <td>1.690010e+12</td>
+      <td>4.755486e+11</td>
+      <td>9.228664e+12</td>
+      <td>17.506471</td>
+      <td>3.045063e+07</td>
+      <td>1.748507e+08</td>
+    </tr>
+    <tr>
+      <th>20000.000000</th>
+      <td>5.633366e+11</td>
+      <td>4.755486e+11</td>
+      <td>9.228664e+12</td>
+      <td>17.506471</td>
+      <td>1.015021e+07</td>
+      <td>1.748507e+08</td>
+    </tr>
+  </tbody>
+</table>
+<p>2060 rows × 6 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">fontsize</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">xlim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;max ponded depth [m]&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;max ponded depth: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;max ponded depth [m]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">m&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Ponded depth [m]&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;outlet flux [m^3/d]&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Outlet flux [$m^3/s$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;total water content [m^3]&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Total water content [$m^3$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ec832525d8844ff72f2114f25fee2f4b85d0fb1ee6b28426887eb4ed075c20d2.png" src="../_images/ec832525d8844ff72f2114f25fee2f4b85d0fb1ee6b28426887eb4ed075c20d2.png" />
+</div>
+</div>
+</section>
+<section id="plot-spinup-cyclic">
+<h2>plot spinup-cyclic<a class="headerlink" href="#plot-spinup-cyclic" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;2-spinup_cyclic&quot;</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-07 15:01:37,924 - root - INFO: Loading data from ../../model2/2-spinup_cyclic
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_waterBalance</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">WB_filename</span><span class="o">=</span><span class="s2">&quot;water_balance_computational_domain.csv&quot;</span><span class="p">,</span>
+                             <span class="n">domain_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;global&#39;</span><span class="p">],</span>
+                                <span class="n">canopy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">True</span>
+                               <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7e2d2804ff9f227967a34e05cdb5a086fddafbae1b5c5b99e2437a5eac0a6c65.png" src="../_images/7e2d2804ff9f227967a34e05cdb5a086fddafbae1b5c5b99e2437a5eac0a6c65.png" />
+</div>
+</div>
+</section>
+<section id="plot-transient">
+<h2>plot transient<a class="headerlink" href="#plot-transient" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;3-transient&quot;</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-07 15:01:47,439 - root - INFO: Loading data from ../../model2/3-transient
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_waterBalance</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">WB_filename</span><span class="o">=</span><span class="s2">&quot;water_balance_computational_domain.csv&quot;</span><span class="p">,</span>
+                             <span class="n">domain_names</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                <span class="n">canopy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">True</span>
+                               <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c97c2f47c66c774c5dc068b3f5d852352f46d709370b5f6329a2a12a3a7de6d4.png" src="../_images/c97c2f47c66c774c5dc068b3f5d852352f46d709370b5f6329a2a12a3a7de6d4.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "watershed_workflow"
+        },
+        kernelOptions: {
+            name: "watershed_workflow",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'watershed_workflow'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-spinup-steadystate">plot spinup-steadystate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-spinup-cyclic">plot spinup-cyclic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-transient">plot transient</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pin Shuai, Ethan Coon, and etc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
