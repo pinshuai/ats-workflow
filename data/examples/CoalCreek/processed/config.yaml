@@ -1,0 +1,57 @@
+LAI_filename: ../../data/examples/CoalCreek/processed/watershed_lai_raw.h5
+LAI_typical_filename: ../../data/examples/CoalCreek/processed/watershed_lai_typical.h5
+catchment_labels:
+- '140200010204'
+daymet_filename: ../../data/examples/CoalCreek/processed/watershed_daymet_raw.h5
+daymet_typical_filename: ../../data/examples/CoalCreek/processed/watershed_daymet_typical.h5
+end_date: 2017-10-1
+labeled_sets:
+  '140200010204':
+    entity: CELL
+    setid: 10000
+latitude [deg]: 39
+mean_precip [m s^-1]: 2.4889101869462758e-08
+mesh_filename: ../../data/examples/CoalCreek/processed/watershed_mesh.exo
+nlcd_indices:
+- 8
+- 9
+- 10
+nlcd_labels:
+- Woody Savannas
+- Savannas
+- Grasslands
+nyears_cyclic_steadystate: 4
+origin_date: 1980-1-1
+side_sets:
+  140200010204 boundary:
+    setid: 10002
+  140200010204 outlet:
+    setid: 10003
+  140200010204 surface:
+    setid: 10001
+  Grasslands:
+    setid: 10
+  Savannas:
+    setid: 9
+  Woody Savannas:
+    setid: 8
+  bottom:
+    setid: 1
+  external_sides:
+    setid: 3
+  surface:
+    setid: 2
+  surface domain outlet:
+    setid: 10004
+spinup_cyclic_rundir: 2-spinup_cyclic
+spinup_cyclic_template: ../../model/inputs/spinup_cyclic-template.xml
+spinup_cyclic_xml: ../../model/inputs/CoalCreek_spinup_cyclic.xml
+spinup_steadystate_rundir: 1-spinup_steadystate
+spinup_steadystate_template: ../../model/inputs/spinup_steadystate-template.xml
+spinup_steadystate_xml: ../../model/inputs/CoalCreek_spinup_steadystate.xml
+start_date: 2015-10-1
+subsurface_properties_filename: ../../data/examples/CoalCreek/processed/watershed_subsurface_properties.csv
+transient_rundir: 3-transient
+transient_template: ../../model/inputs/transient-template.xml
+transient_xml: ../../model/inputs/CoalCreek_transient.xml
+watershed_specific_xml: ../../model/inputs/CoalCreek_specific.xml

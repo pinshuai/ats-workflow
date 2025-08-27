@@ -4,7 +4,8 @@
       <Parameter name="mesh type" type="string" value="read mesh file" />
       <Parameter name="build columns from set" type="string" value="surface" />
       <ParameterList name="read mesh file parameters" type="ParameterList">
-        <Parameter name="file" type="string" value="../data-processesed/NAME.exo" />
+        <Parameter name="file" type="string" value="TEMPLATE_PARAMETER" />
+        <Parameter name="format" type="string" value="Exodus II" />
       </ParameterList>
     </ParameterList>
     <ParameterList name="surface" type="ParameterList">
@@ -27,13 +28,43 @@
     </ParameterList>
   </ParameterList>
 
-  <ParameterList name="regions" type="ParameterList">
+  <ParameterList name="regions">
+    <ParameterList name="computational domain">
+      <ParameterList name="region: all">
+      </ParameterList>
+    </ParameterList>
+    <ParameterList name="surface domain">
+      <ParameterList name="region: all">
+      </ParameterList>
+    </ParameterList>
+    <ParameterList name="surface">
+      <ParameterList name="region: labeled set">
+        <Parameter name="label" type="string" value="2" />
+        <Parameter name="file" type="string" value="../data/hillslope.exo" />
+        <Parameter name="format" type="string" value="Exodus II" />
+        <Parameter name="entity" type="string" value="Face" />
+      </ParameterList>
+    </ParameterList>
+    <ParameterList name="bottom">
+      <ParameterList name="region: labeled set">
+        <Parameter name="label" type="string" value="1" />
+        <Parameter name="file" type="string" value="../data/hillslope.exo" />
+        <Parameter name="format" type="string" value="Exodus II" />
+        <Parameter name="entity" type="string" value="Face" />
+      </ParameterList>
+    </ParameterList>
+    <ParameterList name="outlet" type="ParameterList">
+      <ParameterList name="region: plane" type="ParameterList">
+        <Parameter name="point" type="Array(double)" value="{1000, 0}" />
+        <Parameter name="normal" type="Array(double)" value="{ 1, 0}" />
+      </ParameterList>
+    </ParameterList>
   </ParameterList>
 
   <ParameterList name="cycle driver">
     <Parameter name="start time" type="double" value=" 0" />
     <Parameter name="start time units" type="string" value="s" />
-    <Parameter name="end time" type="double" value="20000" />
+    <Parameter name="end time" type="double" value="3650" />
     <Parameter name="end time units" type="string" value="d" />
     <Parameter name="end cycle" type="int" value="100000" />
     <Parameter name="wallclock duration [hrs]" type="double" value="23.9" />
@@ -90,10 +121,8 @@
         <Parameter name="preconditioning method" type="string" value="block ilu" />
         <Parameter name="iterative method" type="string" value="gmres" />
         <ParameterList name="gmres parameters">
-          <Parameter name="error tolerance" type="double" value="1e-06" />
-          <Parameter name="preconditioning strategy" type="string" value="left" />
+          <Parameter name="error tolerance" type="double" value="1.e-6" />
           <Parameter name="maximum number of iterations" type="int" value="10" />
-          <Parameter name="convergence criteria" type="Array(string)" value="{relative residual,make one iteration}" />
         </ParameterList>
       </ParameterList>
 
@@ -132,7 +161,7 @@
       <Parameter name="relative permeability method" type="string" value="upwind with Darcy flux" />
       <Parameter name="permeability rescaling" type="double" value="10000000" />
       <Parameter name="surface rel perm strategy" type="string" value="clobber" />
-      <Parameter name="debug cells" type="Array(int)" value="{}" />
+
       <ParameterList name="diffusion">
         <Parameter name="discretization primary" type="string" value="mfd: two-point flux approximation" />
       </ParameterList>
@@ -145,23 +174,8 @@
       </ParameterList>
 
       <ParameterList name="initial condition">
-        <Parameter name="hydrostatic head [m]" type="double" value="-1" />
-        <Parameter name="hydrostatic water density [kg m^-3]" type="double" value="997" />
-      </ParameterList>
-
-      <ParameterList name="water retention evaluator">
-        <Parameter name="minimum rel perm cutoff" type="double" value=" 0" />
-        <Parameter name="use surface rel perm" type="bool" value="true" />
-        <ParameterList name="WRM parameters">
-          <ParameterList name="computational domain" type="ParameterList">
-            <Parameter name="wrm type" type="string" value="van Genuchten" />
-            <Parameter name="region" type="string" value="computational domain" />
-            <Parameter name="van Genuchten n [-]" type="double" value="1.8" />
-            <Parameter name="van Genuchten alpha [Pa^-1]" type="double" value="0.0001" />
-            <Parameter name="residual saturation [-]" type="double" value="0.01" />
-            <Parameter name="smoothing interval width [saturation]" type="double" value=" 0" />
-          </ParameterList>
-        </ParameterList>
+        <Parameter name="hydrostatic head [m]" type="double" value="-0.5" />
+        <Parameter name="hydrostatic water density [kg m^-3]" type="double" value="1000" />
       </ParameterList>
 
     </ParameterList>
@@ -184,10 +198,10 @@
       <ParameterList name="boundary conditions">
         <ParameterList name="seepage face head">
           <ParameterList name="surface">
-            <Parameter name="regions" type="Array(string)" value="{computational domain boundary}" />
+            <Parameter name="regions" type="Array(string)" value="{surface domain outlet}" />
             <ParameterList name="boundary head">
               <ParameterList name="function-constant">
-                <Parameter name="value" type="double" value=" 0" />
+                <Parameter name="value" type="double" value="0." />
               </ParameterList>
             </ParameterList>
           </ParameterList>
@@ -287,7 +301,7 @@
         <ParameterList name="compressible porosity model parameters" type="ParameterList">
           <ParameterList name="computational domain" type="ParameterList">
             <Parameter name="region" type="string" value="computational domain" />
-            <Parameter name="pore compressibility [Pa^-1]" type="double" value="1e-07" />
+            <Parameter name="pore compressibility [Pa^-1]" type="double" value="1e-09" />
           </ParameterList>
         </ParameterList>
       </ParameterList>
@@ -313,6 +327,20 @@
           <Parameter name="slope regularization epsilon" type="double" value="0.01" />
         </ParameterList>
       </ParameterList>
+      <ParameterList name="relative_permeability" type="ParameterList">
+        <Parameter name="evaluator type" type="string" value="relative permeability, water retention model" />
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+        <Parameter name="minimum rel perm cutoff" type="double" value=" 0" />
+        <Parameter name="use surface rel perm" type="bool" value="true" />
+      </ParameterList>
+      <ParameterList name="saturation_liquid">
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+        <Parameter name="evaluator type" type="string" value="water retention model" />
+      </ParameterList>
+      <ParameterList name="saturation_gas" type="ParameterList">
+        <Parameter name="model parameters" type="string" value="WRM parameters" />
+        <Parameter name="evaluator type" type="string" value="water retention model" />
+      </ParameterList>
     </ParameterList>
     <ParameterList name="initial conditions">
 
@@ -325,7 +353,20 @@
       </ParameterList>
 
     </ParameterList>
+    <ParameterList name="model parameters" type="ParameterList">
+      <ParameterList name="WRM parameters">
+        <ParameterList name="computational domain">
+          <Parameter name="region" type="string" value="computational domain" />
+          <Parameter name="wrm type" type="string" value="van Genuchten" />
+          <Parameter name="van Genuchten alpha [Pa^-1]" type="double" value="0.00015" />
+          <Parameter name="van Genuchten m [-]" type="double" value="0.8" />
+          <Parameter name="residual saturation [-]" type="double" value=" 0" />
+          <Parameter name="smoothing interval width [saturation]" type="double" value=" 0" />
+        </ParameterList>
+      </ParameterList>
+    </ParameterList>
   </ParameterList>
+
   <ParameterList name="observations" type="ParameterList">
     <ParameterList name="fluxes" type="ParameterList">
       <Parameter name="observation output filename" type="string" value="water_balance.dat" />
@@ -335,7 +376,7 @@
         <ParameterList name="net runoff [mol d^-1]" type="ParameterList">
           <Parameter name="variable" type="string" value="surface-water_flux" />
           <Parameter name="direction normalized flux" type="bool" value="true" />
-          <Parameter name="region" type="string" value="computational domain boundary" />
+          <Parameter name="region" type="string" value="surface domain outlet" />
           <Parameter name="functional" type="string" value="extensive integral" />
           <Parameter name="location name" type="string" value="face" />
           <Parameter name="time integrated" type="bool" value="true" />
